@@ -1,9 +1,30 @@
 :root {
-font-family: Arial, Helvetica, sans-serif;
-background-color: grey;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: grey;
 }
 
-.map{
+.map {
   height: 80vh;
   width: 80vw;
+}
+
+.navContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 80px;
+  background-color: rgb(80, 80, 172);
+}
+
+.navContainer button {
+  width: 75px;
+  height: 25px;
+  border-radius: 5px;
+  border-style: none;
+  margin: 25px;
+}
+
+.registerContainer {
+  display: flex;
+  flex-direction: column;
 }
