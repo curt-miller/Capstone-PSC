@@ -11,6 +11,9 @@
     "start:dev": "nodemon server.js",
     "start": "node server.js"
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@prisma/client": "^6.1.0",
     "@vis.gl/react-google-maps": "^1.4.2",
