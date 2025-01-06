@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import supabase from "../config/supabaseClient";
 
 const fetchLogin = async (username, password) => {
   try {
@@ -22,11 +23,28 @@ const fetchLogin = async (username, password) => {
   }
 };
 
-const Login = ({ setUsername, setToken }) => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+const Login = ({ username, setUsername, setToken }) => {
+  const [password, setPassword] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const { data, error } = await supabase.from("Users").select();
+
+      if (error) {
+        setError("Could not fetch Users");
+        setUsername(null);
+        console.log(error);
+      }
+      if (data) {
+        setUsername(data);
+        setError(null);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,6 +84,15 @@ const Login = ({ setUsername, setToken }) => {
         <button type="submit" onClick={handleSubmit}>
           Submit
         </button>
+        <div>
+          {username && (
+            <div>
+              {username.map((user) => (
+                <p key={user.id}>{user.username}</p>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
