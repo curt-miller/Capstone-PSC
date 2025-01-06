@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchCountries } from "../API";
+import "../index.css"; // Import the CSS file
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
@@ -15,15 +16,23 @@ const Countries = () => {
 
   return (
     <div>
-      <h1>Countries</h1>
+      <h1 className="countries_header">Countries</h1>
       {countries.length === 0 ? (
         <p>No countries available or an error occurred.</p>
       ) : (
-        <ul>
+        <div className="countries_container">
           {countries.map((country, index) => (
-            <li key={index}>{country.name}</li> // Assuming `country` objects have a `name` field
+            <div className="country_card" key={index}>
+              <h2 className="country_name">{country.name}</h2>
+              <p>Capital: {country.capital}</p>
+              <img
+                src={country.href.flag}
+                alt={`Flag of ${country.name}`}
+                className="country_flag"
+              />
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
