@@ -1,30 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import supabase from "../config/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
-const fetchLogin = async (username, password) => {
-  try {
-    const response = await fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, password })
-    });
-
-    if (!response.ok) {
-      throw new Error("Invalid credentials");
-    }
-    const data = await response.json();
-    return { token: data.token, userId: data.userId };
-  } catch (error) {
-    console.error("Error fething users:", error);
-    throw error;
-  }
-};
-
-const Login = ({ username, setUsername, setToken }) => {
-  const [password, setPassword] = useState([]);
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -38,7 +18,8 @@ const Login = ({ username, setUsername, setToken }) => {
         console.log(error);
       }
       if (data) {
-        setUsername(data);
+        setUsername("");
+        setPassword("");
         setError(null);
       }
     };
@@ -48,51 +29,58 @@ const Login = ({ username, setUsername, setToken }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!username || !password) {
+      setError("Username and Password Required");
+      return;
+    }
     try {
-      const { token, userId } = await fetchLogin(username, password);
-      if (token) {
-        sessionStorage.setItem("token", token);
-        sessionStorage.setItem("userId", userId);
-        setToken(token);
-        setUsername(username);
-        navigate("/");
-      } else {
+      const { data: user, error: fetchError } = await supabase
+        .from("Users")
+        .select("*")
+        .eq("username", username)
+        .single();
+
+      if (fetchError) {
+        console.error(fetchError);
         setError("Invalid username or password");
+        return;
       }
-    } catch (err) {
-      console.error("Error fetching users:", err);
-      setError("An error occurred. Please try again later.");
+
+      if (user.password !== password) {
+        setError("Invalid username or password");
+        return;
+      }
+
+      setError(null);
+      console.log("Login successful!");
+      navigate("/");
+    } catch (error) {
+      console.error("Error during login", error);
+      setError("Something went wrong. Please try again.");
     }
   };
   return (
     <>
       <div className="login">
-        <p>UserName</p>
-        <input
-          type="text"
-          required
-          onChange={(e) => setUserName(e.target.value)}
-          placeholder="JohnDoe"
-        />
-        <p>Password</p>
-        <input
-          type="password"
-          required
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Please enter a password"
-        />
-        <button type="submit" onClick={handleSubmit}>
-          Submit
-        </button>
-        <div>
-          {username && (
-            <div>
-              {username.map((user) => (
-                <p key={user.id}>{user.username}</p>
-              ))}
-            </div>
-          )}
-        </div>
+        <h1>LOGIN</h1>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="JohnDoe"
+          />
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Please enter a password"
+          />
+          <button type="submit">Submit</button>
+          {error && <p>{error}</p>}
+        </form>
       </div>
     </>
   );
