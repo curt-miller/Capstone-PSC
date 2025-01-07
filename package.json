@@ -11,8 +11,12 @@
     "start:dev": "nodemon server.js",
     "start": "node server.js"
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@prisma/client": "^6.1.0",
+    "@supabase/supabase-js": "^2.47.10",
     "@vis.gl/react-google-maps": "^1.4.2",
     "aws-amplify": "^6.12.0",
     "bcrypt": "^5.1.1",
@@ -21,6 +25,7 @@
     "dotenv": "^16.4.7",
     "env": "^0.0.2",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

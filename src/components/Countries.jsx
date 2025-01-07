@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchCountries } from "../API";
+import { fetchCountries } from "../API/countries";
 import "../index.css"; // Import the CSS file
 
 const Countries = () => {

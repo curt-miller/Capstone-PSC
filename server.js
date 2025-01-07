@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const loginRoute = require("./api/login");
+const loginRoute = require("./src/API/login");
 
 const app = express();
 const PORT = 3000;
@@ -10,8 +10,8 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/api", require("./api"));
-app.use("/api/login", loginRoute);
+app.use("/API", require("./src/API"));
+app.use("/API/login", loginRoute);
 
 app.use((err, req, res, next) => {
   console.error(err);
