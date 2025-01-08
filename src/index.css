@@ -3,10 +3,12 @@
   background-color: grey;
 }
 
-#map-shaded {
+#map-shaded,
+#map-search {
   margin: 2vw;
-  height: 80vh;
-  width: 80vw;
+  height: 40vh;
+  width: 60vw;
+  background-color: rgb(142, 128, 211);
 }
 
 .navContainer {
