@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import NewPostForm from "./components/NewPostForm";
 import { useState } from "react";
+import UserPage from "./components/UserPage";
 
 export default function App() {
   const [token, setToken] = useState("");
@@ -27,6 +28,7 @@ export default function App() {
         {/* Registration Route */}
         <Route path="/register" element={<Register />} />
         <Route path="/NewPost" element={<NewPostForm />} />
+        <Route path="/userpage" element={<UserPage />} />
       </Routes>
     </div>
   );
