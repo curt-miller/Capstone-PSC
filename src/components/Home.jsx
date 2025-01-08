@@ -3,13 +3,13 @@ import MapShaded from "./MapShaded";
 import Nav from "./Nav";
 import Countries from "./Countries";
 
-const Home = () => {
+const Home = ({ setCountry, country }) => {
   return (
     <div>
       <Nav />
       <MapShaded />
       <h1>Homepage</h1>
-      <Countries />
+      <Countries setCountry={setCountry} country={country} />
     </div>
   );
 };

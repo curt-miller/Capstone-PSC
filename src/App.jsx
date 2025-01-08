@@ -6,10 +6,13 @@ import NewPostForm from "./components/NewPostForm";
 import MapMarkers from "./components/MapMarkers";
 import { useState } from "react";
 import UserPage from "./components/UserPage";
+import CountriesPage from "./components/CountriesPage";
 
 export default function App() {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
+  const [country, setCountry] = useState({});
+
   return (
     <div>
       <Routes>
@@ -31,6 +34,10 @@ export default function App() {
         <Route path="/NewPost" element={<NewPostForm />} />
         <Route path="/Markers" element={<MapMarkers />} />
         <Route path="/userpage" element={<UserPage />} />
+        <Route
+          path="/:countryname"
+          element={<CountriesPage setCountry={setCountry} country={country} />}
+        />
       </Routes>
     </div>
   );
