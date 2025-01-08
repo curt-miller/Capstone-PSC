@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import NewPostForm from "./components/NewPostForm";
 import { useState } from "react";
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
         />
         {/* Registration Route */}
         <Route path="/register" element={<Register />} />
+        <Route path="/NewPost" element={<NewPostForm />} />
       </Routes>
     </div>
   );
