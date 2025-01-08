@@ -3,6 +3,12 @@
   background-color: grey;
 }
 
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
 #map-shaded,
 #map-search {
   margin: 2vw;
@@ -45,4 +51,39 @@
   border: 1px white solid;
   margin: 15px;
   padding: 10px;
+}
+
+#att-detail-page {
+  display: grid;
+  grid-template-columns: calc(50vw - 1rem) calc(50vw - 1rem);
+  grid-template-rows: calc(35vh - 2rem) calc(65vh - 2rem);
+  grid-template-areas:
+    "NAME REVIEWS"
+    "IMAGE REVIEWS";
+  height: 100vh;
+  width: 100vw;
+  gap: 1rem;
+}
+
+#att-detail-page-TITLE {
+  grid-area: NAME;
+  background-color: blue;
+  padding: 1rem;
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
+
+#att-detail-page-REVIEWS {
+  grid-area: REVIEWS;
+  background-color: rgb(101, 101, 165);
+  padding: 1rem;
+  margin: 2rem;
+}
+
+#att-detail-page-IMAGE {
+  grid-area: IMAGE;
+  background-color: rgb(165, 165, 212);
+  padding: 1rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
 }

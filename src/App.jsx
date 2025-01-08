@@ -1,12 +1,13 @@
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import NewPostForm from "./components/NewPostForm";
 import MapMarkers from "./components/MapMarkers";
-import { useState } from "react";
 import UserPage from "./components/UserPage";
 import CountriesPage from "./components/CountriesPage";
+import AttractionDetail from "./components/AttractionDetail";
 
 export default function App() {
   const [token, setToken] = useState("");
@@ -35,13 +36,14 @@ export default function App() {
         {/* Registration Route */}
         <Route path="/register" element={<Register />} />
         <Route path="/NewPost" element={<NewPostForm />} />
-        <Route path="/Markers" element={<MapMarkers />} />
         <Route path="/userpage" element={<UserPage />} />
         {/* Country Route */}
         <Route
           path="/:countryname"
           element={<CountriesPage setCountry={setCountry} country={country} />}
         />
+        <Route path="/Markers" element={<MapMarkers />} /> {/* just for testing */}
+        <Route path="/attractiondetail" element={<AttractionDetail />} />
       </Routes>
     </div>
   );
