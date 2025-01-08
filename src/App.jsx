@@ -17,7 +17,10 @@ export default function App() {
     <div>
       <Routes>
         {/* Home Route */}
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Home setCountry={setCountry} country={country} />}
+        />
         {/* Login Route */}
         <Route
           path="/login"
@@ -34,6 +37,7 @@ export default function App() {
         <Route path="/NewPost" element={<NewPostForm />} />
         <Route path="/Markers" element={<MapMarkers />} />
         <Route path="/userpage" element={<UserPage />} />
+        {/* Country Route */}
         <Route
           path="/:countryname"
           element={<CountriesPage setCountry={setCountry} country={country} />}
