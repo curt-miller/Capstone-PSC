@@ -13,11 +13,9 @@ const UserPage = () => {
 
   return (
     <div>
+      <Nav />
       <NewPostForm onPostSubmit={handleRefresh} />
       <Feed refreshPosts={refreshPosts} />
-      <Nav/>
-      <NewPostForm />
-      <Feed />
     </div>
   );
 };
