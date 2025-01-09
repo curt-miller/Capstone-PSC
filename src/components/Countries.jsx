@@ -18,36 +18,34 @@ const Countries = ({ setCountry, country }) => {
 
   return (
     <div>
-     </Link>
-        <h1 className="countries_header">Countries</h1>
-        {countries.length === 0 ? (
-            <p>Loading...</p>
-        ) : (
-            <div className="countries_container">
-                {countries.map((country, index) => (
-                    <div className="country_card" key={index}>
-                        <h2 className="country_name">{country.name}</h2>
-                        <p>Capital: {country.capital}</p>
-                        <Link
-                            to={{
-                                pathname: `/${country.name.toLowerCase()}`,
-                            }}
-                        >
-                            <img
-                                src={country.href.flag}
-                                alt={`Flag of ${country.name}`}
-                                className="country_flag"
-                                onClick={() => setCountry(country)}
-                            />
-                        </Link>
-                        <ImageGrid country={country.name} />
-                    </div>
-                ))}
+      <h1 className="countries_header">Countries</h1>
+      {countries.length === 0 ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="countries_container">
+          {countries.map((country, index) => (
+            <div className="country_card" key={index}>
+              <h2 className="country_name">{country.name}</h2>
+              <p>Capital: {country.capital}</p>
+              <Link
+                to={{
+                  pathname: `/${country.name.toLowerCase()}`
+                }}
+              >
+                <img
+                  src={country.href.flag}
+                  alt={`Flag of ${country.name}`}
+                  className="country_flag"
+                  onClick={() => setCountry(country)}
+                />
+              </Link>
+              <ImageGrid country={country.name} />
             </div>
-        )}
+          ))}
+        </div>
+      )}
     </div>
-);
-
+  );
 };
 
 export default Countries;
