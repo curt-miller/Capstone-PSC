@@ -62,24 +62,28 @@ const Login = () => {
   };
   return (
     <>
+      <Nav />
       <div className="login">
-        <Nav/>
         <h1>LOGIN</h1>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">Username: </label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="JohnDoe"
           />
-          <label htmlFor="password">Password</label>
+          <br />
+          <br />
+          <label htmlFor="password">Password: </label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Please enter a password"
           />
+          <br />
+          <br />
           <button type="submit">Submit</button>
           {error && <p>{error}</p>}
         </form>
