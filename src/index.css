@@ -1,11 +1,12 @@
 :root {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: grey;
+  background-color: white;
 }
 
 body {
   margin: 0;
   box-sizing: border-box;
+  background-color: white;
 }
 
 #map-shaded,
@@ -14,14 +15,30 @@ body {
   height: 40vh;
   width: 60vw;
   background-color: rgb(142, 128, 211);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+/*NAVIGATION BAR COMPONENT */
 
 .navContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between; /* Separate the logo and buttons */
   height: 80px;
-  background-color: rgb(80, 80, 172);
+  background-color: rgb(95, 95, 169);
+  padding: 0 20px; /* Add padding for spacing */
+}
+
+.navLogo {
+  height: 130px;
+  align-self: left;
+}
+
+.buttonContainer {
+  display: flex;
+  align-self: right;
 }
 
 .navContainer button {
@@ -32,12 +49,59 @@ body {
   margin: 25px;
 }
 
+/* LOGIN COMPONENT */
+
+.login {
+  width: 400px;
+  height: 250px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.login button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* REGISTER COMPONENT */
+
 .registerContainer {
   display: flex;
   flex-direction: column;
 }
 
-/* COUNTRY COMPONENT */
+/* COUNTRY API LIST COMPONENT */
+
+.countries_container {
+  display: flex;
+  height: 400px;
+  width: 90%;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  border: solid 2px black;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.country_flag {
+  width: 200px;
+}
+
+/* COUNTRY PAGE COMPONENT */
 
 .country_card {
   border: solid 2px black;
@@ -45,6 +109,7 @@ body {
   padding: 15px;
 }
 
+/* FEED COMPONENT */
 .post {
   background-color: white;
   border: 1px white solid;
@@ -56,6 +121,7 @@ body {
   width: 150px;
 }
 
+/* ATTRACTION COMPONENT */
 #att-detail-page {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -92,6 +158,6 @@ body {
   margin-bottom: 2rem;
 }
 
-#att-detail-page-NAV{
+#att-detail-page-NAV {
   grid-area: NAV;
 }

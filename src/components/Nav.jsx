@@ -1,17 +1,25 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import pinpalslogo from "../assets/PinPalsLogo.png";
 
 const Nav = () => {
   const navigate = useNavigate();
 
   return (
     <div className="navContainer">
-      <button onClick={() => navigate("/")}>Home</button>
-      <button onClick={() => navigate("/login")}>Login</button>
-      <button onClick={() => navigate("/register")}>Register</button>
-      <button onClick={() => navigate("/userpage")}>Profile</button>
-      <button onClick={() => navigate("/afghanistan")}>Country (temporary)</button>
-      <button onClick={() => navigate("/attractiondetail")}>Attraction Detail</button>
+      <img src={pinpalslogo} alt="site_logo" className="navLogo" />
+      <div className="navButtons">
+        <button onClick={() => navigate("/")}>Home</button>
+        <button onClick={() => navigate("/login")}>Login</button>
+        <button onClick={() => navigate("/register")}>Register</button>
+        <button onClick={() => navigate("/userpage")}>Profile</button>
+        {/* remove country button before final - functionality by clicking image */}
+        <button onClick={() => navigate("/afghanistan")}>Country</button>
+        {/* remove attraction button before final - functionality by clicking on attraction */}
+        <button onClick={() => navigate("/attractiondetail")}>
+          Attraction
+        </button>
+      </div>
     </div>
   );
 };

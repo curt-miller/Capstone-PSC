@@ -8,7 +8,6 @@ const Home = ({ setCountry, country }) => {
     <div>
       <Nav />
       <MapShaded />
-      <h1>Homepage</h1>
       <Countries setCountry={setCountry} country={country} />
     </div>
   );
