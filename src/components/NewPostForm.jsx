@@ -12,19 +12,27 @@ export default function NewPostForm({ onPostSubmit }) {
     e.preventDefault();
 
     if (!title || !description || !imageUrl) {
-      console.error("Please provide all required fields.");
-      return;
+        console.error("Please provide all required fields.");
+        return;
     }
 
+    if (!location || !location.country) {
+        console.error("Please provide a valid location with a country.");
+        return;
+    }
+
+    // SAM GET UR COUNTRY INFO HERE:
+    console.log("Country on submit:", location.country); // Log only the country
+
     try {
-      const { data, error } = await supabase.from("Posts").insert([
-        {
-          title: title,
-          description: description,
-          img_url: imageUrl,
-          location: location // Ensure this matches your table's column name and type
-        }
-      ]);
+        const { data, error } = await supabase.from("Posts").insert([
+            {
+                title: title,
+                description: description,
+                img_url: imageUrl,
+                location: location // Ensure this matches your table's column name and type
+            }
+        ]);
 
       if (error) {
         console.error("Error inserting post:", error);
@@ -40,7 +48,7 @@ export default function NewPostForm({ onPostSubmit }) {
     } catch (err) {
       console.error("Unexpected error:", err);
     }
-  };
+};
 
   return (
     <div id="submit-page">
