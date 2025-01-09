@@ -24,6 +24,10 @@ body {
 #map-search {
   height: 50vh;
   width: 40vw;
+  background-color: rgb(142, 128, 211);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /*NAVIGATION BAR COMPONENT */

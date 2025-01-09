@@ -125,6 +125,6 @@ export default function MapShaded() {
 
     return (
         // <div ref={mapContainerRef} id="map-shaded" />
-        <div id='map-shaded'><h2>dummy map</h2></div>
+        <div id='map-shaded'><h2>to turn map back on, uncomment all the stuff on the MapShaded component</h2></div>
     );
 }
