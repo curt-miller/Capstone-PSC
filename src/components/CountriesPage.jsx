@@ -12,7 +12,7 @@ const CountriesPage = ({ country }) => {
   }
 
   return (
-    <div className="country-page">
+    <div className="country-page-container">
       <Nav/>
       <div className="country-details-card">
         <div className="country-info">
