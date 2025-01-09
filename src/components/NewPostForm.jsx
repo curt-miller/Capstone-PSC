@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapSearch from "./MapSearch";
 import supabase from "../config/supabaseClient";
 
-export default function NewPostForm() {
+export default function NewPostForm({ onPostSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -34,17 +34,19 @@ export default function NewPostForm() {
             }
         ]);
 
-        if (error) {
-            console.error("Error inserting post:", error);
-        } else {
-            console.log("Post added successfully:", data);
-        }
-    } catch (err) {
-        console.error("Unexpected error:", err);
+      if (error) {
+        console.error("Error inserting post:", error);
+      } else {
+        console.log("Post added successfully:", data);
         setTitle("");
         setDescription("");
         setImageUrl("");
         setLocation(null);
+
+        onPostSubmit();
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
     }
 };
 
