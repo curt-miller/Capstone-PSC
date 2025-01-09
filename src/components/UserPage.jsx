@@ -2,6 +2,7 @@ import React from "react";
 import NewPostForm from "./NewPostForm";
 import Feed from "./Feed";
 import { useState } from "react";
+import Nav from "./Nav";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
@@ -14,6 +15,9 @@ const UserPage = () => {
     <div>
       <NewPostForm onPostSubmit={handleRefresh} />
       <Feed refreshPosts={refreshPosts} />
+      <Nav/>
+      <NewPostForm />
+      <Feed />
     </div>
   );
 };

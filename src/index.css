@@ -58,9 +58,10 @@ body {
 
 #att-detail-page {
   display: grid;
-  grid-template-columns: calc(50vw - 1rem) calc(50vw - 1rem);
-  grid-template-rows: calc(35vh - 2rem) calc(65vh - 2rem);
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 80px calc(35vh - 2rem) calc(65vh - 2rem);
   grid-template-areas:
+    "NAV NAV"
     "NAME REVIEWS"
     "IMAGE REVIEWS";
   height: 100vh;
@@ -89,4 +90,8 @@ body {
   padding: 1rem;
   margin-left: 2rem;
   margin-bottom: 2rem;
+}
+
+#att-detail-page-NAV{
+  grid-area: NAV;
 }

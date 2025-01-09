@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -62,6 +63,7 @@ const Login = () => {
   return (
     <>
       <div className="login">
+        <Nav/>
         <h1>LOGIN</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username</label>

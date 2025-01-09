@@ -1,6 +1,7 @@
 import { useState } from "react";
 import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import Nav from "./Nav";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -36,6 +37,7 @@ function Register() {
   return (
     <>
       <div className="register">
+        <Nav/>
         <h1>REGISTER</h1>
         <form onSubmit={handleSubmit}>
           <label htmlFor="username">Username</label>
