@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { fetchCountries } from "../API/countries";
 import "../index.css";
 import { Link } from "react-router-dom";
+import addCountriesToSupabase from "../seedingData";
 
 const Countries = ({ setCountry, country }) => {
   const [countries, setCountries] = useState([]);
-  // const [country, setCountry] = useState({});
 
   useEffect(() => {
     const getCountries = async () => {
@@ -29,7 +29,7 @@ const Countries = ({ setCountry, country }) => {
               <p>Capital: {country.capital}</p>
               <Link
                 to={{
-                  pathname: `/${country.name.toLowerCase()}`, // Path to country page
+                  pathname: `/${country.name.toLowerCase()}` // Path to country page
                   // state: { country }, // Passing the full country object
                 }}
               >
