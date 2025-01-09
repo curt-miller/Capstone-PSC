@@ -6,7 +6,6 @@ import ImageGrid from "./ImageGrid";
 
 const Countries = ({ setCountry, country }) => {
   const [countries, setCountries] = useState([]);
-  // const [country, setCountry] = useState({});
 
   useEffect(() => {
     const getCountries = async () => {
@@ -19,6 +18,7 @@ const Countries = ({ setCountry, country }) => {
 
   return (
     <div>
+     </Link>
         <h1 className="countries_header">Countries</h1>
         {countries.length === 0 ? (
             <p>Loading...</p>
