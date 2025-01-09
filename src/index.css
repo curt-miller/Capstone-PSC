@@ -9,15 +9,21 @@ body {
   background-color: white;
 }
 
-#map-shaded,
-#map-search {
+/* MAPS (mapbox containers only) */
+
+#map-shaded {
   margin: 2vw;
-  height: 40vh;
+  height: 50vh;
   width: 60vw;
   background-color: rgb(142, 128, 211);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#map-search {
+  height: 50vh;
+  width: 40vw;
 }
 
 /*NAVIGATION BAR COMPONENT */
@@ -95,6 +101,10 @@ body {
   transition: background-color 0.3s;
 }
 
+.login button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
 /* REGISTER COMPONENT */
 
 .register-page-container {
@@ -129,6 +139,10 @@ body {
   transition: background-color 0.3s;
 }
 
+.register button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
 /* PROFILE "USER PAGE" COMPONENT */
 
 .user-profile-page-container {
@@ -137,6 +151,50 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* MapSearch COMPONENT (NEW POST FORM) */
+
+#newpost-form button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newpost-form button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
+#newpost-form{
+  width: auto;
+  height: auto;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+
+/* FEED COMPONENT */
+.post {
+  background-color: white;
+  border: 1px white solid;
+  margin: 15px;
+  padding: 10px;
+}
+
+.post img {
+  width: 150px;
 }
 
 /* COUNTRY API LIST COMPONENT */
@@ -173,17 +231,7 @@ body {
   padding: 15px;
 }
 
-/* FEED COMPONENT */
-.post {
-  background-color: white;
-  border: 1px white solid;
-  margin: 15px;
-  padding: 10px;
-}
 
-.post img {
-  width: 150px;
-}
 
 /* ATTRACTION COMPONENT */
 
