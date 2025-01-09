@@ -8,7 +8,6 @@ body {
   box-sizing: border-box;
 }
 
-
 #map-shaded,
 #map-search {
   margin: 2vw;
@@ -51,6 +50,10 @@ body {
   border: 1px white solid;
   margin: 15px;
   padding: 10px;
+}
+
+.post img {
+  width: 150px;
 }
 
 #att-detail-page {

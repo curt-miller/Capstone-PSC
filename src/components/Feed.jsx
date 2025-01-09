@@ -3,7 +3,7 @@ import { data } from "react-router-dom";
 import supabase from "../config/supabaseClient";
 import { useEffect, useState } from "react";
 
-const Feed = () => {
+const Feed = ({ refreshPosts }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,24 @@ const Feed = () => {
       }
     };
     fetchPosts();
-  }, []);
+  }, [refreshPosts]);
+
+  const handleDelete = async (postId) => {
+    try {
+      const { error } = await supabase.from("Posts").delete().eq("id", postId);
+
+      if (error) {
+        console.error("Error deleting post:", error);
+      } else {
+        // Update the posts state after deletion
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+        console.log("Post deleted successfully");
+      }
+    } catch (error) {
+      console.error("Unexpected error while deleting post:", error);
+    }
+  };
+
   return (
     <div>
       <h1>Feed</h1>
@@ -39,6 +56,7 @@ const Feed = () => {
           </p>
           <img src={post.img_url} alt={post.title} />
           <p>Location {post.location}</p>
+          <button onClick={handleDelete}>Delete</button>
         </div>
       ))}
     </div>
