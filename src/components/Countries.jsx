@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { fetchCountries } from "../API/countries";
 import "../index.css";
 import { Link } from "react-router-dom";
-import addCountriesToSupabase from "../seedingData";
 
 const Countries = ({ setCountry, country }) => {
   const [countries, setCountries] = useState([]);
