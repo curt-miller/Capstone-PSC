@@ -161,3 +161,16 @@ body {
 #att-detail-page-NAV {
   grid-area: NAV;
 }
+
+#photo-grid{
+  display: flex;
+  flex-wrap: wrap;
+  height: 200px;
+  size: 100%;
+  overflow-y: scroll;
+  gap: .5rem;
+}
+
+#photo-grid, img{
+  height: 150px;
+}

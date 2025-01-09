@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapSearch from "./MapSearch";
 import supabase from "../config/supabaseClient";
 
-export default function NewPostForm() {
+export default function NewPostForm({ onPostSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -16,13 +16,22 @@ export default function NewPostForm() {
       return;
     }
 
+    if (!location || !location.country) {
+      console.error("Please provide a valid location with a country.");
+      return;
+    }
+
+    // SAM GET UR COUNTRY INFO HERE:
+    console.log("Country on submit:", location.country); // Log only the country
+    const countrySlug = location.country?.trim().toLowerCase() || "";
+    console.log("slug:", countrySlug);
     try {
       const { data, error } = await supabase.from("Posts").insert([
         {
           title: title,
           description: description,
           img_url: imageUrl,
-          location: location // Ensure this matches your table's column name and type
+          location: countrySlug // Ensure this matches your table's column name and type
         }
       ]);
 
@@ -30,13 +39,15 @@ export default function NewPostForm() {
         console.error("Error inserting post:", error);
       } else {
         console.log("Post added successfully:", data);
+        setTitle("");
+        setDescription("");
+        setImageUrl("");
+        setLocation(null);
+
+        onPostSubmit();
       }
     } catch (err) {
       console.error("Unexpected error:", err);
-      setTitle("");
-      setDescription("");
-      setImageUrl("");
-      setLocation(null);
     }
   };
 
