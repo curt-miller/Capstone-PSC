@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useParams } from "react-router-dom";
+import Nav from "./Nav";
 
 const CountriesPage = ({ country }) => {
   //   const country = useParams();
@@ -12,6 +13,7 @@ const CountriesPage = ({ country }) => {
 
   return (
     <div className="country-page">
+      <Nav/>
       <div className="country-details-card">
         <div className="country-info">
           <h1>{country.name}</h1>
