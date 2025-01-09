@@ -11,7 +11,8 @@ const Feed = () => {
       try {
         const { data: posts, error: fetchError } = await supabase
           .from("Posts")
-          .select("*");
+          .select("*")
+          .order("created_at", { ascending: false });
 
         if (fetchError) {
           console.error("Error fetching posts:", fetchError);

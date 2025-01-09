@@ -11,11 +11,6 @@ export default function NewPostForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Title:", title);
-    console.log("Description:", description);
-    console.log("Image URL:", imageUrl);
-    console.log("Marker Coordinates:", location);
-
     if (!title || !description || !imageUrl) {
       console.error("Please provide all required fields.");
       return;
@@ -38,6 +33,10 @@ export default function NewPostForm() {
       }
     } catch (err) {
       console.error("Unexpected error:", err);
+      setTitle("");
+      setDescription("");
+      setImageUrl("");
+      setLocation(null);
     }
   };
 
