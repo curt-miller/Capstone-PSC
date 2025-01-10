@@ -31,8 +31,8 @@ export default function NewPostForm({ onPostSubmit }) {
           title: title,
           description: description,
           img_url: imageUrl,
-          location: countrySlug // Ensure this matches your table's column name and type
-        }
+          location: countrySlug, // Ensure this matches your table's column name and type
+        },
       ]);
 
       if (error) {
@@ -55,7 +55,6 @@ export default function NewPostForm({ onPostSubmit }) {
     <div id="newpost-form">
       <h1>Drop a Pin!</h1>
       <form onSubmit={handleSubmit}>
-
         <div>
           <label htmlFor="title">Title:</label>
           <input
@@ -66,11 +65,10 @@ export default function NewPostForm({ onPostSubmit }) {
             required
           />
         </div>
+        <br />
 
         <div>
-          <label htmlFor="description">
-            Description :
-          </label>
+          <label htmlFor="description">Description :</label>
           <textarea
             id="description"
             value={description}
@@ -80,6 +78,7 @@ export default function NewPostForm({ onPostSubmit }) {
             required
           />
         </div>
+        <br />
 
         <div>
           <label htmlFor="imageUrl">Image URL:</label>
@@ -90,6 +89,7 @@ export default function NewPostForm({ onPostSubmit }) {
             onChange={(e) => setImageUrl(e.target.value)}
           />
         </div>
+        <br />
 
         <div id="newpost-map">
           <MapSearch onLocationChange={setLocation} location={location} />
@@ -99,5 +99,4 @@ export default function NewPostForm({ onPostSubmit }) {
       </form>
     </div>
   );
-
 }
