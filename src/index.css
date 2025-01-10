@@ -61,7 +61,7 @@ body {
   border-style: none;
   margin: 25px;
   background-color: rgb(163, 163, 201);
-  transition: .2s;
+  transition: 0.2s;
   cursor: pointer;
 }
 
@@ -183,7 +183,7 @@ body {
   background-color: rgb(73, 73, 148);
 }
 
-#newpost-form{
+#newpost-form {
   width: auto;
   height: auto;
   margin: 50px auto;
@@ -195,7 +195,6 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
 }
-
 
 /* FEED COMPONENT */
 .post {
@@ -212,19 +211,80 @@ body {
 /* COUNTRY API LIST COMPONENT */
 
 .countries_container {
-  display: flex;
+  /* display: flex; */
   height: 400px;
-  width: 90%;
-  flex-wrap: wrap;
+  width: 1000px; /* NEED TO UPDATE - HOW SHOULD WE DO THIS? */
+  /* flex-wrap: wrap; */
   overflow-y: auto;
-  border: solid 2px black;
+  border: solid 2px rgb(95, 95, 169);
   padding: 20px;
   margin: 10px;
   border-radius: 15px;
 }
 
+.country_card {
+  border: solid 2px rgb(95, 95, 169);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
 .country_flag {
   width: 200px;
+}
+
+.alphabet_filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.alphabet_button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: rgb(230, 230, 230);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.alphabet_button:hover {
+  background-color: rgb(200, 200, 200);
+}
+
+.alphabet_button.active {
+  background-color: rgb(95, 95, 169);
+  color: white;
+}
+
+.like_country_button {
+  background-color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.like_button_icon {
+  width: 50px;
+  height: 50px;
+}
+
+.visited_country_button {
+  background-color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.visited_button_icon {
+  width: 50px;
+  height: 50px;
 }
 
 /* COUNTRY PAGE COMPONENT */
@@ -236,14 +296,6 @@ body {
   flex-direction: column;
   align-items: center;
 }
-
-.country_card {
-  border: solid 2px black;
-  margin: 10px;
-  padding: 15px;
-}
-
-
 
 /* ATTRACTION COMPONENT */
 

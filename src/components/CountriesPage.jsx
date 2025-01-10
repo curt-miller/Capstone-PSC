@@ -1,9 +1,7 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
 import Nav from "./Nav";
 
 const CountriesPage = ({ country }) => {
-  //   const country = useParams();
   console.log("country page", country);
 
   // If no country is found, display a fallback message
@@ -13,11 +11,12 @@ const CountriesPage = ({ country }) => {
 
   return (
     <div className="country-page-container">
-      <Nav/>
-      <div className="country-details-card">
-        <div className="country-info">
-          <h1>{country.name}</h1>
-        </div>
+      <Nav />
+      <div
+        className="country-page-pic"
+        // style={{ backgroundImage: `url(${country.href.flag})` }} // Dynamic flag URL
+      >
+        <h1 className="country-name">{country.name}</h1>
       </div>
     </div>
   );
