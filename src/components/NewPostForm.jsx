@@ -22,17 +22,14 @@ export default function NewPostForm({ onPostSubmit }) {
     }
 
     // SAM GET UR COUNTRY INFO HERE:
-    console.log("Country on submit:", location.country); // Log only the country
-    const countrySlug = location.country?.trim().toLowerCase() || "";
-    console.log("slug:", countrySlug);
     try {
       const { data, error } = await supabase.from("Posts").insert([
         {
           title: title,
           description: description,
           img_url: imageUrl,
-          location: countrySlug, // Ensure this matches your table's column name and type
-        },
+          location: location.country // Ensure this matches your table's column name and type
+        }
       ]);
 
       if (error) {
