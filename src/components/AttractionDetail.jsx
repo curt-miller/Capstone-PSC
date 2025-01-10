@@ -55,6 +55,7 @@ export default function AttractionDetail() {
                     {/* Example placeholder for reviews */}
                     <p>Review 1: Amazing place!</p>
                     <p>Review 2: Would visit again!</p>
+                    <p>ADD A COMMENT BOX HERE, CURTIS!!</p>
                 </div>
                 <div id="att-detail-page-IMAGE">
                     <img
