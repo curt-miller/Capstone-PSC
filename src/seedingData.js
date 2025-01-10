@@ -2,9 +2,12 @@
 
 // const addCountriesToSupabase = async (countries) => {
 //   try {
+//     const formattedCountries = countries.map((name) => ({
+//       name: name.replace(/\s+/g, " ").trim().toLowerCase()
+//     }));
 //     const { data, error } = await supabase
 //       .from("Countries")
-//       .insert(countries.map((name) => ({ name })));
+//       .insert(formattedCountries);
 
 //     if (error) {
 //       console.error("Error inserting countries:", error);

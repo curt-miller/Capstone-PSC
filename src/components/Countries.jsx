@@ -3,6 +3,7 @@ import { fetchCountries } from "../API/countries";
 import "../index.css";
 import { Link } from "react-router-dom";
 import ImageGrid from "./ImageGrid";
+// import addCountriesToSupabase from "../seedingData";
 
 const Countries = ({ setCountry, country }) => {
   const [countries, setCountries] = useState([]);
@@ -11,6 +12,9 @@ const Countries = ({ setCountry, country }) => {
     const getCountries = async () => {
       const data = await fetchCountries();
       setCountries(data); // `data` is now the array of countries
+
+      // const countryNames = data.map((country) => country.name);
+      // await addCountriesToSupabase(countryNames);
     };
 
     getCountries();
