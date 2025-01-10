@@ -44,7 +44,7 @@ export default function App() {
           element={<CountriesPage setCountry={setCountry} country={country} />}
         />
         <Route path="/Markers" element={<MapMarkers />} /> {/* just for testing */}
-        <Route path="/attractiondetail" element={<AttractionDetail />} />
+        <Route path="/attraction/:id" element={<AttractionDetail />} />
         <Route path="/imagegrid" element={<ImageGrid />} />
       </Routes>
     </div>

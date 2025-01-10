@@ -7,6 +7,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   background-color: white;
+  overflow-x: auto;
 }
 
 /* MAPS (mapbox containers only) */
@@ -204,16 +205,82 @@ body {
 }
 
 /* FEED COMPONENT */
-.post {
-  background-color: white;
-  border: 1px white solid;
-  margin: 15px;
+.post-card {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  grid-template-rows: 1fr 3fr 2fr 1fr; /* Flexible row sizing */
+  grid-template-areas:
+    "IMAGE TITLE"
+    "IMAGE BLURB"
+    "IMAGE LOCATION"
+    "IMAGE DELETE";
+  gap: 10px;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 70vw;
+  min-width: 850px;
+  height: auto; 
+  box-sizing: border-box;
 }
 
-.post img {
-  width: 150px;
+.post-card:hover {
+  cursor: pointer;
+  transform: translateY(5px); 
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
+
+.post-card img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover; /* crop img */
+  width: 100%;
+  height: auto;
+  grid-area: IMAGE;
+  border-radius: 4px;
+}
+
+.post-card h1, .post-card h2, .post-card h3 {
+  margin: 0;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-card h1 {
+  grid-area: TITLE;
+  font-size: 1.2em;
+}
+
+.post-card h2 {
+  grid-area: BLURB;
+  font-size: 1em;
+  color: #555;
+}
+
+.post-card h3 {
+  grid-area: LOCATION;
+  font-size: 0.9em;
+  color: #888;
+}
+
+.post-card button {
+  grid-area: DELETE;
+  font-size: 1rem;
+  width: auto; 
+  max-width: 30%; 
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.post-card button:hover {
+  background-color: rgb(75, 75, 149);
+}
+
 
 /* COUNTRY API LIST COMPONENT */
 
@@ -310,7 +377,7 @@ body {
   justify-content: left;
   width: 100%;
   margin: 10px;
-margin-left: 3rem;
+  margin-left: 3rem;
   padding: 10px;
 }
 
