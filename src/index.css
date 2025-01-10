@@ -196,6 +196,13 @@ body {
   text-align: center;
 }
 
+.new_post_description {
+  display: flex;
+  flex-direction: row; /* Stack label and input vertically */
+  align-items: center;
+  justify-content: center;
+}
+
 /* FEED COMPONENT */
 .post {
   background-color: white;
@@ -207,6 +214,11 @@ body {
 .post img {
   width: 150px;
 }
+
+/* .feed_container {
+  max-height: 400px;
+  overflow-y: auto;
+} */
 
 /* COUNTRY API LIST COMPONENT */
 

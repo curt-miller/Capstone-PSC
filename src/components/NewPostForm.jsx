@@ -67,8 +67,8 @@ export default function NewPostForm({ onPostSubmit }) {
         </div>
         <br />
 
-        <div>
-          <label htmlFor="description">Description :</label>
+        <div className="new_post_description">
+          <label htmlFor="description">Description:</label>
           <textarea
             id="description"
             value={description}
