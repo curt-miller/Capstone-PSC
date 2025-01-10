@@ -10,13 +10,19 @@ const CountriesPage = ({ country }) => {
   }
 
   return (
-    <div className="country-page-container">
+    <div className="country_page_container">
       <Nav />
-      <div
-        className="country-page-pic"
-        // style={{ backgroundImage: `url(${country.href.flag})` }} // Dynamic flag URL
-      >
-        <h1 className="country-name">{country.name}</h1>
+      <div className="country_page_header">
+        <img src={country.href.flag} alt="country_flag" />
+        <h1 className="countries_page_name">{country.name}</h1>
+      </div>
+      <div className="country_restaurants_container">
+        <h2>Restaurants</h2>
+        <p>List of restaurants in this country</p>
+      </div>
+      <div className="country_attractions_container">
+        <h2>Attractions</h2>
+        <p>List of attractions in this country</p>
       </div>
     </div>
   );

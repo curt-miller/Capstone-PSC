@@ -289,14 +289,37 @@ body {
 
 /* COUNTRY PAGE COMPONENT */
 
-.country-page-container {
-  width: 100vw;
-  height: 100vh;
+.country_page_header {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: left;
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
 }
 
+.country_page_header img {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.countries_page_name {
+  font-size: 4rem;
+}
+
+.country_restaurants_container {
+  background-color: rgb(95, 95, 169);
+  height: 300px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.country_attractions_container {
+  background-color: rgb(95, 95, 169);
+  height: 300px;
+  margin: 20px;
+  padding: 20px;
+}
 /* ATTRACTION COMPONENT */
 
 #att-detail-page-container {
