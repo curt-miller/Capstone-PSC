@@ -1,10 +1,12 @@
 import React from "react";
-import { data } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import { useEffect, useState } from "react";
 
 const Feed = ({ refreshPosts }) => {
   const [posts, setPosts] = useState([]);
+
+const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -47,16 +49,18 @@ const Feed = ({ refreshPosts }) => {
     <div>
       <h1>Feed</h1>
       {posts.map((post) => (
-        <div key={post.id} className="post">
-          <p>
-            <strong>Title:</strong> {post.title}
-          </p>
-          <p>
-            <strong>Description:</strong> {post.description}
-          </p>
+        <div
+        key={post.id}
+        className="post-card"
+        onClick={() => navigate(`/attraction/${post.id}`)}>
           <img src={post.img_url} alt={post.title} />
-          <p>Location {post.location}</p>
-          <button>Delete</button>
+          <h1>{post.title}</h1>
+          <h2>{post.description}</h2>
+          <h3>{post.location}</h3>
+          <button onClick={(e) => {
+            e.stopPropagation();
+            handleDelete(post.id);
+          }}>Delete</button>
         </div>
       ))}
     </div>

@@ -53,9 +53,10 @@ export default function App() {
             />
           }
         />
-        <Route path="/Markers" element={<MapMarkers />} />{" "}
+
+        <Route path="/Markers" element={<MapMarkers />} /> {/* just for testing */}
+        <Route path="/attraction/:id" element={<AttractionDetail />} />
         {/* just for testing */}
-        <Route path="/attractiondetail" element={<AttractionDetail />} />
         <Route path="/imagegrid" element={<ImageGrid />} />
       </Routes>
     </div>
