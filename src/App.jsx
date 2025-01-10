@@ -14,6 +14,7 @@ export default function App() {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
   const [country, setCountry] = useState({});
+  const [refreshPosts, setRefreshPosts] = useState(false);
 
   return (
     <div>
@@ -37,14 +38,25 @@ export default function App() {
         {/* Registration Route */}
         <Route path="/register" element={<Register />} />
         <Route path="/NewPost" element={<NewPostForm />} />
-        <Route path="/userpage" element={<UserPage />} />
+        <Route
+          path="/userpage"
+          element={<UserPage refreshPosts={refreshPosts} />}
+        />
         {/* Country Route */}
         <Route
           path="/:countryname"
-          element={<CountriesPage setCountry={setCountry} country={country} />}
+          element={
+            <CountriesPage
+              setCountry={setCountry}
+              country={country}
+              refreshPosts={refreshPosts}
+            />
+          }
         />
+
         <Route path="/Markers" element={<MapMarkers />} /> {/* just for testing */}
         <Route path="/attraction/:id" element={<AttractionDetail />} />
+        {/* just for testing */}
         <Route path="/imagegrid" element={<ImageGrid />} />
       </Routes>
     </div>

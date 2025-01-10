@@ -29,21 +29,21 @@ const navigate = useNavigate();
     fetchPosts();
   }, [refreshPosts]);
 
-  const handleDelete = async (postId) => {
-    try {
-      const { error } = await supabase.from("Posts").delete().eq("id", postId);
+  // const handleDelete = async (postId) => {
+  //   try {
+  //     const { error } = await supabase.from("Posts").delete().eq("id", postId);
 
-      if (error) {
-        console.error("Error deleting post:", error);
-      } else {
-        // Update the posts state after deletion
-        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
-        console.log("Post deleted successfully");
-      }
-    } catch (error) {
-      console.error("Unexpected error while deleting post:", error);
-    }
-  };
+  //     if (error) {
+  //       console.error("Error deleting post:", error);
+  //     } else {
+  //       // Update the posts state after deletion
+  //       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+  //       console.log("Post deleted successfully");
+  //     }
+  //   } catch (error) {
+  //     console.error("Unexpected error while deleting post:", error);
+  //   }
+  // };
 
   return (
     <div>
