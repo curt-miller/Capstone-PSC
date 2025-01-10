@@ -1,34 +1,41 @@
 const router = require("express").Router();
-const prisma = require("../../prisma");
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken"); // Ensure you've installed this package
+const bcrypt = require("bcrypt");
+const { createClient } = require("@supabase/supabase-js");
+require("dotenv").config();
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // JWT Secret Key (Store this in environment variables in production)
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_key";
 
 router.post("/", async (req, res, next) => {
+  const { username, password } = req.body;
+  // Validate input
+  console.log("username:password", username, ",", password);
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username and password are required." });
+  }
+
   try {
-    const { username, password } = req.body;
+    // Fetch user by username
+    const { data: user, error } = await supabase
+      .from("Users")
+      .select("*")
+      .eq("username", username)
+      .single();
 
-    // Validate input
-    if (!username || !password) {
-      return res
-        .status(400)
-        .json({ error: "Username and password are required." });
+    if (error || !user) {
+      return res.status(400).json({ error: "Invalid username or password." });
     }
 
-    // Find user in database
-    const user = await prisma.user.findUnique({
-      where: { username: username }
-    });
-    if (!user) {
-      return res.status(401).json({ error: "Invalid username or password." });
-    }
-
-    // Compare provided password with hashed password in database
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid username or password." });
+      return res.status(400).json({ error: "Invalid username or password." });
     }
 
     // Generate JWT token
@@ -38,10 +45,10 @@ router.post("/", async (req, res, next) => {
       { expiresIn: "1h" }
     );
 
-    // Respond with token
     res.status(200).json({ token, userId: user.id });
   } catch (error) {
-    next(error);
+    console.error("Error during login:", error);
+    res.status(500).json({ error: "An unexpected error occurred." });
   }
 });
 

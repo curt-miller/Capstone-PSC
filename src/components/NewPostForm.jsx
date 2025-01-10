@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MapSearch from "./MapSearch";
-import supabase from "../config/supabaseClient";
+import supabase from "../supaBaseClient";
 
 export default function NewPostForm({ onPostSubmit }) {
   const [title, setTitle] = useState("");

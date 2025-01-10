@@ -1,6 +1,6 @@
 import React from "react";
 import { data } from "react-router-dom";
-import supabase from "../config/supabaseClient";
+import supabase from "../supaBaseClient";
 import { useEffect, useState } from "react";
 
 const Feed = ({ refreshPosts }) => {

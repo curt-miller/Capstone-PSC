@@ -1,25 +1,54 @@
 const express = require("express");
+const { createClient } = require("@supabase/supabase-js");
 const cors = require("cors");
-const morgan = require("morgan");
-const loginRoute = require("./src/API/login");
+const bcrypt = require("bcrypt");
+require("dotenv").config();
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/API", require("./src/API"));
-app.use("/API/login", loginRoute);
+const loginRoute = require("./src/API/login");
+app.use("/login", loginRoute);
 
-app.use((err, req, res, next) => {
-  console.error(err);
-  const status = err.status ?? 500;
-  const message = err.message ?? "Internal server error";
-  res.status(status).json({ message });
+// Your existing middleware and routes
+app.use("https://wagtwrwcrjgunioswvkr.supabase.co", require("./src/API/index"));
+
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
+
+app.post("/register", async (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res
+      .status(400)
+      .json({ error: "Username and Password are required." });
+  }
+
+  try {
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    // Register the user with Supabase
+    const { data, error } = await supabase
+      .from("Users")
+      .insert([{ username, password: hashedPassword }]);
+
+    if (error) {
+      return res.status(400).json({ error: "failed to register user." });
+    }
+
+    res.status(201).json({ message: "User registered successfully" });
+  } catch (err) {
+    console.error("Error during registration:", err);
+    res.status(500).json({ error: "An unexpected error occurred." });
+  }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}.`);
+// Other configurations
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

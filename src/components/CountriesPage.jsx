@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "./Nav";
 import { useState, useEffect } from "react";
-import supabase from "../config/supabaseClient";
+import supabase from "../supaBaseClient";
 
 const CountriesPage = ({ country, refreshPosts }) => {
   const [posts, setPosts] = useState([]);
