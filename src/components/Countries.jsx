@@ -10,29 +10,7 @@ const Countries = ({ setCountry, refreshPosts }) => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState("A");
-
   const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const { data: posts, error: fetchError } = await supabase
-          .from("Posts")
-          .select("*")
-          .order("created_at", { ascending: false });
-
-        if (fetchError) {
-          console.error("Error fetching posts:", fetchError);
-        } else {
-          setPosts(posts);
-        }
-      } catch (error) {
-        console.error("Error during fetching posts", error);
-        setError("Something went wrong. Please try again.");
-      }
-    };
-    fetchPosts();
-  }, [refreshPosts]);
 
   useEffect(() => {
     const getCountries = async () => {
