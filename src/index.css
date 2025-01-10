@@ -296,12 +296,21 @@ body {
 
 /* COUNTRY PAGE COMPONENT */
 
+.country_page_container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .country_page_header {
   display: flex;
   align-items: center;
   justify-content: left;
   width: 100%;
   margin: 10px;
+margin-left: 3rem;
   padding: 10px;
 }
 
@@ -316,6 +325,9 @@ body {
 
 .country_restaurants_container {
   background-color: rgb(95, 95, 169);
+  width: 90vw;
+  min-width: 700px;
+  overflow-y: auto;
   height: 300px;
   margin: 20px;
   padding: 20px;
@@ -323,6 +335,9 @@ body {
 
 .country_attractions_container {
   background-color: rgb(95, 95, 169);
+  width: 90vw;
+  min-width: 700px;
+  overflow-y: auto;
   height: 300px;
   margin: 20px;
   padding: 20px;
