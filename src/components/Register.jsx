@@ -1,5 +1,4 @@
 import { useState } from "react";
-import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
@@ -11,26 +10,36 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!username || !password) {
       setError("Username and Password Required");
       return;
     }
 
-    const { data, error } = await supabase
-      .from("Users")
-      .insert([{ username, password }])
-      .select();
+    try {
+      const response = await fetch("http://localhost:3000/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
 
-    if (error) {
-      console.log(error);
-      setError("Registration failed. Please try again.");
-    }
-    if (data) {
-      console.log(data);
+      if (!response.ok) {
+        const { error } = await response.json();
+        setError(error || "Registration failed. Please try again.");
+        return;
+      }
+
+      const data = await response.json();
+      console.log("User registered:", data);
       setError(null);
       setUsername("");
       setPassword("");
       navigate("/login");
+    } catch (err) {
+      console.error("Error during registration:", err);
+      setError("An unexpected error occurred. Please try again.");
     }
   };
 

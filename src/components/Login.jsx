@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import supabase from "../config/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 
@@ -8,6 +7,44 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!username || !password) {
+      setError("Username and Password Required");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3000/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setError(result.error || "Login failed. Please try again.");
+        return;
+      }
+
+      console.log("Login successful:", result);
+      setError(null);
+
+      // Save token in localStorage or cookie
+      localStorage.setItem("authToken", result.token);
+
+      // Redirect to the homepage
+      navigate("/");
+    } catch (error) {
+      console.error("Error during login", error);
+      setError("Something went wrong. Please try again.");
+    }
+  };
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -28,38 +65,6 @@ const Login = () => {
     fetchUsers();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!username || !password) {
-      setError("Username and Password Required");
-      return;
-    }
-    try {
-      const { data: user, error: fetchError } = await supabase
-        .from("Users")
-        .select("*")
-        .eq("username", username)
-        .single();
-
-      if (fetchError) {
-        console.error(fetchError);
-        setError("Invalid username or password");
-        return;
-      }
-
-      if (user.password !== password) {
-        setError("Invalid username or password");
-        return;
-      }
-
-      setError(null);
-      console.log("Login successful!");
-      navigate("/");
-    } catch (error) {
-      console.error("Error during login", error);
-      setError("Something went wrong. Please try again.");
-    }
-  };
   return (
     <>
       <div className="login-page-container">
