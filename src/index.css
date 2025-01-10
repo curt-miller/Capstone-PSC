@@ -9,11 +9,21 @@ body {
   background-color: white;
 }
 
-#map-shaded,
-#map-search {
+/* MAPS (mapbox containers only) */
+
+#map-shaded {
   margin: 2vw;
-  height: 40vh;
+  height: 50vh;
   width: 60vw;
+  background-color: rgb(142, 128, 211);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#map-search {
+  height: 50vh;
+  width: 40vw;
   background-color: rgb(142, 128, 211);
   display: flex;
   justify-content: center;
@@ -25,6 +35,7 @@ body {
 .navContainer {
   display: flex;
   align-items: center;
+  width: 100vw;
   justify-content: space-between; /* Separate the logo and buttons */
   height: 80px;
   background-color: rgb(95, 95, 169);
@@ -34,6 +45,8 @@ body {
 .navLogo {
   height: 130px;
   align-self: left;
+  padding-left: 20px;
+  cursor: pointer;
 }
 
 .buttonContainer {
@@ -47,9 +60,33 @@ body {
   border-radius: 5px;
   border-style: none;
   margin: 25px;
+  background-color: rgb(163, 163, 201);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.navContainer button:hover {
+  background-color: rgb(137, 137, 154);
+}
+
+/* HOME PAGE */
+.home-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* LOGIN COMPONENT */
+
+.login-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .login {
   width: 400px;
@@ -76,37 +113,94 @@ body {
   transition: background-color 0.3s;
 }
 
+.login button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
 /* REGISTER COMPONENT */
 
-.registerContainer {
+.register-page-container {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
-
-/* COUNTRY API LIST COMPONENT */
-
-.countries_container {
-  display: flex;
-  height: 400px;
-  width: 90%;
-  flex-wrap: wrap;
-  overflow-y: auto;
-  border: solid 2px black;
+.register {
+  width: 400px;
+  height: 250px;
+  margin: 50px auto;
   padding: 20px;
-  margin: 10px;
-  border-radius: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
 }
 
-.country_flag {
-  width: 200px;
+.register button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* COUNTRY PAGE COMPONENT */
+.register button:hover {
+  background-color: rgb(73, 73, 148);
+}
 
-.country_card {
-  border: solid 2px black;
-  margin: 10px;
-  padding: 15px;
+/* PROFILE "USER PAGE" COMPONENT */
+
+.user-profile-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* MapSearch COMPONENT (NEW POST FORM) */
+
+#newpost-form button {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newpost-form button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
+#newpost-form {
+  width: auto;
+  height: auto;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.new_post_description {
+  display: flex;
+  flex-direction: row; /* Stack label and input vertically */
+  align-items: center;
+  justify-content: center;
 }
 
 /* FEED COMPONENT */
@@ -121,13 +215,133 @@ body {
   width: 150px;
 }
 
+/* COUNTRY API LIST COMPONENT */
+
+.countries_container {
+  /* display: flex; */
+  height: 400px;
+  width: 1000px; /* NEED TO UPDATE - HOW SHOULD WE DO THIS? */
+  /* flex-wrap: wrap; */
+  overflow-y: auto;
+  border: solid 2px rgb(95, 95, 169);
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.country_card {
+  border: solid 2px rgb(95, 95, 169);
+  margin: 10px;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.country_flag {
+  width: 200px;
+}
+
+.alphabet_filter {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.alphabet_button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 14px;
+  background-color: rgb(230, 230, 230);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.alphabet_button:hover {
+  background-color: rgb(200, 200, 200);
+}
+
+.alphabet_button.active {
+  background-color: rgb(95, 95, 169);
+  color: white;
+}
+
+.like_country_button {
+  background-color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.like_button_icon {
+  width: 50px;
+  height: 50px;
+}
+
+.visited_country_button {
+  background-color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.visited_button_icon {
+  width: 50px;
+  height: 50px;
+}
+
+/* COUNTRY PAGE COMPONENT */
+
+.country_page_header {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.country_page_header img {
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.countries_page_name {
+  font-size: 4rem;
+}
+
+.country_restaurants_container {
+  background-color: rgb(95, 95, 169);
+  height: 300px;
+  margin: 20px;
+  padding: 20px;
+}
+
+.country_attractions_container {
+  background-color: rgb(95, 95, 169);
+  height: 300px;
+  margin: 20px;
+  padding: 20px;
+}
 /* ATTRACTION COMPONENT */
-#att-detail-page {
+
+#att-detail-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#att-detail-page-GRID {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 80px calc(35vh - 2rem) calc(65vh - 2rem);
+  grid-template-rows: calc(35vh - 3rem) calc(65vh - 3rem);
   grid-template-areas:
-    "NAV NAV"
     "NAME REVIEWS"
     "IMAGE REVIEWS";
   height: 100vh;
@@ -158,19 +372,16 @@ body {
   margin-bottom: 2rem;
 }
 
-#att-detail-page-NAV {
-  grid-area: NAV;
-}
-
-#photo-grid{
+#photo-grid {
   display: flex;
   flex-wrap: wrap;
   height: 200px;
   size: 100%;
   overflow-y: scroll;
-  gap: .5rem;
+  gap: 0.5rem;
 }
 
-#photo-grid, img{
+#photo-grid,
+img {
   height: 150px;
 }

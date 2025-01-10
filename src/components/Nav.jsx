@@ -7,7 +7,7 @@ const Nav = () => {
 
   return (
     <div className="navContainer">
-      <img src={pinpalslogo} alt="site_logo" className="navLogo" />
+      <img src={pinpalslogo} alt="site_logo" className="navLogo" onClick={() => navigate("/")} />
       <div className="navButtons">
         <button onClick={() => navigate("/")}>Home</button>
         <button onClick={() => navigate("/login")}>Login</button>

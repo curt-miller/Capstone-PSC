@@ -12,7 +12,7 @@ const UserPage = () => {
   };
 
   return (
-    <div>
+    <div className="user-profile-page-container">
       <Nav />
       <NewPostForm onPostSubmit={handleRefresh} />
       <Feed refreshPosts={refreshPosts} />
