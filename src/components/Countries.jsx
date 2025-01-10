@@ -9,14 +9,13 @@ import visitedButton from "../assets/VisitedButton.png";
 const Countries = ({ setCountry }) => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const [selectedLetter, setSelectedLetter] = useState("A"); // Default to "A"
+  const [selectedLetter, setSelectedLetter] = useState("A");
 
   useEffect(() => {
     const getCountries = async () => {
       const data = await fetchCountries();
       setCountries(data);
 
-      // Filter countries starting with "A" by default
       const defaultFiltered = data.filter((country) =>
         country.name.toLowerCase().startsWith("a")
       );
@@ -78,7 +77,7 @@ const Countries = ({ setCountry }) => {
                   src={likeButton}
                   alt="Like button Icon"
                   className="like_button_icon"
-                  onClick={() => console.log("like button clicked")} // Wrapping in a function
+                  onClick={() => console.log("like button clicked")}
                 />{" "}
               </button>
               <button className="visited_country_button">
@@ -86,7 +85,7 @@ const Countries = ({ setCountry }) => {
                   src={visitedButton}
                   alt="Visited button Icon"
                   className="visited_button_icon"
-                  onClick={() => console.log("visited button clicked")} // Wrapping in a function
+                  onClick={() => console.log("visited button clicked")}
                 />{" "}
               </button>
               <p>Capital: {country.capital}</p>
