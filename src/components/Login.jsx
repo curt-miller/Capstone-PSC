@@ -34,7 +34,7 @@ const Login = () => {
       localStorage.setItem("authToken", data.session.access_token);
 
       setError(null);
-
+      console.log(data.session.access_token);
       // Redirect to the homepage
       navigate("/");
     } catch (error) {
