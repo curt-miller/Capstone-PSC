@@ -13,13 +13,13 @@ body {
 /* MAPS (mapbox containers only) */
 
 #map-shaded {
-  margin: 2vw;
-  height: 50vh;
-  width: 60vw;
-  background-color: rgb(142, 128, 211);
-  display: flex;
   justify-content: center;
   align-items: center;
+  margin: 2vw;
+  height: 50vh;
+  width: 30vw;
+  background-color: rgb(142, 128, 211);
+  display: flex;
 }
 
 #map-search {
@@ -71,11 +71,24 @@ body {
 }
 
 /* HOME PAGE */
+
 .home-page-container {
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.home_page_content {
+  display: flex;
+  padding: 10px;
+  margin: 10px;
+}
+
+.home_page_map {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
@@ -221,13 +234,13 @@ body {
   background-color: #f9f9f9;
   width: 70vw;
   min-width: 850px;
-  height: auto; 
+  height: auto;
   box-sizing: border-box;
 }
 
 .post-card:hover {
   cursor: pointer;
-  transform: translateY(5px); 
+  transform: translateY(5px);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -240,9 +253,11 @@ body {
   border-radius: 4px;
 }
 
-.post-card h1, .post-card h2, .post-card h3 {
+.post-card h1,
+.post-card h2,
+.post-card h3 {
   margin: 0;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -267,8 +282,8 @@ body {
 .post-card button {
   grid-area: DELETE;
   font-size: 1rem;
-  width: auto; 
-  max-width: 30%; 
+  width: auto;
+  max-width: 30%;
   background-color: rgb(95, 95, 169);
   color: white;
   border: none;
@@ -281,14 +296,12 @@ body {
   background-color: rgb(75, 75, 149);
 }
 
-
 /* COUNTRY API LIST COMPONENT */
 
 .countries_container {
   /* display: flex; */
   height: 400px;
-  width: 1000px; /* NEED TO UPDATE - HOW SHOULD WE DO THIS? */
-  /* flex-wrap: wrap; */
+  width: 65vw; /* NEED TO UPDATE - HOW SHOULD WE DO THIS? */
   overflow-y: auto;
   border: solid 2px rgb(95, 95, 169);
   padding: 20px;
@@ -299,7 +312,7 @@ body {
 .country_card {
   border: solid 2px rgb(95, 95, 169);
   margin: 10px;
-  padding: 15px;
+  padding: 20px;
   border-radius: 15px;
 }
 
@@ -311,6 +324,9 @@ body {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  width: 65vw;
+  padding: 10px;
+  margin: 20px;
 }
 
 .alphabet_button {

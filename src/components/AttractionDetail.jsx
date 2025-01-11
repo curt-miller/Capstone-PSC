@@ -40,6 +40,9 @@ export default function AttractionDetail() {
     return <div>Loading...</div>;
   }
 
+  console.log("a post object looks like:", post);
+
+
   return (
     <div id="att-detail-page-container">
       <Nav />
@@ -47,8 +50,9 @@ export default function AttractionDetail() {
         <div id="att-detail-page-TITLE">
           <h1>{post.title}</h1>
           <h3>
-            Posted by {post.user} | Location: {post.location} | {post.likes}{" "}
-            Likes
+            Pin dropped on {post.created_at} by {post.user}
+            {post.description}
+            {post.location}
           </h3>
         </div>
         <div id="att-detail-page-REVIEWS">
@@ -62,12 +66,12 @@ export default function AttractionDetail() {
           <img
             src={post.img_url}
             alt={post.title}
-            // style={{
-            //     width: "100%",
-            //     height: "auto",
-            //     borderRadius: "8px",
-            //     objectFit: "cover",
-            // }}
+          // style={{
+          //     width: "100%",
+          //     height: "auto",
+          //     borderRadius: "8px",
+          //     objectFit: "cover",
+          // }}
           />
         </div>
       </div>
