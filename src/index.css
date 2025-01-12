@@ -17,7 +17,7 @@ body {
   align-items: center;
   margin: 2vw;
   height: 50vh;
-  width: 30vw;
+  width: 35vw;
   background-color: rgb(142, 128, 211);
   display: flex;
 }
@@ -81,15 +81,19 @@ body {
 }
 
 .home_page_content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-gap: 10px;
+  width: 100%;
   padding: 10px;
-  margin: 10px;
+  box-sizing: border-box;
 }
 
 .home_page_map {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 100px;
 }
 
 /* LOGIN COMPONENT */
@@ -299,14 +303,15 @@ body {
 /* COUNTRY API LIST COMPONENT */
 
 .countries_container {
-  /* display: flex; */
-  height: 400px;
-  width: 65vw; /* NEED TO UPDATE - HOW SHOULD WE DO THIS? */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   overflow-y: auto;
+  gap: 20px;
+  padding: 10px;
+  box-sizing: border-box;
   border: solid 2px rgb(95, 95, 169);
-  padding: 20px;
-  margin: 10px;
   border-radius: 15px;
+  max-height: 440px;
 }
 
 .country_card {
@@ -320,13 +325,22 @@ body {
   width: 200px;
 }
 
+.countries_grid {
+  display: grid;
+  grid-template-rows: auto auto;
+  row-gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
 .alphabet_filter {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 20px;
-  width: 65vw;
+  width: 100%;
   padding: 10px;
-  margin: 20px;
+  box-sizing: border-box;
 }
 
 .alphabet_button {
