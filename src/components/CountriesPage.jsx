@@ -42,7 +42,7 @@ const CountriesPage = ({ country, refreshPosts }) => {
     <div className="country_page_container">
       <Nav />
       <div className="country_page_header">
-        <img src={country.href.flag} alt="country_flag" />
+        {/* <img src={country.href.flag} alt="country_flag" /> */}
         <h1 className="countries_page_name">{country.name}</h1>
       </div>
       <div className="country_restaurants_container">
