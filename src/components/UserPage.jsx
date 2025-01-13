@@ -14,8 +14,14 @@ const UserPage = () => {
   return (
     <div className="user-profile-page-container">
       <Nav />
-      <NewPostForm onPostSubmit={handleRefresh} />
-      <Feed refreshPosts={refreshPosts} />
+      <div className="user-profile-page-content">
+        <div className="new-post-form-container">
+          <NewPostForm onPostSubmit={handleRefresh} />
+        </div>
+        <div className="feed-container">
+          <Feed refreshPosts={refreshPosts} />
+        </div>
+      </div>
     </div>
   );
 };
