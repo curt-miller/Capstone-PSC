@@ -23,12 +23,28 @@ export default function NewPostForm({ onPostSubmit }) {
 
     // SAM GET UR COUNTRY INFO HERE:
     try {
+      const {
+        data: { user },
+        error: userError
+      } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+
+      if (!user) {
+        console.error("No user logged in.");
+        return;
+      }
+
       const { data, error } = await supabase.from("Posts").insert([
         {
           title: title,
           description: description,
           img_url: imageUrl,
-          location: location.country // Ensure this matches your table's column name and type
+          // location: location.country, // Ensure this matches your table's column name and type
+          user_id: user.id
         }
       ]);
 
