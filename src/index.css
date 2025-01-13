@@ -3,6 +3,10 @@
   background-color: white;
 }
 
+/* * {
+  outline: 1px solid rgba(0, 0, 0, 0.1);
+} */
+
 body {
   margin: 0;
   box-sizing: border-box;
@@ -15,9 +19,6 @@ body {
 #map-shaded {
   justify-content: center;
   align-items: center;
-  margin: 2vw;
-  height: 50vh;
-  width: 35vw;
   background-color: rgb(142, 128, 211);
   display: flex;
 }
@@ -25,7 +26,7 @@ body {
 #map-search {
   height: 50vh;
   width: 40vw;
-  background-color: rgb(142, 128, 211);
+  background-color: rgb(162, 161, 167);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,6 +73,7 @@ body {
 
 /* HOME PAGE */
 
+/* entire home page */
 .home-page-container {
   width: 100vw;
   height: 100vh;
@@ -80,20 +82,25 @@ body {
   align-items: center;
 }
 
+/* home page below the navbar */
 .home_page_content {
   display: grid;
-  grid-template-columns: 2fr 3fr;
-  grid-gap: 10px;
+  grid-template-columns: 1fr 2fr;
   width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
+  height: calc(100vh - 80px); /* subtracts navbar height */
+  overflow: hidden;
 }
 
+/* just the map (left) */
 .home_page_map {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  margin-top: 100px;
+}
+
+/* just the countries list (right) */
+.countries-homepage-container {
+  padding: 20px;
+  overflow-y: scroll;
+  background-color: lavender;
 }
 
 /* LOGIN COMPONENT */
@@ -302,42 +309,15 @@ body {
 
 /* COUNTRY API LIST COMPONENT */
 
-.countries_container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  overflow-y: auto;
-  gap: 20px;
-  padding: 10px;
-  box-sizing: border-box;
-  border: solid 2px rgb(95, 95, 169);
-  border-radius: 15px;
-  max-height: 440px;
-}
-
-.country_card {
-  border: solid 2px rgb(95, 95, 169);
-  margin: 10px;
-  padding: 20px;
-  border-radius: 15px;
-}
-
-.country_flag {
-  width: 200px;
-}
-
-.countries_grid {
-  display: grid;
-  grid-template-rows: auto auto;
-  row-gap: 20px;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
+.countries_header{
+  font-style: italic;
+  color: rgb(62, 52, 67);
 }
 
 .alphabet_filter {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: left;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -347,49 +327,133 @@ body {
   margin: 5px;
   padding: 10px;
   font-size: 14px;
-  background-color: rgb(230, 230, 230);
-  border: none;
+  background-color: rgb(225, 208, 208);
+  border: 1px solid rgb(154, 146, 146);
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .alphabet_button:hover {
-  background-color: rgb(200, 200, 200);
+  background-color: rgb(179, 147, 147);
 }
 
 .alphabet_button.active {
   background-color: rgb(95, 95, 169);
   color: white;
+  font-weight: bold;
+  border: 1px solid rgb(75, 75, 149);
 }
 
-.like_country_button {
-  background-color: white;
-  border: none;
-  width: 50px;
-  height: 50px;
-  margin: 5px;
-  padding: 5px;
+.countries_list_container{
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
 }
 
-.like_button_icon {
-  width: 50px;
-  height: 50px;
+.country_card {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "NAME BUTTONS"
+    "CAPITAL IMAGES"
+    "FLAG IMAGES"
+    "FLAG IMAGES";
+  border: 2px solid rgb(66, 58, 99);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  padding: 1rem;
+  width: 40%;
+  min-width: 550px;
+  box-sizing: border-box;
 }
 
+.country_name_link {
+  grid-area: NAME;
+  text-decoration: none;
+  color: rgb(65, 65, 101);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.country_name_link:hover {
+  text-decoration: underline;
+  color: rgb(75, 75, 149);
+}
+
+.country_name {
+  margin: 0;
+}
+
+#country_card_capital {
+  grid-area: CAPITAL;
+  font-style: italic;
+  align-self: center;
+}
+
+.country_flag {
+  grid-area: FLAG;
+  width: 200px;
+  height: auto;
+  border: solid 1px rgb(200, 200, 200);
+  border-radius: 10px;
+  justify-self: flex-start;
+}
+
+.country_buttons{
+  grid-area: BUTTONS;
+  padding-left: 10px;
+  display: flex;
+  width: fit-content;
+}
+
+.like_country_button,
 .visited_country_button {
   background-color: white;
   border: none;
-  width: 50px;
-  height: 50px;
-  margin: 5px;
+  height: 40px;
+  width: auto;
+  margin: 0 5px;
   padding: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  align-self: center;
 }
 
+.like_button_icon,
 .visited_button_icon {
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100%;
 }
+
+.like_country_button:hover,
+.visited_country_button:hover {
+  transform: scale(1.1); /* Enlarges button slightly on hover */
+}
+
+
+#image_grid {
+  grid-area: IMAGES;
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  overflow-x: scroll; 
+align-items: end;
+  padding-left: 10px;
+}
+
+
+#image_grid img {
+  height: 150px; 
+  object-fit: cover;
+  aspect-ratio: 1 / 1; 
+  border-radius: 5px; 
+  border: 1px solid #ddd; 
+}
+
+
 
 /* COUNTRY PAGE COMPONENT */
 
@@ -466,16 +530,16 @@ body {
   background-color: lavender;
   margin-left: 2rem;
   margin-top: 2rem;
-  padding-left: .8rem; 
+  padding-left: 0.8rem;
   border-radius: 10px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #att-detail-page-TITLE-BLOCK h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  line-height: 1.2; 
+  line-height: 1.2;
 }
 
 #att-detail-page-TITLE-BLOCK h2,
@@ -483,35 +547,34 @@ body {
 #att-detail-page-TITLE-BLOCK h4 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  line-height: 1.4; 
+  line-height: 1.4;
 }
-
 
 #att-detail-page-REVIEW-BLOCK {
   grid-area: REVIEWS;
-  background-color: lavender; 
+  background-color: lavender;
   margin: 2rem;
   padding: 1.5rem;
-  border-radius: 10px; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #att-detail-page-REVIEW-BLOCK h2 {
-  font-size: 1.5rem; 
-  margin-bottom: 1rem; 
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   font-style: italic;
-color: rgb(51, 51, 65);
+  color: rgb(51, 51, 65);
 }
 
 #att-detail-page-REVIEW-CARD {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   text-wrap: auto;
   width: auto;
   border: 1px solid black;
   border-radius: 8px;
   margin: 10px 0;
-  padding: 10px; 
+  padding: 10px;
   background-color: white;
 }
 
@@ -523,21 +586,21 @@ color: rgb(51, 51, 65);
 #att-detail-page-SUBMIT-COMMENT textarea {
   width: 80%;
   height: 100px;
-  margin-bottom: 10px; 
-  padding: 10px; 
-  border-radius: 5px; 
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 #att-detail-page-SUBMIT-COMMENT button {
   padding: 10px 15px;
-  background-color: rgb(185, 185, 222); 
+  background-color: rgb(185, 185, 222);
   border: none;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
 }
 
 #att-detail-page-SUBMIT-COMMENT button:hover {
-  background-color: rgb(153, 153, 178); 
+  background-color: rgb(153, 153, 178);
 }
 
 #att-detail-page-IMAGE-BLOCK {
@@ -546,27 +609,14 @@ color: rgb(51, 51, 65);
   padding: 1rem;
   margin-left: 2rem;
   margin-bottom: 2rem;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #att-detail-page-IMAGE-BLOCK img {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   object-fit: cover;
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 
-#photo-grid {
-  display: flex;
-  flex-wrap: wrap;
-  height: 200px;
-  size: 100%;
-  overflow-y: scroll;
-  gap: 0.5rem;
-}
-
-#photo-grid,
-img {
-  height: 150px;
-}

@@ -13,7 +13,7 @@ export default function ImageGrid({ country }) {
     }, [country]); // Re-run when country changes
 
     return (
-        <div id="photo-grid">
+        <div id="image_grid">
             {images.map((imgUrl, index) => (
                 <img key={index} src={imgUrl} alt={`Post image ${index + 1}`} />
             ))}

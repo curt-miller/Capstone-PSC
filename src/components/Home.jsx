@@ -11,7 +11,9 @@ const Home = ({ setCountry, country }) => {
         <div className="home_page_map">
           <MapShaded />
         </div>
+        {/* <div className="home_page_photogrid"> */}
         <Countries setCountry={setCountry} country={country} />
+        {/* </div> */}
       </div>
     </div>
   );
