@@ -461,27 +461,100 @@ body {
   gap: 1rem;
 }
 
-#att-detail-page-TITLE {
+#att-detail-page-TITLE-BLOCK {
   grid-area: NAME;
-  background-color: blue;
-  padding: 1rem;
+  background-color: lavender;
   margin-left: 2rem;
   margin-top: 2rem;
+  padding-left: .8rem; 
+  border-radius: 10px;
+  word-wrap: break-word; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-#att-detail-page-REVIEWS {
+#att-detail-page-TITLE-BLOCK h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.2; 
+}
+
+#att-detail-page-TITLE-BLOCK h2,
+#att-detail-page-TITLE-BLOCK h3,
+#att-detail-page-TITLE-BLOCK h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4; 
+}
+
+
+#att-detail-page-REVIEW-BLOCK {
   grid-area: REVIEWS;
-  background-color: rgb(101, 101, 165);
-  padding: 1rem;
+  background-color: lavender; 
   margin: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-#att-detail-page-IMAGE {
+#att-detail-page-REVIEW-BLOCK h2 {
+  font-size: 1.5rem; 
+  margin-bottom: 1rem; 
+  font-style: italic;
+color: rgb(51, 51, 65);
+}
+
+#att-detail-page-REVIEW-CARD {
+  display: flex;
+  flex-direction: column; 
+  text-wrap: auto;
+  width: auto;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 10px; 
+  background-color: white;
+}
+
+#att-detail-page-NO-REVIEWS-MESSAGE {
+  font-style: italic;
+  color: gray;
+}
+
+#att-detail-page-SUBMIT-COMMENT textarea {
+  width: 80%;
+  height: 100px;
+  margin-bottom: 10px; 
+  padding: 10px; 
+  border-radius: 5px; 
+}
+
+#att-detail-page-SUBMIT-COMMENT button {
+  padding: 10px 15px;
+  background-color: rgb(185, 185, 222); 
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer;
+}
+
+#att-detail-page-SUBMIT-COMMENT button:hover {
+  background-color: rgb(153, 153, 178); 
+}
+
+#att-detail-page-IMAGE-BLOCK {
   grid-area: IMAGE;
-  background-color: rgb(165, 165, 212);
+  background-color: lavender;
   padding: 1rem;
   margin-left: 2rem;
   margin-bottom: 2rem;
+  border-radius: 10px; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#att-detail-page-IMAGE-BLOCK img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover;
+  border-radius: 10px; 
 }
 
 #photo-grid {
