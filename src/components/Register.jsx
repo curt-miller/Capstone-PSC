@@ -8,38 +8,44 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-console.log(import.meta.env.VITE_SUPABASE_URL);
-console.log(import.meta.env.VITE_APP_SUPABASE_ANON_KEY);
-
 function Register() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      setError("Username and Password Required");
+    if (!email || !password || !username) {
+      setError("email, username, and Password Required");
       return;
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
-        email: username,
-        password: password
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            display_name: username
+          }
+        }
       });
 
-      if (error) {
-        setError(error.message || "Registration failed. Please try again.");
+      if (signUpError) {
+        setError(
+          signUpError.message || "Registration failed. Please try again."
+        );
         return;
       }
 
-      console.log("User registered:");
+      console.log("User registered:", data.user);
       setError(null);
-      setUsername("");
+      setEmail("");
       setPassword("");
+      setUsername("");
       navigate("/login");
     } catch (err) {
       console.error("Error during registration:", err);
@@ -56,9 +62,18 @@ function Register() {
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
             <input
-              type="email"
+              type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter a username"
+            />
+            <br />
+            <br />
+            <label htmlFor="email">email: </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="example@email.com"
             />
             <br />

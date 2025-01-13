@@ -4,7 +4,7 @@ import Nav from "./Nav";
 import supabase from "../supaBaseClient";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -12,14 +12,14 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      setError("Username and Password Required");
+    if (!email || !password) {
+      setError("Email and Password Required");
       return;
     }
 
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: username,
+        email: email,
         password: password
       });
 
@@ -28,13 +28,14 @@ const Login = () => {
         return;
       }
 
-      console.log("Login successful:", data);
+      const { user } = data;
+      const displayName = user?.user_metadata?.display_name || "Guest";
 
       // Save token in localStorage or cookie
       localStorage.setItem("authToken", data.session.access_token);
+      localStorage.setItem("displayName", displayName);
 
       setError(null);
-      console.log(data.session.access_token);
       // Redirect to the homepage
       navigate("/");
     } catch (error) {
@@ -49,11 +50,11 @@ const Login = () => {
 
       if (error) {
         setError("Could not fetch Users");
-        setUsername(null);
+        setEmail(null);
         console.log(error);
       }
       if (data) {
-        setUsername("");
+        setEmail("");
         setPassword("");
         setError(null);
       }
@@ -69,11 +70,11 @@ const Login = () => {
         <div className="login">
           <h1>LOGIN</h1>
           <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
+            <label htmlFor="email">Email: </label>
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="JohnDoe"
             />
             <br />
