@@ -46,7 +46,7 @@ const CountriesPage = ({ country, refreshPosts }) => {
         <h1 className="countries_page_name">{country.name}</h1>
       </div>
       <div className="country_restaurants_container">
-        <h2>Restaurants</h2>
+        <h2>Attractions</h2>
         {posts.map((post) => (
           <div key={post.id} className="post">
             <p>
@@ -60,10 +60,6 @@ const CountriesPage = ({ country, refreshPosts }) => {
             <button>Delete</button>
           </div>
         ))}
-      </div>
-      <div className="country_attractions_container">
-        <h2>Attractions</h2>
-        <p>List of attractions in this country</p>
       </div>
     </div>
   );
