@@ -19,6 +19,8 @@ export default function AttractionDetail() {
           .eq("id", id)
           .single();
 
+
+
         if (fetchError) {
           console.error("Error fetching post:", fetchError);
           setError("Could not fetch post details. Please try again.");
@@ -44,8 +46,8 @@ export default function AttractionDetail() {
 
   console.log("a post object looks like:", post);
 
-  /*COMMENT BOX FUNCTIONALITY */
 
+  /*COMMENT BOX FUNCTIONALITY */
   const handleSubmitReview = () => {
     if (newReview.trim()) {
       // Add the new review to the list of reviews
@@ -66,48 +68,62 @@ export default function AttractionDetail() {
     <div id="att-detail-page-container">
       <Nav />
       <div id="att-detail-page-GRID">
-        <div id="att-detail-page-TITLE">
+        <div id="att-detail-page-TITLE-BLOCK">
           <h1>{post.title}</h1>
+          <h2>
+            Pin dropped on {new Date(post.created_at).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })} by {post.user}
+          </h2>
           <h3>
-            Pin dropped on {post.created_at} by {post.user}
             {post.description}
-            {post.location}
           </h3>
+          <h4>
+            {post.location}
+          </h4>
         </div>
-        <div id="att-detail-page-REVIEWS">
-          <h2>User Reviews</h2>
-          {/* Example placeholder for reviews */}
-          <p>Review 1: Amazing place!</p>
-          <p>Review 2: Would visit again!</p>
-          <p>ADD A COMMENT BOX HERE, CURTIS!!</p>
-          {/*COMMENT BOX ADDITION */}
-          {/* Placeholder for showing existing reviews */}
+
+
+        <div id="att-detail-page-REVIEW-BLOCK">
+          <h2>Here's what Pals have to say:</h2>
+
           {reviews.length > 0 ? (
-            reviews.map((review, index) => <p key={index}>{review}</p>)
+            <div>
+              {reviews.map((review, index) => (
+                <div id="att-detail-page-REVIEW-CARD" key={index}>
+                  <p>{review}</p>
+                </div>
+              ))}
+            </div>
           ) : (
-            <p>No reviews yet!</p>
+            <p id="att-detail-page-NO-REVIEWS-MESSAGE">Be the first to review {post.title}</p>
           )}
-          {/* Adding comment box */}
-          <textarea
-            placeholder="Add a review!"
-            value={newReview}
-            onChange={(e) => setNewReview(e.target.value)}
-          />
-          <br />
-          <button onClick={handleSubmitReview}>Submit Review</button>
+
+
+          <div id="att-detail-page-SUBMIT-COMMENT">
+            <textarea
+              placeholder="Add a review!"
+              value={newReview}
+              onChange={(e) => setNewReview(e.target.value)}
+            />
+            <br />
+            <button onClick={handleSubmitReview}>Submit Review</button>
+          </div>
         </div>
-        <div id="att-detail-page-IMAGE">
+
+
+        <div id="att-detail-page-IMAGE-BLOCK">
           <img
             src={post.img_url}
             alt={post.title}
-            // style={{
-            //     width: "100%",
-            //     height: "auto",
-            //     borderRadius: "8px",
-            //     objectFit: "cover",
-            // }}
           />
         </div>
+
+
       </div>
     </div>
   );
