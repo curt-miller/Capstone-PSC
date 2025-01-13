@@ -8,7 +8,6 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-
 console.log(import.meta.env.VITE_SUPABASE_URL);
 console.log(import.meta.env.VITE_APP_SUPABASE_ANON_KEY);
 
@@ -28,7 +27,6 @@ function Register() {
     }
 
     try {
-
       const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
@@ -68,10 +66,9 @@ function Register() {
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
             <input
-              type="email"
+              type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-
               placeholder="Enter a username"
             />
             <br />
@@ -81,7 +78,6 @@ function Register() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-
               placeholder="example@email.com"
             />
             <br />
