@@ -6,14 +6,24 @@ import { useEffect, useState } from "react";
 const Feed = ({ refreshPosts }) => {
   const [posts, setPosts] = useState([]);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const { data: posts, error: fetchError } = await supabase
           .from("Posts")
-          .select("*")
+          .select(
+            `
+            id,
+            title,
+            img_url,
+            description,
+            location,
+            user_id,
+            Users(display_name)
+          `
+          )
           .order("created_at", { ascending: false });
 
         if (fetchError) {
@@ -50,17 +60,24 @@ const navigate = useNavigate();
       <h1>Feed</h1>
       {posts.map((post) => (
         <div
-        key={post.id}
-        className="post-card"
-        onClick={() => navigate(`/attraction/${post.id}`)}>
+          key={post.id}
+          className="post-card"
+          onClick={() => navigate(`/attraction/${post.id}`)}
+        >
           <img src={post.img_url} alt={post.title} />
+
           <h1>{post.title}</h1>
+          <p>Username: {post.Users?.display_name || "Unknown User"}</p>
           <h2>{post.description}</h2>
           <h3>{post.location}</h3>
-          <button onClick={(e) => {
-            e.stopPropagation();
-            handleDelete(post.id);
-          }}>Delete</button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDelete(post.id);
+            }}
+          >
+            Delete
+          </button>
         </div>
       ))}
     </div>

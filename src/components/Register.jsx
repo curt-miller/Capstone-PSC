@@ -27,15 +27,17 @@ function Register() {
     }
 
     try {
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            display_name: username
+      const { data: authData, error: signUpError } = await supabase.auth.signUp(
+        {
+          email,
+          password,
+          options: {
+            data: {
+              display_name: username
+            }
           }
         }
-      });
+      );
 
       if (signUpError) {
         setError(
@@ -44,13 +46,30 @@ function Register() {
         return;
       }
 
-      console.log("User registered:", data.user);
+      if (authData?.user) {
+        const userId = authData.user.id;
 
-      setError(null);
-      setEmail("");
-      setPassword("");
-      setUsername("");
-      navigate("/login");
+        const { error: insertError } = await supabase.from("Users").insert([
+          {
+            user_id: userId,
+            display_name: username
+          }
+        ]);
+
+        if (insertError) {
+          console.error("Error inserting user into Users table:", insertError);
+          setError(
+            "Registration partially succeeded, but profile setup failed."
+          );
+          return;
+        }
+
+        setError(null);
+        setEmail("");
+        setPassword("");
+        setUsername("");
+        navigate("/login");
+      }
     } catch (err) {
       console.error("Error during registration:", err);
       setError("An unexpected error occurred. Please try again.");
