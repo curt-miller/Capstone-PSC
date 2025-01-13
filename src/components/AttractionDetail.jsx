@@ -34,23 +34,85 @@ export default function AttractionDetail() {
     if (id) fetchPost();
   }, [id]);
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const { data: reviewsData, error: reviewsError } = await supabase
+          .from("Reviews")
+          .select(
+            `
+            *,
+            Users(display_name)
+            `
+          )
+          .eq("post_id", id);
 
-  if (!post) {
-    return <div>Loading...</div>;
-  }
-
-  console.log("a post object looks like:", post);
-
+        if (reviewsError) {
+          console.error("Error fetching reviews:", reviewsError);
+          setError("Count not fetch reviews. Please try again.");
+        } else {
+          setReviews(reviewsData || []);
+        }
+      } catch (err) {
+        console.error("Unexpected error fetching reviews:", err);
+      }
+    };
+    console.log("REVIEWS:", reviews.review);
+    if (id) fetchReviews();
+  }, [id]);
 
   /*COMMENT BOX FUNCTIONALITY */
-  const handleSubmitReview = () => {
-    if (newReview.trim()) {
-      // Add the new review to the list of reviews
-      setReviews((prevReviews) => [...prevReviews, newReview]);
-      setNewReview(""); // Reset the review input field
+  const handleSubmitReview = async (e) => {
+    e.preventDefault();
+
+    try {
+      const {
+        data: { user },
+        error: userError
+      } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error("Error fetching user:", userError);
+        return;
+      }
+
+      if (!user) {
+        console.error("No user logged in.");
+        return;
+      }
+
+      const { data: userData, error: userQueryError } = await supabase
+        .from("Users")
+        .select("*")
+        .eq("user_id", user.id)
+        .single();
+
+      if (userQueryError || !userData) {
+        console.error("Error fetching user data:", userQueryError);
+        return;
+      }
+
+      const { data: insertedReview, error: insertError } = await supabase
+        .from("Reviews")
+        .insert([
+          {
+            review: newReview,
+            post_id: id,
+            user_id: userData.id
+          }
+        ])
+        .select();
+      console.log("INSERTED REVIEW:", insertedReview);
+
+      if (insertError) {
+        console.error("Error inserting review:", insertError);
+      } else {
+        console.log("Post added successfully:", insertedReview);
+        setReviews((prevReviews) => [...prevReviews, ...insertedReview]);
+        setNewReview("");
+      }
+    } catch (err) {
+      console.error("Unexpected error:", err);
     }
   };
 
@@ -66,26 +128,22 @@ export default function AttractionDetail() {
     <div id="att-detail-page-container">
       <Nav />
       <div id="att-detail-page-GRID">
-
         <div id="att-detail-page-TITLE-BLOCK">
           <h1>{post.title}</h1>
           <h2>
-            Pin dropped on {new Date(post.created_at).toLocaleDateString("en-US", {
+            Pin dropped on{" "}
+            {new Date(post.created_at).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
               hour: "2-digit",
-              minute: "2-digit",
-            })} by {post.user}
+              minute: "2-digit"
+            })}{" "}
+            by {post.user}
           </h2>
-          <h3>
-            {post.description}
-          </h3>
-          <h4>
-            {post.location}
-          </h4>
+          <h3>{post.description}</h3>
+          <h4>{post.location}</h4>
         </div>
-
 
         <div id="att-detail-page-REVIEW-BLOCK">
           <h2>Here's what Pals have to say:</h2>
@@ -94,14 +152,16 @@ export default function AttractionDetail() {
             <div>
               {reviews.map((review, index) => (
                 <div id="att-detail-page-REVIEW-CARD" key={index}>
-                  <p>{review}</p>
+                  <h4>{review.Users?.display_name || "Anonymous"}</h4>
+                  <p>{review.review}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <p id="att-detail-page-NO-REVIEWS-MESSAGE">Be the first to review {post.title}</p>
+            <p id="att-detail-page-NO-REVIEWS-MESSAGE">
+              Be the first to review {post.title}
+            </p>
           )}
-
 
           <div id="att-detail-page-SUBMIT-COMMENT">
             <textarea
@@ -114,12 +174,8 @@ export default function AttractionDetail() {
           </div>
         </div>
 
-
         <div id="att-detail-page-IMAGE-BLOCK">
-          <img
-            src={post.img_url}
-            alt={post.title}
-          />
+          <img src={post.img_url} alt={post.title} />
         </div>
       </div>
     </div>
