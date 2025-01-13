@@ -7,8 +7,12 @@ const Home = ({ setCountry, country }) => {
   return (
     <div className="home-page-container">
       <Nav />
-      <MapShaded />
-      <Countries setCountry={setCountry} country={country} />
+      <div className="home_page_content">
+        <div className="home_page_map">
+          <MapShaded />
+        </div>
+        <Countries setCountry={setCountry} country={country} />
+      </div>
     </div>
   );
 };

@@ -1,27 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
 const supabase = require("./config/supabaseClient");
 
 router.post("/", async (req, res, next) => {
   try {
-    const { username, password } = req.body;
+    const { username } = req.body;
 
-    if (!username || !password) {
-      return res
-        .status(400)
-        .json({ error: "username and password are required." });
-    }
-
-    const { data: user, error } = await supabase.auth.signUp({
-      email: username,
-      password: password
-    });
-
-    if (error.message.includes("already registered")) {
-      res.status(400).json({ error: "Username is already taken." });
-    } else {
-      throw error;
+    if (!username) {
+      return res.status(400).json({ error: "Email is required." });
     }
 
     const { data: userProfile, error: profileError } = await supabase

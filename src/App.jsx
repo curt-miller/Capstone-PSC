@@ -53,8 +53,8 @@ export default function App() {
             />
           }
         />
-
-        <Route path="/Markers" element={<MapMarkers />} /> {/* just for testing */}
+        <Route path="/Markers" element={<MapMarkers />} />{" "}
+        {/* just for testing */}
         <Route path="/attraction/:id" element={<AttractionDetail />} />
         {/* just for testing */}
         <Route path="/imagegrid" element={<ImageGrid />} />

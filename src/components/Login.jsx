@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 import supabase from "../supaBaseClient";
 
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,12 +26,14 @@ const Login = () => {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password
+
       });
 
       if (error) {
         setError(error.message || "Login failed. Please try again.");
         return;
       }
+
 
       const { user } = data;
       const displayName = user?.user_metadata?.display_name || "Guest";
@@ -91,6 +98,22 @@ const Login = () => {
             <button type="submit">Submit</button>
             {error && <p>{error}</p>}
           </form>
+          <br />
+          <br />
+          <Divider>
+            <Typography sx={{ color: "text.secondary" }}>or</Typography>
+          </Divider>
+          <br />
+          <p>If you don't have an account with us:</p>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small" // Makes the button smaller
+            onClick={() => navigate("/register")}
+            sx={{ mt: 2, textTransform: "none" }} // Removes the uppercase text
+          >
+            Register here
+          </Button>
         </div>
       </div>
     </>
