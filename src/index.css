@@ -111,6 +111,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("./assets/planepath2.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
 .login {
@@ -150,6 +155,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("./assets/planepath2.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 .register {
   width: 400px;
