@@ -21,13 +21,12 @@ export default function NewPostForm({ onPostSubmit }) {
       return;
     }
 
-    // SAM GET UR COUNTRY INFO HERE:
     try {
       const {
         data: { user },
         error: userError
       } = await supabase.auth.getUser();
-
+      console.log("USER:", user);
       if (userError) {
         console.error("Error fetching user:", userError);
         return;
@@ -38,13 +37,21 @@ export default function NewPostForm({ onPostSubmit }) {
         return;
       }
 
+      const { data: userData, error: userQueryError } = await supabase
+        .from("Users")
+        .select("*")
+        .eq("user_id", user.id) // Assuming `auth_user_id` links `Users` to `auth.users`
+        .single();
+
+      console.log("USERDATA", userData);
+
       const { data, error } = await supabase.from("Posts").insert([
         {
           title: title,
           description: description,
           img_url: imageUrl,
-          // location: location.country, // Ensure this matches your table's column name and type
-          user_id: user.id
+          location: location.country, // Ensure this matches your table's column name and type
+          user_id: userData.id
         }
       ]);
 
