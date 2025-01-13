@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
+import supabase from "../supaBaseClient";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -17,27 +18,23 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: username,
+        password: password
       });
 
-      const result = await response.json();
-
-      if (!response.ok) {
-        setError(result.error || "Login failed. Please try again.");
+      if (error) {
+        setError(error.message || "Login failed. Please try again.");
         return;
       }
 
-      console.log("Login successful:", result);
-      setError(null);
+      console.log("Login successful:", data);
 
       // Save token in localStorage or cookie
-      localStorage.setItem("authToken", result.token);
+      localStorage.setItem("authToken", data.session.access_token);
 
+      setError(null);
+      console.log(data.session.access_token);
       // Redirect to the homepage
       navigate("/");
     } catch (error) {
