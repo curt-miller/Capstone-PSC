@@ -19,8 +19,6 @@ export default function AttractionDetail() {
           .eq("id", id)
           .single();
 
-
-
         if (fetchError) {
           console.error("Error fetching post:", fetchError);
           setError("Could not fetch post details. Please try again.");
@@ -68,6 +66,7 @@ export default function AttractionDetail() {
     <div id="att-detail-page-container">
       <Nav />
       <div id="att-detail-page-GRID">
+
         <div id="att-detail-page-TITLE-BLOCK">
           <h1>{post.title}</h1>
           <h2>
@@ -122,8 +121,6 @@ export default function AttractionDetail() {
             alt={post.title}
           />
         </div>
-
-
       </div>
     </div>
   );
