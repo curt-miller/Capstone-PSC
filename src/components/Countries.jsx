@@ -36,33 +36,32 @@ const Countries = ({ setCountry, refreshPosts }) => {
   };
 
   return (
-    <div>
-      <h1 className="countries_header">Countries</h1>
+    // entire countries list container
+    <div className="countries-homepage-container">
+      <h1 className="countries_header">See where our users have traveled</h1>
 
-      {/* Grid Layout Container */}
-      <div className="countries_grid">
-        {/* Alphabet Filter */}
-        <div className="alphabet_filter">
-          {[
-            "A",
-            ...Array.from({ length: 25 }, (_, i) =>
-              String.fromCharCode(66 + i)
-            ),
-          ].map((letter) => (
-            <button
-              key={letter}
-              className={`alphabet_button ${
-                selectedLetter === letter ? "active" : ""
+{/* alphabet filter */}
+      <div className="alphabet_filter">
+        {[
+          "A",
+          ...Array.from({ length: 25 }, (_, i) =>
+            String.fromCharCode(66 + i)
+          ),
+        ].map((letter) => (
+          <button
+            key={letter}
+            className={`alphabet_button ${selectedLetter === letter ? "active" : ""
               }`}
-              onClick={() => handleFilter(letter)}
-            >
-              {letter}
-            </button>
-          ))}
-        </div>
+            onClick={() => handleFilter(letter)}
+          >
+            {letter}
+          </button>
+        ))}
+      </div>
 
-        {/* Country Cards */}
-        <div className="countries_container">
+
+        {/* country cards */}
+        <div className="countries_list_container">
           {filteredCountries.length === 0 ? (
             <p>No countries found</p>
           ) : (
@@ -77,6 +76,7 @@ const Countries = ({ setCountry, refreshPosts }) => {
                 >
                   <h2 className="country_name">{country.name}</h2>
                 </Link>
+                <div className="country_buttons">
                 <button className="like_country_button">
                   <img
                     src={likeButton}
@@ -93,7 +93,8 @@ const Countries = ({ setCountry, refreshPosts }) => {
                     onClick={() => console.log("visited button clicked")}
                   />
                 </button>
-                <p>Capital: {country.capital}</p>
+                </div>
+                <p id="country_card_capital">Capital: {country.capital}</p>
                 <img
                   src={country.href.flag}
                   alt={`Flag of ${country.name}`}
@@ -104,7 +105,6 @@ const Countries = ({ setCountry, refreshPosts }) => {
             ))
           )}
         </div>
-      </div>
     </div>
   );
 };
