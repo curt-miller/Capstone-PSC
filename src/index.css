@@ -104,6 +104,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("./assets/planepath2.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
 .login {
@@ -143,6 +148,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("./assets/planepath2.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 .register {
   width: 400px;
@@ -466,16 +476,16 @@ body {
   background-color: lavender;
   margin-left: 2rem;
   margin-top: 2rem;
-  padding-left: .8rem; 
+  padding-left: 0.8rem;
   border-radius: 10px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #att-detail-page-TITLE-BLOCK h1 {
   font-size: 2.5rem;
   margin-bottom: 1rem;
-  line-height: 1.2; 
+  line-height: 1.2;
 }
 
 #att-detail-page-TITLE-BLOCK h2,
@@ -483,35 +493,34 @@ body {
 #att-detail-page-TITLE-BLOCK h4 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  line-height: 1.4; 
+  line-height: 1.4;
 }
-
 
 #att-detail-page-REVIEW-BLOCK {
   grid-area: REVIEWS;
-  background-color: lavender; 
+  background-color: lavender;
   margin: 2rem;
   padding: 1.5rem;
-  border-radius: 10px; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #att-detail-page-REVIEW-BLOCK h2 {
-  font-size: 1.5rem; 
-  margin-bottom: 1rem; 
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   font-style: italic;
-color: rgb(51, 51, 65);
+  color: rgb(51, 51, 65);
 }
 
 #att-detail-page-REVIEW-CARD {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   text-wrap: auto;
   width: auto;
   border: 1px solid black;
   border-radius: 8px;
   margin: 10px 0;
-  padding: 10px; 
+  padding: 10px;
   background-color: white;
 }
 
@@ -523,21 +532,21 @@ color: rgb(51, 51, 65);
 #att-detail-page-SUBMIT-COMMENT textarea {
   width: 80%;
   height: 100px;
-  margin-bottom: 10px; 
-  padding: 10px; 
-  border-radius: 5px; 
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 #att-detail-page-SUBMIT-COMMENT button {
   padding: 10px 15px;
-  background-color: rgb(185, 185, 222); 
+  background-color: rgb(185, 185, 222);
   border: none;
-  border-radius: 5px; 
+  border-radius: 5px;
   cursor: pointer;
 }
 
 #att-detail-page-SUBMIT-COMMENT button:hover {
-  background-color: rgb(153, 153, 178); 
+  background-color: rgb(153, 153, 178);
 }
 
 #att-detail-page-IMAGE-BLOCK {
@@ -546,15 +555,15 @@ color: rgb(51, 51, 65);
   padding: 1rem;
   margin-left: 2rem;
   margin-bottom: 2rem;
-  border-radius: 10px; 
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #att-detail-page-IMAGE-BLOCK img {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   object-fit: cover;
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 
 #photo-grid {
