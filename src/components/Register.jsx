@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createClient } from "@supabase/supabase-js";
 import Nav from "./Nav";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+console.log(import.meta.env.VITE_SUPABASE_URL);
+console.log(import.meta.env.VITE_APP_SUPABASE_ANON_KEY);
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -17,22 +26,17 @@ function Register() {
     }
 
     try {
-      const response = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
+      const { error } = await supabase.auth.signUp({
+        email: username,
+        password: password
       });
 
-      if (!response.ok) {
-        const { error } = await response.json();
-        setError(error || "Registration failed. Please try again.");
+      if (error) {
+        setError(error.message || "Registration failed. Please try again.");
         return;
       }
 
-      const data = await response.json();
-      console.log("User registered:", data);
+      console.log("User registered:");
       setError(null);
       setUsername("");
       setPassword("");
@@ -52,10 +56,10 @@ function Register() {
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username: </label>
             <input
-              type="text"
+              type="email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="JohnDoe"
+              placeholder="example@email.com"
             />
             <br />
             <br />
