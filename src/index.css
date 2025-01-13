@@ -407,12 +407,14 @@ gap: 10px;
   padding-left: 10px;
   display: flex;
   width: fit-content;
+  justify-self: end;
 }
 
 .like_country_button,
 .visited_country_button {
   background-color: white;
   border: none;
+  border-radius: 4px;
   height: 40px;
   width: auto;
   margin: 0 5px;
