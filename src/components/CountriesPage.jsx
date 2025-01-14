@@ -27,39 +27,45 @@ const CountriesPage = ({ country, refreshPosts }) => {
         }
       } catch (error) {
         console.error("Error during fetching posts", error);
-        setError("Something went wrong. Please try again.");
       }
     };
     fetchPosts();
   }, [refreshPosts]);
 
-  // If no country is found, display a fallback message
   if (!country) {
     return <p>Country not found or invalid link.</p>;
   }
 
   return (
-    <div className="country_page_container">
+    <div>
       <Nav />
-      <div className="country_page_header">
-        <img src={country.href.flag} alt="country_flag" />
-        <h1 className="countries_page_name">{country.name}</h1>
-      </div>
-      <div className="country_restaurants_container">
-        <h2>Attractions</h2>
-        {posts.map((post) => (
-          <div key={post.id} className="post">
-            <p>
-              <strong>Title:</strong> {post.title}
-            </p>
-            <p>
-              <strong>Description:</strong> {post.description}
-            </p>
-            <img src={post.img_url} alt={post.title} />
-            <p>Location {post.location}</p>
-            <button>Delete</button>
+      <div className="country_page_container">
+        <div className="country_page_header">
+          <img src={country.href.flag} alt="country_flag" />
+          <h1 className="countries_page_name">{country.name}</h1>
+        </div>
+        <div className="country_restaurants_container">
+          <h2>Attractions</h2>
+          <div className="country_posts_grid">
+            {posts.map((post) => (
+              <div key={post.id} className="country_post_card">
+                <h3 className="country_post_title">{post.title}</h3>
+                <div className="country_post_content">
+                  <img
+                    className="country_post_image"
+                    src={post.img_url}
+                    alt={post.title}
+                  />
+                  <p className="country_post_description">{post.description}</p>
+                  <p className="country_post_location">
+                    <strong>Location:</strong> {post.location}
+                  </p>
+                  <button className="country_post_delete_button">Delete</button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
