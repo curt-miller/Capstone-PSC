@@ -2,10 +2,11 @@ import React from "react";
 import { data, useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import { useEffect, useState } from "react";
+import LikeButton from "./LikeButton";
 
-const Feed = ({ refreshPosts }) => {
+const Feed = ({ refreshPosts, userId }) => {
   const [posts, setPosts] = useState([]);
-
+  console.log("USERID: ", userId);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,44 +40,25 @@ const Feed = ({ refreshPosts }) => {
     fetchPosts();
   }, [refreshPosts]);
 
-  // const handleDelete = async (postId) => {
-  //   try {
-  //     const { error } = await supabase.from("Posts").delete().eq("id", postId);
-
-  //     if (error) {
-  //       console.error("Error deleting post:", error);
-  //     } else {
-  //       // Update the posts state after deletion
-  //       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
-  //       console.log("Post deleted successfully");
-  //     }
-  //   } catch (error) {
-  //     console.error("Unexpected error while deleting post:", error);
-  //   }
-  // };
-
   return (
     <div>
       {posts.map((post) => (
-        <div
-          key={post.id}
-          className="post-card"
-          onClick={() => navigate(`/attraction/${post.id}`)}
-        >
-          <img src={post.img_url} alt={post.title} />
-
-          <h1>{post.title}</h1>
-          <p>Username: {post.Users?.display_name || "Unknown User"}</p>
-          <h2>{post.description}</h2>
-          <h3>{post.location}</h3>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDelete(post.id);
-            }}
+        <div key={post.id}>
+          <div
+            className="post-card"
+            onClick={() => navigate(`/attraction/${post.id}`)}
           >
-            Delete
-          </button>
+            <img src={post.img_url} alt={post.title} />
+            <div className="post_header">
+              <p className="post_header_username">
+                {post.Users?.display_name || "Unknown User"}
+                <h1>{post.title}</h1>
+              </p>
+            </div>
+            <h2>{post.description}</h2>
+            <h3>{post.location}</h3>
+          </div>
+          <LikeButton post_id={post.id} userId={userId} />
         </div>
       ))}
     </div>

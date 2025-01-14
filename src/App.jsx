@@ -15,6 +15,7 @@ export default function App() {
   const [username, setUsername] = useState("");
   const [country, setCountry] = useState({});
   const [refreshPosts, setRefreshPosts] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   return (
     <div>
@@ -22,7 +23,13 @@ export default function App() {
         {/* Home Route */}
         <Route
           path="/"
-          element={<Home setCountry={setCountry} country={country} />}
+          element={
+            <Home
+              setCountry={setCountry}
+              country={country}
+              setUserId={setUserId}
+            />
+          }
         />
         {/* Login Route */}
         <Route
@@ -32,6 +39,7 @@ export default function App() {
               setToken={setToken}
               setUsername={setUsername}
               username={username}
+              setUserId={setUserId}
             />
           }
         />
@@ -40,7 +48,7 @@ export default function App() {
         <Route path="/NewPost" element={<NewPostForm />} />
         <Route
           path="/userpage"
-          element={<UserPage refreshPosts={refreshPosts} />}
+          element={<UserPage refreshPosts={refreshPosts} userId={userId} />}
         />
         {/* Country Route */}
         <Route
