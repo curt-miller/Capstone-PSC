@@ -438,7 +438,7 @@ body {
 
 .country_card {
   display: grid;
-  grid-template-rows: auto auto auto;
+  grid-template-rows: auto 2rem auto auto;
   grid-template-columns: auto auto;
   grid-template-areas:
     "NAME BUTTONS"
@@ -476,9 +476,10 @@ body {
   grid-area: NAME;
   text-decoration: none;
   color: rgb(65, 65, 101);
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: bold;
   margin: 0;
+  align-self: center;
 }
 
 .country_name_link:hover {
@@ -487,13 +488,14 @@ body {
 }
 
 .country_name {
+  width: auto;
   margin: 0;
 }
 
 #country_card_capital {
   grid-area: CAPITAL;
   font-style: italic;
-  align-self: center;
+  align-self: flex-end;
 }
 
 .country_flag {
@@ -521,10 +523,10 @@ body {
   height: 40px;
   width: auto;
   margin: 0 5px;
-  padding: 5px;
+  padding: 3px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  align-self: center;
+  transition: transform 0.15s ease-in-out;
+  align-self: flex-end;
 }
 
 .like_button_icon,
@@ -571,20 +573,30 @@ body {
 #image_grid img {
   height: 140px;
   object-fit: cover;
-  /* aspect-ratio: 1 / 1; */
   border-radius: 5px;
   border: 1px solid #ddd;
 }
-.image_grid_BETHEFIRST{
+
+#image_grid img:hover{
+  transform: scale(1.05);
+  border-radius: 5px;
+}
+
+.image_grid_BETHEFIRST {
+  grid-area: IMAGES;
   justify-self: center;
   align-self: center;
   font-size: 1.2rem;
   text-decoration: none;
   color: rgb(39, 39, 48);
+  max-width: 100%;
+  overflow: hidden;
 }
+
 
 .image_grid_BETHEFIRST:hover{
   text-decoration: underline;
+  transform: scale(1.05)
 }
 
 /* COUNTRY PAGE COMPONENT */
