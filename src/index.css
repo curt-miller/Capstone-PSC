@@ -542,7 +542,8 @@ body {
   grid-area: IMAGES;
   display: flex;
   gap: 5px;
-  width: 100%;
+  width: 98%;
+  margin-left: 2px;
   overflow-x: auto;
   align-items: end;
   padding-left: 10px;
@@ -573,6 +574,17 @@ body {
   /* aspect-ratio: 1 / 1; */
   border-radius: 5px;
   border: 1px solid #ddd;
+}
+.image_grid_BETHEFIRST{
+  justify-self: center;
+  align-self: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: rgb(39, 39, 48);
+}
+
+.image_grid_BETHEFIRST:hover{
+  text-decoration: underline;
 }
 
 /* COUNTRY PAGE COMPONENT */
