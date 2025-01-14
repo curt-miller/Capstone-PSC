@@ -6,6 +6,7 @@ import supabase from "../supaBaseClient";
 const Nav = ({ setUserId }) => {
   const navigate = useNavigate();
 
+
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("displayName");

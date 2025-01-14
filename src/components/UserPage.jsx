@@ -6,8 +6,11 @@ import Nav from "./Nav";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
+
   const userId = localStorage.getItem("userId");
   console.log("USERID USERPAGE: ", userId.userId);
+  const displayName = localStorage.getItem("displayName");
+  
   const handleRefresh = () => {
     setRefreshPosts((prev) => !prev);
   };
@@ -15,11 +18,13 @@ const UserPage = () => {
   return (
     <div className="user-profile-page-container">
       <Nav />
+      <p className="user-profile-welcome">Welcome Back, {displayName}</p>
       <div className="user-profile-page-content">
         <div className="new-post-form-container">
           <NewPostForm onPostSubmit={handleRefresh} />
         </div>
         <div className="feed-container">
+        <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
           <Feed refreshPosts={refreshPosts} userId={userId} />
         </div>
       </div>

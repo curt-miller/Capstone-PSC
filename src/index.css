@@ -24,9 +24,9 @@ body {
 }
 
 #map-search {
-  height: 50vh;
-  width: 40vw;
-  background-color: rgb(162, 161, 167);
+  height: 50vh; /* Make it stretch to the height of the parent container */
+  width: 36vw;  /* Make it stretch to the width of the parent container */
+  background-color: rgb(162, 161, 167); /* Keep the background for visibility */
 }
 
 /*NAVIGATION BAR COMPONENT */
@@ -35,10 +35,10 @@ body {
   display: flex;
   align-items: center;
   width: 100vw;
-  justify-content: space-between; /* Separate the logo and buttons */
+  justify-content: space-between;
   height: 80px;
   background-color: rgb(95, 95, 169);
-  padding: 0 20px; /* Add padding for spacing */
+  overflow: hidden;
 }
 
 .navLogo {
@@ -48,9 +48,8 @@ body {
   cursor: pointer;
 }
 
-.buttonContainer {
-  display: flex;
-  align-self: right;
+.navButtons {
+  margin-right: 10px;
 }
 
 .navContainer button {
@@ -58,7 +57,7 @@ body {
   height: 25px;
   border-radius: 5px;
   border-style: none;
-  margin: 25px;
+  margin: 15px;
   background-color: rgb(163, 163, 201);
   transition: 0.2s;
   cursor: pointer;
@@ -208,20 +207,33 @@ body {
 
 .user-profile-page-content {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 40% 60%;
   gap: 20px;
   width: 100%;
-  margin: 10px auto;
   padding: 10px;
+}
+
+.user-profile-welcome {
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  font-size: 1.8rem;
+  font-style: italic;
+  margin: 10px;
+  padding-left: 2vw;
 }
 
 .new-post-form-container {
   grid-column: 1;
 }
 
+.user-profile-page-YOUR-POSTS {
+  font-size: 1.5rem;
+}
+
 .feed-container {
   grid-column: 2;
-  height: 100vh;
+  height: 80vh;
   overflow-y: auto;
   padding: 10px;
 }
@@ -230,7 +242,8 @@ body {
 
 #newpost-form button {
   margin-top: 20px;
-  padding: 10px;
+  padding: 8px;
+  margin: 10px;
   font-size: 16px;
   background-color: rgb(95, 95, 169);
   color: white;
@@ -244,10 +257,18 @@ body {
   background-color: rgb(73, 73, 148);
 }
 
+#newpost-form-DROP-A-PIN {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
 #newpost-form {
-  width: auto;
-  height: auto;
-  margin: 50px auto;
+  width: 90%;
+  /* max-width: 600px; */
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -257,11 +278,36 @@ body {
   text-align: center;
 }
 
-.new_post_description {
+#newpost-form form {
   display: flex;
-  flex-direction: row; /* Stack label and input vertically */
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+}
+
+#newpost-form label {
+  font-weight: bold;
+  padding-bottom: 2px;
+}
+
+#newpost-form input,
+#newpost-form textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#newpost-form textarea {
+  resize: vertical;
+}
+
+.new_post_description,
+#newpost-form div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 /* FEED COMPONENT */
@@ -392,12 +438,15 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .country_card {
   display: grid;
-  grid-template-rows: auto auto 1fr;
-  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 2rem auto auto;
+  grid-template-columns: auto auto;
   grid-template-areas:
     "NAME BUTTONS"
     "CAPITAL IMAGES"
@@ -405,20 +454,39 @@ body {
     "FLAG IMAGES";
   border: 2px solid rgb(66, 58, 99);
   border-radius: 10px;
-  margin-bottom: 15px;
-  padding: 1rem;
-  width: 40%;
-  min-width: 550px;
+  padding: 0.5rem;
   box-sizing: border-box;
+  flex: 1 1 calc(100% - 20px);
+  min-width: 400px;
+  max-width: 810px;
+}
+
+@media (min-width: 1000px) {
+  .country_card {
+    flex: 1 1 calc(40% - 20px); /* Two cards side by side */
+  }
+}
+
+@media (min-width: 1400px) {
+  .country_card {
+    flex: 1 1 calc(33.333% - 20px); /* Three cards side by side */
+  }
+}
+
+@media (min-width: 1800px) {
+  .country_card {
+    flex: 1 1 calc(25% - 20px); /* Four cards side by side */
+  }
 }
 
 .country_name_link {
   grid-area: NAME;
   text-decoration: none;
   color: rgb(65, 65, 101);
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   margin: 0;
+  align-self: center;
 }
 
 .country_name_link:hover {
@@ -427,18 +495,19 @@ body {
 }
 
 .country_name {
+  width: auto;
   margin: 0;
 }
 
 #country_card_capital {
   grid-area: CAPITAL;
   font-style: italic;
-  align-self: center;
+  align-self: flex-end;
 }
 
 .country_flag {
   grid-area: FLAG;
-  width: 200px;
+  width: 180px;
   height: auto;
   border: solid 1px rgb(200, 200, 200);
   border-radius: 10px;
@@ -471,10 +540,10 @@ body {
   border: none;
   border-radius: 4px;
   margin: 0 5px;
-  padding: 5px;
+  padding: 3px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-  align-self: center;
+  transition: transform 0.15s ease-in-out;
+  align-self: flex-end;
 }
 
 .visited_button_icon {
@@ -491,68 +560,138 @@ body {
   grid-area: IMAGES;
   display: flex;
   gap: 5px;
-  width: 100%;
-  overflow-x: scroll;
+  width: 98%;
+  margin-left: 2px;
+  overflow-x: auto;
   align-items: end;
   padding-left: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#image_grid::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+
+#image_grid:hover {
+  scrollbar-color: gray transparent;
+}
+
+#image_grid:hover::-webkit-scrollbar {
+  background: lightgray;
+}
+
+#image_grid:empty {
+  overflow: hidden;
 }
 
 #image_grid img {
-  height: 150px;
+  height: 140px;
   object-fit: cover;
-  aspect-ratio: 1 / 1;
   border-radius: 5px;
   border: 1px solid #ddd;
 }
 
+#image_grid img:hover{
+  transform: scale(1.05);
+  border-radius: 5px;
+}
+
+.image_grid_BETHEFIRST {
+  grid-area: IMAGES;
+  justify-self: center;
+  align-self: center;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: rgb(39, 39, 48);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+
+.image_grid_BETHEFIRST:hover{
+  text-decoration: underline;
+  transform: scale(1.05)
+}
+
 /* COUNTRY PAGE COMPONENT */
 
+/* General Container */
 .country_page_container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  padding: 20px;
+  background-color: white;
 }
 
 .country_page_header {
   display: flex;
   align-items: center;
-  justify-content: left;
-  width: 100%;
-  margin: 10px;
-  margin-left: 3rem;
-  padding: 10px;
+  gap: 10px;
 }
 
 .country_page_header img {
+  max-width: 150px;
+  height: auto;
   border-radius: 50%;
-  margin-right: 20px;
 }
 
 .countries_page_name {
-  font-size: 4rem;
+  font-size: 3rem;
+  margin: 0;
 }
 
-.country_restaurants_container {
-  background-color: rgb(95, 95, 169);
-  width: 90vw;
-  min-width: 700px;
-  overflow-y: auto;
-  height: 300px;
-  margin: 20px;
-  padding: 20px;
+/* Grid Layout for Posts */
+.country_posts_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.country_attractions_container {
-  background-color: rgb(95, 95, 169);
-  width: 90vw;
-  min-width: 700px;
-  overflow-y: auto;
-  height: 300px;
-  margin: 20px;
-  padding: 20px;
+/* Card Styles */
+.country_post_card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: lavender;
 }
+
+.country_post_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Card Content */
+.country_post_content {
+  padding: 15px;
+}
+
+.country_post_title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 10px 15px 0;
+}
+
+.country_post_image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.country_post_description {
+  margin: 10px 0;
+  color: #555;
+}
+
+.country_post_location {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 10px;
+}
+
 /* ATTRACTION COMPONENT */
 
 #att-detail-page-container {

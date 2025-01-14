@@ -42,7 +42,6 @@ const Feed = ({ refreshPosts, userId }) => {
 
   return (
     <div>
-      <h1>Feed</h1>
       {posts.map((post) => (
         <div key={post.id}>
           <div
