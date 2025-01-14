@@ -7,12 +7,30 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-
-const Login = () => {
+const Login = ({ setUserId }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkUserSession = async () => {
+      const token = localStorage.getItem("authToken");
+
+      if (token) {
+        const {
+          data: { session }
+        } = await supabase.auth.getSession();
+
+        if (session) {
+          // If a session exists, redirect to the homepage
+          navigate("/");
+        }
+      }
+    };
+
+    checkUserSession();
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +44,6 @@ const Login = () => {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password
-
       });
 
       if (error) {
@@ -34,14 +51,30 @@ const Login = () => {
         return;
       }
 
-
       const { user } = data;
+
+      const { data: userData, error: userError } = await supabase
+        .from("Users")
+        .select("id")
+        .eq("user_id", user.id)
+        .single();
+
+      if (userError) {
+        setError("Could not fetch user data. Please try again.");
+        console.error(userError);
+        return;
+      }
+
+      console.log("Fetched User ID from Users table:", userData.id);
+      setUserId(userData.id);
+
       const displayName = user?.user_metadata?.display_name || "Guest";
 
       // Save token in localStorage or cookie
       localStorage.setItem("authToken", data.session.access_token);
       localStorage.setItem("displayName", displayName);
-
+      localStorage.setItem("userId", userData.id);
+      console.log(userData.id);
       setError(null);
       // Redirect to the homepage
       navigate("/");

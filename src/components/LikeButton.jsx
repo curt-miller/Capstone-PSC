@@ -1,87 +1,73 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import likeButton from "../assets/LikeButton.png";
 import supabase from "../supaBaseClient";
+import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 
-const LikeButton = ({ post_id }) => {
-  const { id } = useParams(); // Get the post ID from the route
+const LikeButton = ({ post_id, userId }) => {
+  const user_id = userId;
+  const [likesCount, setLikesCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+
+  console.log("postid: ", post_id);
 
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchLikes = async () => {
       try {
-        const { data: post, error: fetchError } = await supabase
-          .from("Posts")
-          .select("*")
-          .eq("id", id)
-          .single();
+        const { count, error: countError } = await supabase
+          .from("Likes")
+          .select("*", { count: "exact" })
+          .eq("post_id", post_id);
 
-        if (fetchError) {
-          console.error("Error fetching post:", fetchError);
-          setError("Could not fetch post details. Please try again.");
-        } else {
-          setPost(post);
+        if (countError) {
+          console.error("Error fetching likes count:", countError);
+          return;
         }
-      } catch (err) {
-        console.error("Unexpected error:", err);
-        setError("Something went wrong. Please try again.");
+
+        const { data, error: dataError } = await supabase
+          .from("Likes")
+          .select("*")
+          .eq("post_id", post_id)
+          .eq("user_id", user_id);
+
+        if (dataError) {
+          console.log("post_id:", post_id, "userId:", user_id);
+          console.error("Error fetching user like status:", dataError);
+          return;
+        }
+
+        setLikesCount(count || 0);
+        setLiked(data.length > 0);
+      } catch (error) {
+        console.error("Unexpected error fetching likes:", error);
       }
     };
 
-    if (id) fetchPost();
-  }, [id]);
+    fetchLikes();
+  }, [post_id, user_id]);
 
   const handleLiked = async (e) => {
-    e.preventDefault();
-    try {
-      const {
-        data: { user },
-        error: userError
-      } = await supabase.auth.getUser();
-
-      if (userError) {
-        console.error("Error fetching user:", userError);
-        return;
-      }
-
-      if (!user) {
-        console.error("No user logged in.");
-        return;
-      }
-
-      const { data: userData, error: userQueryError } = await supabase
-        .from("Users")
-        .select("*")
-        .eq("user_id", user.id)
-        .single();
-
-      if (userQueryError || !userData) {
-        console.error("Error fetching user data:", userQueryError);
-        return;
-      }
-
-      const { data, error } = await supabase
+    if (liked) {
+      await supabase
         .from("Likes")
-        .insert([
-          {
-            post_id: id,
-            user_id: userData.id
-          }
-        ])
-        .select();
-      console.log("post_id: ", id, "user_id: ", userData.id);
-    } catch (err) {
-      console.error("Unexpected error:", err);
+        .delete()
+        .eq("post_id", post_id)
+        .eq("user_id", userId);
+      setLikesCount((prev) => prev - 1);
+      setLiked(false);
+    } else {
+      await supabase
+        .from("Likes")
+        .insert([{ post_id: post_id, user_id: userId }]);
+      setLikesCount((prev) => prev + 1);
+      setLiked(true);
     }
   };
 
   return (
-    <button className="like_country_button">
-      <img
-        src={likeButton}
-        alt="Like button Icon"
-        className="like_button_icon"
-        onClick={handleLiked}
-      />
+    <button className="like_button" onClick={handleLiked}>
+      {liked ? <FaHeart className="liked" /> : <CiHeart className="notLiked" />}{" "}
+      ({likesCount}){" "}
     </button>
   );
 };
