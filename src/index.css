@@ -3,9 +3,9 @@
   background-color: white;
 }
 
-/* * {
+* {
   outline: 1px solid rgba(0, 0, 0, 0.1);
-} */
+}
 
 body {
   margin: 0;
@@ -385,12 +385,15 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .country_card {
   display: grid;
-  grid-template-rows: auto auto 1fr;
-  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto auto;
   grid-template-areas:
     "NAME BUTTONS"
     "CAPITAL IMAGES"
@@ -398,18 +401,36 @@ body {
     "FLAG IMAGES";
   border: 2px solid rgb(66, 58, 99);
   border-radius: 10px;
-  margin-bottom: 15px;
   padding: 1rem;
-  width: 40%;
-  min-width: 550px;
   box-sizing: border-box;
+  flex: 1 1 calc(100% - 20px);
+  min-width: 400px;
+  max-width: 800px;
+}
+
+@media (min-width: 1000px) {
+  .country_card {
+    flex: 1 1 calc(40% - 20px); /* Two cards side by side */
+  }
+}
+
+@media (min-width: 1400px) {
+  .country_card {
+    flex: 1 1 calc(33.333% - 20px); /* Three cards side by side */
+  }
+}
+
+@media (min-width: 1800px) {
+  .country_card {
+    flex: 1 1 calc(25% - 20px); /* Four cards side by side */
+  }
 }
 
 .country_name_link {
   grid-area: NAME;
   text-decoration: none;
   color: rgb(65, 65, 101);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: bold;
   margin: 0;
 }
@@ -431,7 +452,7 @@ body {
 
 .country_flag {
   grid-area: FLAG;
-  width: 200px;
+  width: 180px;
   height: auto;
   border: solid 1px rgb(200, 200, 200);
   border-radius: 10px;
@@ -476,15 +497,34 @@ body {
   display: flex;
   gap: 5px;
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: auto;
   align-items: end;
   padding-left: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+#image_grid::-webkit-scrollbar {
+  height: 6px;
+  background: transparent;
+}
+
+#image_grid:hover {
+  scrollbar-color: gray transparent; 
+}
+
+#image_grid:hover::-webkit-scrollbar {
+  background: lightgray; 
+}
+
+#image_grid:empty {
+  overflow: hidden;
 }
 
 #image_grid img {
-  height: 150px;
+  height: 140px;
   object-fit: cover;
-  aspect-ratio: 1 / 1;
+  /* aspect-ratio: 1 / 1; */
   border-radius: 5px;
   border: 1px solid #ddd;
 }
