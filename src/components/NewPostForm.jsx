@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import MapSearch from "./MapSearch";
+import React, { useState, useEffect } from "react";
+import MapSearch from "./MapSearch"; 
 import supabase from "../supaBaseClient";
 
 export default function NewPostForm({ onPostSubmit }) {
@@ -10,6 +10,7 @@ export default function NewPostForm({ onPostSubmit }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     if (!title || !description || !imageUrl) {
       console.error("Please provide all required fields.");
@@ -50,7 +51,7 @@ export default function NewPostForm({ onPostSubmit }) {
           title: title,
           description: description,
           img_url: imageUrl,
-          location: location.country, // Ensure this matches your table's column name and type
+          location: location.country, 
           user_id: userData.id
         }
       ]);
@@ -111,8 +112,11 @@ export default function NewPostForm({ onPostSubmit }) {
         </div>
         <br />
 
+
+
+
         <div id="newpost-map">
-          <MapSearch onLocationChange={setLocation} location={location} />
+          <MapSearch onLocationChange={setLocation} />
         </div>
 
         <button type="submit">Submit</button>
