@@ -84,9 +84,11 @@ const MapSearch = ({ onLocationChange }) => {
     };
   }, [onLocationChange]);
 
+
   return (
     <>
-      <div ref={mapContainerRef} id='map-search'/>
+    
+      <div ref={mapContainerRef}  id='map-search'/>
       {markerLocation && !markerAddedRef.current && (
         <NewPostForm location={markerLocation} />
       )}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MapSearch from "./MapSearch"; 
+import MapSearch from "./MapSearch";
 import supabase from "../supaBaseClient";
 
 export default function NewPostForm({ onPostSubmit }) {
@@ -51,7 +51,7 @@ export default function NewPostForm({ onPostSubmit }) {
           title: title,
           description: description,
           img_url: imageUrl,
-          location: location.country, 
+          location: location.country,
           user_id: userData.id
         }
       ]);
@@ -74,7 +74,7 @@ export default function NewPostForm({ onPostSubmit }) {
 
   return (
     <div id="newpost-form">
-      <h1>Drop a Pin!</h1>
+      <h1 id="newpost-form-DROP-A-PIN">Drop a Pin!</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title">Title:</label>
@@ -115,9 +115,10 @@ export default function NewPostForm({ onPostSubmit }) {
 
 
 
-        <div id="newpost-map">
+        <div>
           <MapSearch onLocationChange={setLocation} />
         </div>
+
 
         <button type="submit">Submit</button>
       </form>
