@@ -2,6 +2,7 @@ import React from "react";
 import { data, useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import { useEffect, useState } from "react";
+import LikeButton from "./LikeButton";
 
 const Feed = ({ refreshPosts }) => {
   const [posts, setPosts] = useState([]);
@@ -69,6 +70,7 @@ const Feed = ({ refreshPosts }) => {
           <h1>{post.title}</h1>
           <p>Username: {post.Users?.display_name || "Unknown User"}</p>
           <h2>{post.description}</h2>
+          <LikeButton post_id={post.id} />
           <h3>{post.location}</h3>
           <button
             onClick={(e) => {
