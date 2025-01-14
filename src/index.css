@@ -27,9 +27,6 @@ body {
   height: 50vh;
   width: 40vw;
   background-color: rgb(162, 161, 167);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /*NAVIGATION BAR COMPONENT */
