@@ -5,14 +5,13 @@ import supabase from "../supaBaseClient";
 export default function NewPostForm({ onPostSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState("");
   const [location, setLocation] = useState(null); // Capture marker coordinates
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-    if (!title || !description || !imageUrl) {
+    if (!title || !description || !imageFile) {
       console.error("Please provide all required fields.");
       return;
     }
@@ -38,13 +37,31 @@ export default function NewPostForm({ onPostSubmit }) {
         return;
       }
 
+      //IMAGE FILE
+      const filePath = `public/${Date.now()}_${imageFile.name}`;
+      const { data: fileData, error: fileError } = await supabase.storage
+        .from("uploads")
+        .upload(filePath, imageFile);
+
+      if (fileError) {
+        console.error("Error uploading file:", fileError);
+        return;
+      }
+
+      const imageUrl = `${
+        supabase.storage.from("uploads").getPublicUrl(filePath).data.publicUrl
+      }`;
+
       const { data: userData, error: userQueryError } = await supabase
         .from("Users")
         .select("*")
         .eq("user_id", user.id) // Assuming `auth_user_id` links `Users` to `auth.users`
         .single();
 
-      console.log("USERDATA", userData);
+      if (userQueryError) {
+        console.error("Error fetching user data:", userQueryError);
+        return;
+      }
 
       const { data, error } = await supabase.from("Posts").insert([
         {
@@ -62,7 +79,7 @@ export default function NewPostForm({ onPostSubmit }) {
         console.log("Post added successfully:", data);
         setTitle("");
         setDescription("");
-        setImageUrl("");
+        setImageFile(null);
         setLocation(null);
 
         onPostSubmit();
@@ -102,23 +119,19 @@ export default function NewPostForm({ onPostSubmit }) {
         <br />
 
         <div>
-          <label htmlFor="imageUrl">Image URL:</label>
+          <label htmlFor="imageFile">Upload Image:</label>
           <input
-            type="url"
-            id="imageUrl"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
+            type="file"
+            id="imageFile"
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files[0])}
           />
         </div>
         <br />
 
-
-
-
         <div>
           <MapSearch onLocationChange={setLocation} />
         </div>
-
 
         <button type="submit">Submit</button>
       </form>

@@ -6,7 +6,6 @@ import LikeButton from "./LikeButton";
 
 const Feed = ({ refreshPosts, userId }) => {
   const [posts, setPosts] = useState([]);
-  console.log("USERID: ", userId);
   const navigate = useNavigate();
 
   useEffect(() => {

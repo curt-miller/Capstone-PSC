@@ -9,8 +9,6 @@ const LikeButton = ({ post_id, userId }) => {
   const [likesCount, setLikesCount] = useState(0);
   const [liked, setLiked] = useState(false);
 
-  console.log("postid: ", post_id);
-
   useEffect(() => {
     const fetchLikes = async () => {
       try {

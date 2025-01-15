@@ -8,9 +8,8 @@ const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
 
   const userId = localStorage.getItem("userId");
-  console.log("USERID USERPAGE: ", userId.userId);
   const displayName = localStorage.getItem("displayName");
-  
+
   const handleRefresh = () => {
     setRefreshPosts((prev) => !prev);
   };
@@ -24,7 +23,7 @@ const UserPage = () => {
           <NewPostForm onPostSubmit={handleRefresh} />
         </div>
         <div className="feed-container">
-        <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
+          <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
           <Feed refreshPosts={refreshPosts} userId={userId} />
         </div>
       </div>
