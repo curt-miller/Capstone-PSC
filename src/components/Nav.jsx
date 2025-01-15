@@ -6,7 +6,6 @@ import supabase from "../supaBaseClient";
 const Nav = ({ setUserId }) => {
   const navigate = useNavigate();
 
-
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("displayName");
@@ -31,7 +30,6 @@ const Nav = ({ setUserId }) => {
         className="navLogo"
         onClick={() => navigate("/")}
       />
-      {authToken && <p>Welcome Back, {displayName}</p>}
       <div className="navButtons">
         {!authToken ? (
           <>
@@ -42,12 +40,6 @@ const Nav = ({ setUserId }) => {
           <>
             <button onClick={() => navigate("/")}>Home</button>
             <button onClick={() => navigate("/userpage")}>Profile</button>
-            {/* remove country button before final - functionality by clicking image */}
-            <button onClick={() => navigate("/afghanistan")}>Country</button>
-            {/* remove attraction button before final - functionality by clicking on attraction */}
-            <button onClick={() => navigate("/attractiondetail")}>
-              Attraction
-            </button>
             <button onClick={handleLogout}>Logout</button>
           </>
         )}
