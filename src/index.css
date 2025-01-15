@@ -24,9 +24,20 @@ body {
 }
 
 #map-search {
-  height: 50vh; /* Make it stretch to the height of the parent container */
-  width: 36vw;  /* Make it stretch to the width of the parent container */
-  background-color: rgb(162, 161, 167); /* Keep the background for visibility */
+  height: 45vh;
+  width: 36vw;
+  background-color: rgb(162, 161, 167);
+}
+
+.mapboxgl-ctrl-geocoder {
+/* UGHHHHHH */
+}
+
+.mapboxgl-ctrl-geocoder--icon-search {
+visibility: hidden;
+}
+.mapboxgl-ctrl-geocoder--input {
+/* UGHHH */
 }
 
 /*NAVIGATION BAR COMPONENT */
@@ -188,54 +199,48 @@ body {
 
 /* PROFILE "USER PAGE" COMPONENT */
 
-/*OLD STYLING - keep for now, in case we dont like the update*/
-
-/* .user-profile-page-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
-
 .user-profile-page-container {
   width: 100vw;
   height: 100vh;
   display: grid;
-  flex-direction: column;
 }
 
 .user-profile-page-content {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 20px;
   width: 100%;
-  padding: 10px;
+  height: 100%;
+  display: grid;
+  grid-template-areas:
+    "WELCOME WELCOME"
+    "LEFT RIGHT";
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 5% 95%;
+  overflow: hidden;
+  align-items: center;
 }
 
 .user-profile-welcome {
+  grid-area: WELCOME;
   display: flex;
   align-self: center;
   justify-self: center;
-  font-size: 1.8rem;
-  font-style: italic;
-  margin: 10px;
-  padding-left: 2vw;
+  font-size: 1.5rem;
+  padding: 4px;
 }
 
 .new-post-form-container {
-  grid-column: 1;
-}
-
-.user-profile-page-YOUR-POSTS {
-  font-size: 1.5rem;
+  grid-area: LEFT;
 }
 
 .feed-container {
-  grid-column: 2;
-  height: 80vh;
-  overflow-y: auto;
-  padding: 10px;
+  grid-area: RIGHT;
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-profile-page-YOUR-POSTS {
+  font-size: 1rem;
 }
 
 /* MapSearch COMPONENT (NEW POST FORM) */
@@ -264,11 +269,9 @@ body {
 
 #newpost-form {
   width: 90%;
-  /* max-width: 600px; */
-  height: 80vh;
+  height: 90%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -276,6 +279,7 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   text-align: center;
+  justify-self: center;
 }
 
 #newpost-form form {
@@ -312,23 +316,23 @@ body {
 
 /* FEED COMPONENT */
 .post-card {
+  height: 20vh;
   display: grid;
   grid-template-columns: 20% 80%;
-  grid-template-rows: 2fr 1fr 0.4fr 1fr; /* Flexible row sizing */
+  grid-template-rows: 20% 20% 20% 20% 20%;
   grid-template-areas:
     "IMAGE TITLE"
+    "IMAGE USER"
     "IMAGE BLURB"
     "IMAGE LOCATION"
     "IMAGE BUTTONS";
-  gap: 10px;
-  padding: 10px;
+  overflow: hidden;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
-  width: 50vw;
-  /* min-width: 850px; */
-  height: auto;
+  width: calc(100% - 25px);
   box-sizing: border-box;
+  align-items: center;
 }
 
 .post-card:hover {
@@ -337,55 +341,96 @@ body {
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
 }
 
-.post_header {
-  display: flex;
-  align-items: center;
+.post-card h1 {
   grid-area: TITLE;
-  font-size: 36px;
-}
-
-.post-card img {
-  aspect-ratio: 4 / 5;
-  object-fit: cover; /* crop img */
-  width: 100%;
-  height: auto;
-  grid-area: IMAGE;
-  border-radius: 4px;
-}
-
-.post-card h1,
-.post-card h2,
-.post-card h3 {
+  font-size: 1.2rem; 
+  font-weight: bold;
   margin: 0;
+  padding: 0 10px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-card p {
+  grid-area: USER;
+  font-size: 1rem; 
+  margin: 0;
+  padding: 0 10px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-card h2 {
+  grid-area: BLURB;
+  font-size: 0.9rem; 
+  color: #555;
+  margin: 0;
+  padding: 0 10px; 
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.post-card h1 {
-  grid-area: TITLE;
-  font-size: 1.2em;
-}
-
-.post-card h2 {
-  grid-area: BLURB;
-  font-size: 1em;
-  color: #555;
-}
-
 .post-card h3 {
   grid-area: LOCATION;
-  font-size: 0.9em;
+  font-size: 0.8rem; 
   color: #888;
+  margin: 0;
+  padding: 0 10px; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.post-card-like-button{
+
+.post-card-IMAGE-BLOCK {
+  grid-area: IMAGE;
+  display: flex;
+  width: 90%;
+  height: 90%;
+  align-self: center;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.post-card-IMAGE-BLOCK img {
+  height: 100%;
+  width: auto;
+  border-radius: 10px;
+}
+
+.post-card-like-button {
   grid-area: BUTTONS;
-  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+  height: 1.5rem;
+  justify-self: center;
+  gap: 5px;
 }
 
+.liked {
+  color: red;
+  border: none;
+  font-size: 1rem;
+}
 
-/* THIS MESSES WITH THE LIKE BUTTON - DO WE NEED IT? */
+.notLiked {
+  border: none;
+  font-size: 1rem;
+}
+
+.like_button {
+  border: none;
+}
+
+/* old delete button styling, messes with the like button */
 /* .post-card button {
   grid-area: BUTTONS;
   font-size: 1rem;
@@ -398,7 +443,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
 } */
-
 
 /* .post-card button:hover {
   background-color: rgb(75, 75, 149);
@@ -530,21 +574,6 @@ body {
   justify-self: end;
 }
 
-.liked {
-  color: red;
-  border: none;
-  font-size: 40px;
-}
-
-.notLiked {
-  border: none;
-  font-size: 40px;
-}
-
-.like_button {
-  border: none;
-}
-
 .visited_country_button {
   border: none;
   border-radius: 4px;
@@ -602,7 +631,7 @@ body {
   border: 1px solid #ddd;
 }
 
-#image_grid img:hover{
+#image_grid img:hover {
   transform: scale(1.05);
   border-radius: 5px;
 }
@@ -618,10 +647,9 @@ body {
   overflow: hidden;
 }
 
-
-.image_grid_BETHEFIRST:hover{
+.image_grid_BETHEFIRST:hover {
   text-decoration: underline;
-  transform: scale(1.05)
+  transform: scale(1.05);
 }
 
 /* COUNTRY PAGE COMPONENT */
@@ -811,8 +839,8 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   display: flex;
-  justify-content: center; 
-  align-items: center;   
+  justify-content: center;
+  align-items: center;
 }
 
 #att-detail-page-IMAGE-BLOCK img {

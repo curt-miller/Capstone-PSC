@@ -17,8 +17,10 @@ const UserPage = () => {
   return (
     <div className="user-profile-page-container">
       <Nav />
-      <p className="user-profile-welcome">Welcome Back, {displayName}</p>
       <div className="user-profile-page-content">
+        <div className="user-profile-welcome">
+      <p>Welcome Back, {displayName}</p>
+      </div>
         <div className="new-post-form-container">
           <NewPostForm onPostSubmit={handleRefresh} />
         </div>
