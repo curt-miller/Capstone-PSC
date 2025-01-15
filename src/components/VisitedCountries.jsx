@@ -9,16 +9,19 @@ const VisitedCountries = ({ country_name, user_id }) => {
   useEffect(() => {
     const fetchVisited = async () => {
       try {
-        const { data, error: dataError } = await supabase
+        const { data, error } = await supabase
           .from("VisitedCountries")
           .select("*")
           .eq("country_name", country_name)
           .eq("user_id", user_id);
 
-        if (dataError) {
-          console.log("country_name:", country_name, "user_id:", user_id);
+        if (error) {
+          console.error("Error fetching visited status:", error);
           return;
         }
+
+        // If data exists, set `visited` to true
+        setVisited(data.length > 0);
       } catch (error) {
         console.error("Unexpected error fetching Visited:", error);
       }
@@ -27,19 +30,35 @@ const VisitedCountries = ({ country_name, user_id }) => {
     fetchVisited();
   }, [country_name, user_id]);
 
-  const handleVisited = async (e) => {
-    if (visited) {
-      await supabase
-        .from("VisitedCountries")
-        .delete()
-        .eq("country_name", country_name)
-        .eq("user_id", user_id);
-      setVisited(false);
-    } else {
-      await supabase
-        .from("VisitedCountries")
-        .insert([{ country_name: country_name, user_id: user_id }]);
-      setVisited(true);
+  const handleVisited = async () => {
+    try {
+      if (visited) {
+        // Delete the record if the country is already marked as visited
+        const { error } = await supabase
+          .from("VisitedCountries")
+          .delete()
+          .eq("country_name", country_name)
+          .eq("user_id", user_id);
+
+        if (error) {
+          console.error("Error deleting visited record:", error);
+          return;
+        }
+        setVisited(false);
+      } else {
+        // Insert a new record if the country is not visited
+        const { error } = await supabase
+          .from("VisitedCountries")
+          .insert([{ country_name, user_id }]);
+
+        if (error) {
+          console.error("Error inserting visited record:", error);
+          return;
+        }
+        setVisited(true);
+      }
+    } catch (error) {
+      console.error("Unexpected error handling visited status:", error);
     }
   };
 
