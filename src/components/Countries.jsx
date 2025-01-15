@@ -6,8 +6,9 @@ import ImageGrid from "./ImageGrid";
 import LikeButton from "./LikeButton";
 import supabase from "../supaBaseClient";
 import VisitedCountries from "./VisitedCountries";
+import LikeButtonCountries from "./LikeButtonCountries";
 
-const Countries = ({ setCountry, refreshPosts }) => {
+const Countries = ({ setCountry, refreshPosts, country }) => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState("A");
@@ -77,7 +78,9 @@ const Countries = ({ setCountry, refreshPosts }) => {
                 <h2 className="country_name">{country.name}</h2>
               </Link>
               <div className="country_buttons">
-                <button className="like_button">{/* <LikeButton /> */}</button>
+                <button className="like_button">
+                  <LikeButtonCountries country_name={country} />
+                </button>
                 <button className="visited_country_button">
                   <VisitedCountries
                     country_name={country.name}
