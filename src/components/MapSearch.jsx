@@ -43,7 +43,8 @@ const MapSearch = ({ onLocationChange }) => {
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/streets-v12',
       center: [-97.784965, 39.800321],
-      zoom: 2
+      zoom: 2,
+      attributionControl: false,
     });
 
     const geocoder = new MapboxGeocoder({
