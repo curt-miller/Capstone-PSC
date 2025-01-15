@@ -47,16 +47,18 @@ const Feed = ({ refreshPosts, userId }) => {
             className="post-card"
             onClick={() => navigate(`/attraction/${post.id}`)}
           >
-            <img src={post.img_url} alt={post.title} />
-            <div className="post_header">
-              <p className="post_header_username">
-                {post.Users?.display_name || "Unknown User"}
-                <h1>{post.title}</h1>
-              </p>
+            <div className="post-card-IMAGE-BLOCK">
+              <img src={post.img_url} alt={post.title} />
             </div>
+
+            <h1>{post.title}</h1>
+            <p>
+              {post.Users?.display_name || "Unknown User"}
+            </p>
+
             <h2>{post.description}</h2>
             <h3>{post.location}</h3>
-          <LikeButton post_id={post.id} userId={userId} className='post-card-like-button'/>
+            <LikeButton post_id={post.id} userId={userId} />
           </div>
         </div>
       ))}

@@ -2,6 +2,7 @@ import React from "react";
 import Nav from "./Nav";
 import { useState, useEffect } from "react";
 import supabase from "../supaBaseClient";
+import { Link } from "react-router-dom";
 
 const CountriesPage = ({ country, refreshPosts }) => {
   const [posts, setPosts] = useState([]);
@@ -48,21 +49,31 @@ const CountriesPage = ({ country, refreshPosts }) => {
           <h2>Attractions</h2>
           <div className="country_posts_grid">
             {posts.map((post) => (
-              <div key={post.id} className="country_post_card">
-                <h3 className="country_post_title">{post.title}</h3>
-                <div className="country_post_content">
-                  <img
-                    className="country_post_image"
-                    src={post.img_url}
-                    alt={post.title}
-                  />
-                  <p className="country_post_description">{post.description}</p>
-                  <p className="country_post_location">
-                    <strong>Location:</strong> {post.location}
-                  </p>
-                  <button className="country_post_delete_button">Delete</button>
+              <Link
+                to={`/attraction/${post.id}`}
+                key={post.id}
+                className="country_post_card_link"
+              >
+                <div key={post.id} className="country_post_card">
+                  <h3 className="country_post_title">{post.title}</h3>
+                  <div className="country_post_content">
+                    <img
+                      className="country_post_image"
+                      src={post.img_url}
+                      alt={post.title}
+                    />
+                    <p className="country_post_description">
+                      {post.description}
+                    </p>
+                    <p className="country_post_location">
+                      <strong>Location:</strong> {post.location}
+                    </p>
+                    <button className="country_post_delete_button">
+                      Delete
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
