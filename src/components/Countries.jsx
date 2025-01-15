@@ -4,13 +4,15 @@ import "../index.css";
 import { Link } from "react-router-dom";
 import ImageGrid from "./ImageGrid";
 import LikeButton from "./LikeButton";
-import visitedButton from "../assets/VisitedButton.png";
+import supabase from "../supaBaseClient";
+import VisitedCountries from "./VisitedCountries";
 
 const Countries = ({ setCountry, refreshPosts }) => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState("A");
   const [posts, setPosts] = useState([]);
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     const getCountries = async () => {
@@ -75,15 +77,11 @@ const Countries = ({ setCountry, refreshPosts }) => {
                 <h2 className="country_name">{country.name}</h2>
               </Link>
               <div className="country_buttons">
-                <button className="like_button">
-                  <LikeButton />
-                </button>
+                <button className="like_button">{/* <LikeButton /> */}</button>
                 <button className="visited_country_button">
-                  <img
-                    src={visitedButton}
-                    alt="Visited button Icon"
-                    className="visited_button_icon"
-                    onClick={() => console.log("visited button clicked")}
+                  <VisitedCountries
+                    country_name={country.name}
+                    user_id={userId}
                   />
                 </button>
               </div>
