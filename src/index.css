@@ -36,6 +36,7 @@ body {
 .mapboxgl-ctrl-geocoder--icon-search {
 visibility: hidden;
 }
+
 .mapboxgl-ctrl-geocoder--input {
 /* UGHHH */
 }
@@ -431,6 +432,7 @@ visibility: hidden;
 }
 
 /* old delete button styling, messes with the like button */
+
 /* .post-card button {
   grid-area: BUTTONS;
   font-size: 1rem;
@@ -727,6 +729,12 @@ visibility: hidden;
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 10px;
+}
+
+.country_post_card_link {
+  text-decoration: none;
+  color: inherit; /* Ensure all text inside the card inherits the default color */
+  display: block; /* Make the entire card clickable */
 }
 
 /* ATTRACTION COMPONENT */
