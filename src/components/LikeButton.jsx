@@ -64,7 +64,7 @@ const LikeButton = ({ post_id, userId }) => {
   };
 
   return (
-    <button className="like_button" onClick={handleLiked}>
+    <button onClick={handleLiked} className={`post-card-like-button`}>
       {liked ? <FaHeart className="liked" /> : <CiHeart className="notLiked" />}{" "}
       ({likesCount}){" "}
     </button>

@@ -56,7 +56,7 @@ const Feed = ({ refreshPosts, userId }) => {
             </div>
             <h2>{post.description}</h2>
             <h3>{post.location}</h3>
-          <LikeButton post_id={post.id} userId={userId} />
+          <LikeButton post_id={post.id} userId={userId} className='post-card-like-button'/>
           </div>
         </div>
       ))}

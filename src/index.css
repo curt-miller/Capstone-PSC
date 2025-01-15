@@ -319,7 +319,7 @@ body {
     "IMAGE TITLE"
     "IMAGE BLURB"
     "IMAGE LOCATION"
-    "IMAGE DELETE";
+    "IMAGE BUTTONS";
   gap: 10px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -379,8 +379,15 @@ body {
   color: #888;
 }
 
-.post-card button {
-  grid-area: DELETE;
+.post-card-like-button{
+  grid-area: BUTTONS;
+  width: 20%;
+}
+
+
+/* THIS MESSES WITH THE LIKE BUTTON - DO WE NEED IT? */
+/* .post-card button {
+  grid-area: BUTTONS;
   font-size: 1rem;
   width: auto;
   max-width: 30%;
@@ -390,12 +397,12 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
+} */
 
 
-.post-card button:hover {
+/* .post-card button:hover {
   background-color: rgb(75, 75, 149);
-}
+} */
 
 /* COUNTRY API LIST COMPONENT */
 
