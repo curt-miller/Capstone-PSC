@@ -52,9 +52,7 @@ const Feed = ({ refreshPosts, userId }) => {
             </div>
 
             <h1>{post.title}</h1>
-            <p>
-              {post.Users?.display_name || "Unknown User"}
-            </p>
+            <p>{post.Users?.display_name || "Unknown User"}</p>
 
             <h2>{post.description}</h2>
             <h3>{post.location}</h3>

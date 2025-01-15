@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import { CiHeart } from "react-icons/ci";
 import { FaHeart } from "react-icons/fa";
 
-const LikeButton = ({ post_id, userId }) => {
-  const user_id = userId;
+const LikeButton = ({ post_id }) => {
+  const user_id = localStorage.getItem("userId");
   const [likesCount, setLikesCount] = useState(0);
   const [liked, setLiked] = useState(false);
 
@@ -17,25 +16,19 @@ const LikeButton = ({ post_id, userId }) => {
           .select("*", { count: "exact" })
           .eq("post_id", post_id);
 
-        if (countError) {
-          console.error("Error fetching likes count:", countError);
-          return;
-        }
+        if (countError) throw countError;
 
-        const { data, error: dataError } = await supabase
+        setLikesCount(count || 0);
+
+        const { data: likeData, error: likeError } = await supabase
           .from("Likes")
           .select("*")
           .eq("post_id", post_id)
           .eq("user_id", user_id);
 
-        if (dataError) {
-          console.log("post_id:", post_id, "userId:", user_id);
-          console.error("Error fetching user like status:", dataError);
-          return;
-        }
+        if (likeError) throw likeError;
 
-        setLikesCount(count || 0);
-        setLiked(data.length > 0);
+        setLiked(likeData.length || 0);
       } catch (error) {
         console.error("Unexpected error fetching likes:", error);
       }
@@ -46,27 +39,31 @@ const LikeButton = ({ post_id, userId }) => {
 
   const handleLiked = async (e) => {
     e.stopPropagation();
-    if (liked) {
-      await supabase
-        .from("Likes")
-        .delete()
-        .eq("post_id", post_id)
-        .eq("user_id", userId);
-      setLikesCount((prev) => prev - 1);
-      setLiked(false);
-    } else {
-      await supabase
-        .from("Likes")
-        .insert([{ post_id: post_id, user_id: userId }]);
-      setLikesCount((prev) => prev + 1);
-      setLiked(true);
+    try {
+      if (liked) {
+        await supabase
+          .from("Likes")
+          .delete()
+          .eq("post_id", post_id)
+          .eq("user_id", user_id);
+        setLikesCount((prev) => prev - 1);
+        setLiked(false);
+      } else {
+        await supabase
+          .from("Likes")
+          .insert([{ post_id: post_id, user_id: user_id }]);
+        setLikesCount((prev) => prev + 1);
+        setLiked(true);
+      }
+    } catch (error) {
+      console.error("Error updating like status:", error);
     }
   };
 
   return (
     <button onClick={handleLiked} className={`post-card-like-button`}>
       {liked ? <FaHeart className="liked" /> : <CiHeart className="notLiked" />}{" "}
-      ({likesCount}){" "}
+      ({likesCount})
     </button>
   );
 };

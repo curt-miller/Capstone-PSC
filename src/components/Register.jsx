@@ -8,9 +8,6 @@ const supabase = createClient(
   import.meta.env.VITE_SUPABASE_ANON_KEY
 );
 
-console.log(import.meta.env.VITE_SUPABASE_URL);
-console.log(import.meta.env.VITE_APP_SUPABASE_ANON_KEY);
-
 function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

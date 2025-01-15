@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import Nav from "./Nav";
 
-export default function AttractionDetail() {
+export default function AttractionDetail(displayname) {
   const { id } = useParams(); // Get the post ID from the route
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export default function AttractionDetail() {
       try {
         const { data: post, error: fetchError } = await supabase
           .from("Posts")
-          .select("*")
+          .select("*, Users(display_name)")
           .eq("id", id)
           .single();
 
@@ -24,6 +24,7 @@ export default function AttractionDetail() {
           setError("Could not fetch post details. Please try again.");
         } else {
           setPost(post);
+          console.log("POST OBJECT: ", post);
         }
       } catch (err) {
         console.error("Unexpected error:", err);
@@ -130,6 +131,7 @@ export default function AttractionDetail() {
       <div id="att-detail-page-GRID">
         <div id="att-detail-page-TITLE-BLOCK">
           <h1>{post.title}</h1>
+          <p>{post.Users.display_name}</p>
           <h2>
             Pin dropped on{" "}
             {new Date(post.created_at).toLocaleDateString("en-US", {
