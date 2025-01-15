@@ -25,7 +25,7 @@ body {
 
 #map-search {
   height: 50vh; /* Make it stretch to the height of the parent container */
-  width: 36vw;  /* Make it stretch to the width of the parent container */
+  width: 36vw; /* Make it stretch to the width of the parent container */
   background-color: rgb(162, 161, 167); /* Keep the background for visibility */
 }
 
@@ -379,11 +379,10 @@ body {
   color: #888;
 }
 
-.post-card-like-button{
+.post-card-like-button {
   grid-area: BUTTONS;
   width: 20%;
 }
-
 
 /* THIS MESSES WITH THE LIKE BUTTON - DO WE NEED IT? */
 /* .post-card button {
@@ -398,7 +397,6 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
 } */
-
 
 /* .post-card button:hover {
   background-color: rgb(75, 75, 149);
@@ -602,7 +600,7 @@ body {
   border: 1px solid #ddd;
 }
 
-#image_grid img:hover{
+#image_grid img:hover {
   transform: scale(1.05);
   border-radius: 5px;
 }
@@ -618,10 +616,9 @@ body {
   overflow: hidden;
 }
 
-
-.image_grid_BETHEFIRST:hover{
+.image_grid_BETHEFIRST:hover {
   text-decoration: underline;
-  transform: scale(1.05)
+  transform: scale(1.05);
 }
 
 /* COUNTRY PAGE COMPONENT */
@@ -699,6 +696,12 @@ body {
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 10px;
+}
+
+.country_post_card_link {
+  text-decoration: none;
+  color: inherit; /* Ensure all text inside the card inherits the default color */
+  display: block; /* Make the entire card clickable */
 }
 
 /* ATTRACTION COMPONENT */
@@ -811,8 +814,8 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   display: flex;
-  justify-content: center; 
-  align-items: center;   
+  justify-content: center;
+  align-items: center;
 }
 
 #att-detail-page-IMAGE-BLOCK img {
