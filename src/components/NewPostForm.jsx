@@ -48,9 +48,8 @@ export default function NewPostForm({ onPostSubmit }) {
         return;
       }
 
-      const imageUrl = `${
-        supabase.storage.from("uploads").getPublicUrl(filePath).data.publicUrl
-      }`;
+      const imageUrl = `${supabase.storage.from("uploads").getPublicUrl(filePath).data.publicUrl
+        }`;
 
       const { data: userData, error: userQueryError } = await supabase
         .from("Users")
@@ -100,6 +99,8 @@ export default function NewPostForm({ onPostSubmit }) {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            maxLength={100}
+            placeholder="100 characters max"
             required
           />
         </div>
@@ -111,8 +112,6 @@ export default function NewPostForm({ onPostSubmit }) {
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            maxLength={100}
-            placeholder="100 characters max"
             required
           />
         </div>
