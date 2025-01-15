@@ -335,6 +335,8 @@ visibility: hidden;
   box-sizing: border-box;
   align-items: center;
   margin-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .post-card:hover {
@@ -352,11 +354,17 @@ visibility: hidden;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  align-self: flex-end;
+  border-bottom: 1px solid rgb(85, 77, 77);
+  padding-right: 20px;
+  width: 90%;
 }
 
 .post-card p {
   grid-area: USER;
+  align-self: center;
   font-size: 1rem; 
+  font-style: italic;
   margin: 0;
   padding: 0 10px; 
   white-space: nowrap;
@@ -367,7 +375,7 @@ visibility: hidden;
 .post-card h2 {
   grid-area: BLURB;
   font-size: 0.9rem; 
-  color: #555;
+  color: #332e2e;
   margin: 0;
   padding: 0 10px; 
   overflow: hidden;
@@ -394,7 +402,7 @@ visibility: hidden;
   height: 90%;
   align-self: center;
   justify-self: center;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   border-radius: 10px;
   overflow: hidden;
@@ -412,9 +420,10 @@ visibility: hidden;
   justify-content: space-around;
   align-items: center;
   width: auto;
-  height: 1.5rem;
+  height: 1.3rem;
   justify-self: center;
   gap: 5px;
+  justify-self: flex-start;
 }
 
 .liked {
