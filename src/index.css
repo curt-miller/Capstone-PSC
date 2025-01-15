@@ -334,6 +334,7 @@ visibility: hidden;
   width: calc(100% - 25px);
   box-sizing: border-box;
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .post-card:hover {
