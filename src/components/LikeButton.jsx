@@ -47,6 +47,7 @@ const LikeButton = ({ post_id, userId }) => {
   }, [post_id, user_id]);
 
   const handleLiked = async (e) => {
+    e.stopPropagation();
     if (liked) {
       await supabase
         .from("Likes")

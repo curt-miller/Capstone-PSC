@@ -57,8 +57,8 @@ const Feed = ({ refreshPosts, userId }) => {
             </div>
             <h2>{post.description}</h2>
             <h3>{post.location}</h3>
-          </div>
           <LikeButton post_id={post.id} userId={userId} />
+          </div>
         </div>
       ))}
     </div>
