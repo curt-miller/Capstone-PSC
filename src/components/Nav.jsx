@@ -20,7 +20,6 @@ const Nav = ({ setUserId }) => {
   };
 
   const authToken = localStorage.getItem("authToken");
-  const displayName = localStorage.getItem("displayName");
 
   return (
     <div className="navContainer">
