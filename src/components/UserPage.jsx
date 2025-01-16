@@ -3,6 +3,7 @@ import NewPostForm from "./NewPostForm";
 import Feed from "./Feed";
 import { useState } from "react";
 import Nav from "./Nav";
+import profilePictureUpload from "./profilePictureUpload";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
@@ -19,8 +20,9 @@ const UserPage = () => {
       <Nav />
       <div className="user-profile-page-content">
         <div className="user-profile-welcome">
-      <p>Welcome Back, {displayName}</p>
-      </div>
+          <p>Welcome Back, {displayName}</p>
+          <profilePictureUpload />
+        </div>
         <div className="new-post-form-container">
           <NewPostForm onPostSubmit={handleRefresh} />
         </div>
