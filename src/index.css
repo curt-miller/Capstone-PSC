@@ -680,7 +680,7 @@ body {
     "LEFT HEADER"
     "LEFT RIGHT";
   grid-template-columns: 40% 60%;
-  grid-template-rows: 14vh 86vh;
+  grid-template-rows: 14% 86%;
   overflow: hidden;
 }
 
