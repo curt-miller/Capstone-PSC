@@ -67,42 +67,54 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
           <p>No countries found</p>
         ) : (
           filteredCountries.map((country, index) => (
-            <div
-              className="country_card"
-              key={index}
-              onClick={(e) => {
-                // Prevent the card click from triggering when clicking buttons
-                if (e.target.tagName === "BUTTON" || e.target.closest("button"))
-                  return;
-                setCountry(country);
+            <Link
+              to={{
+                pathname: `/${country.name.toLowerCase()}`,
               }}
+              key={index}
+              className="country_card_link"
+              onClick={() => setCountry(country)} // When the card is clicked, set the country
             >
-              {/* Country Name (Plain Text) */}
-              <h2 className="country_name">{country.name}</h2>
+              <div
+                className="country_card"
+                key={index}
+                onClick={(e) => {
+                  // Prevent the card click from triggering when clicking buttons
+                  if (
+                    e.target.tagName === "BUTTON" ||
+                    e.target.closest("button")
+                  )
+                    return;
+                  setCountry(country);
+                }}
+              >
+                {/* Country Name (Plain Text) */}
+                <h2 className="country_name">{country.name}</h2>
 
-              {/* Buttons */}
-              <div className="country_buttons">
-                <button className="like_button">
-                  <LikeButtonCountries country_name={country} />
-                </button>
-                <button className="visited_country_button">
-                  <VisitedCountries
-                    country_name={country.name}
-                    user_id={userId}
-                  />
-                </button>
+                {/* Buttons */}
+                <div className="country_buttons">
+                  <button className="like_button">
+                    <LikeButtonCountries country_name={country} />
+                  </button>
+                  <button className="visited_country_button">
+                    <VisitedCountries
+                      country_name={country.name}
+                      user_id={userId}
+                    />
+                  </button>
+                </div>
+
+                {/* Country Flag */}
+                <img
+                  src={country.href.flag}
+                  alt={`Flag of ${country.name}`}
+                  className="country_flag"
+                />
+
+                {/* Image Grid */}
+                <ImageGrid country={country.name} />
               </div>
-
-              {/* Country Flag */}
-              <img
-                src={country.href.flag}
-                alt={`Flag of ${country.name}`}
-                className="country_flag"
-              />
-
-              {/* Image Grid */}
-              <ImageGrid country={country.name} />
-            </div>
+            </Link>
           ))
         )}
       </div>

@@ -66,15 +66,11 @@ const CountriesPage = ({ country, refreshPosts }) => {
                     src={post.img_url}
                     alt={post.title}
                   />
-                  <p className="country_post_description">
-                    {post.description}
-                  </p>
+                  <p className="country_post_description">{post.description}</p>
                   <p className="country_post_location">
                     <strong>Location:</strong> {post.location}
                   </p>
-                  <button className="country_post_delete_button">
-                    Delete
-                  </button>
+                  <button className="country_post_delete_button">Delete</button>
                 </div>
               </Link>
             ))}
