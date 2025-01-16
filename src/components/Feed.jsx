@@ -1,7 +1,6 @@
-import React from "react";
-import { data, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
-import { useEffect, useState } from "react";
 import LikeButton from "./LikeButton";
 
 const Feed = ({ refreshPosts, userId }) => {
@@ -41,6 +40,24 @@ const Feed = ({ refreshPosts, userId }) => {
     fetchPosts();
   }, [refreshPosts]);
 
+  const deletePost = async (postId) => {
+    try {
+      const { error } = await supabase
+        .from("Posts")
+        .delete()
+        .eq("id", postId)
+        .eq("user_id", userId);
+
+      if (error) {
+        console.error("Error deleting post:", error);
+      } else {
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+      }
+    } catch (error) {
+      console.error("Error during deletion:", error);
+    }
+  };
+
   return (
     <div>
       {posts.map((post) => (
@@ -58,9 +75,20 @@ const Feed = ({ refreshPosts, userId }) => {
               <img src={post.Users?.profilePicture} alt="profile picture" />
             </div>
             <h2>{post.description}</h2>
+
             <h3>{post.location}</h3>
             <LikeButton post_id={post.id} userId={userId} />
           </div>
+          {post.user_id == userId && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                deletePost(post.id);
+              }}
+            >
+              delete
+            </button>
+          )}
         </div>
       ))}
     </div>

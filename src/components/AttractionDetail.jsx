@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import Nav from "./Nav";
+import { Link } from "react-router-dom";
 
 export default function AttractionDetail(displayname) {
   const { id } = useParams(); // Get the post ID from the route
@@ -15,7 +16,7 @@ export default function AttractionDetail(displayname) {
       try {
         const { data: post, error: fetchError } = await supabase
           .from("Posts")
-          .select("*, Users(display_name, profilePicture)")
+          .select("*, Users(display_name, profilePicture, id)")
           .eq("id", id)
           .single();
 
@@ -24,7 +25,7 @@ export default function AttractionDetail(displayname) {
           setError("Could not fetch post details. Please try again.");
         } else {
           setPost(post);
-          console.log("POST OBJECT: ", post);
+          localStorage.setItem("profileId", post.Users.id);
         }
       } catch (err) {
         console.error("Unexpected error:", err);
@@ -141,8 +142,14 @@ export default function AttractionDetail(displayname) {
               hour: "2-digit",
               minute: "2-digit"
             })}{" "}
-            by {post.Users.display_name}
-            <img src={post.Users?.profilePicture} alt="profile photo" />
+            <Link
+              to={{
+                pathname: `/${post.Users.id}/profile`
+              }}
+            >
+              by {post.Users.display_name}
+              <img src={post.Users?.profilePicture} alt="profile photo" />
+            </Link>
           </h2>
           <h4>Located in {post.location}</h4>
           <h3>{post.description}</h3>

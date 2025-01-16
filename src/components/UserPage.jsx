@@ -79,7 +79,7 @@ const UserPage = () => {
   return (
     <div>
       <div className="user-profile-page-container">
-        <Nav/>
+        <Nav />
         <div className="user-profile-page-content">
           <div className="user-profile-sidebar">
             <p className="user-profile-welcome">Welcome Back, {displayName}</p>
