@@ -41,7 +41,7 @@ const UserPage = () => {
       try {
         const { data, error } = await supabase
           .from("LikedCountries") // Replace with your table name
-          .select("country_name") // Adjust to match your column name
+          .select("Country(name)") // Adjust to match your column name
           .eq("user_id", userId);
 
         if (error) throw error;
