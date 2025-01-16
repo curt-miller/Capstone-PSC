@@ -3,9 +3,9 @@
   background-color: white;
 }
 
-/* * {
+* {
   outline: 1px solid rgba(0, 0, 0, 0.1);
-} */
+}
 
 body {
   margin: 0;
@@ -24,7 +24,7 @@ body {
 }
 
 #map-search {
-  height: 45vh;
+  height: 50vh;
   width: 36vw;
   background-color: rgb(162, 161, 167);
 }
@@ -228,9 +228,10 @@ visibility: hidden;
   padding: 4px;
 }
 
-.new-post-form-container {
+/* .new-post-form-container {
   grid-area: LEFT;
-}
+} */
+ /* MOVED TO COUNTRY PAGE GRID ^^^ */
 
 .feed-container {
   grid-area: RIGHT;
@@ -244,7 +245,7 @@ visibility: hidden;
   font-size: 1rem;
 }
 
-/* MapSearch COMPONENT (NEW POST FORM) */
+/* MapSearch COMPONENT (NEW POST FORM) now found in COUNTRY page */
 
 #newpost-form button {
   margin-top: 20px;
@@ -269,8 +270,8 @@ visibility: hidden;
 }
 
 #newpost-form {
-  width: 90%;
-  height: 90%;
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -666,16 +667,34 @@ visibility: hidden;
 
 /* COUNTRY PAGE COMPONENT */
 
+
+
 /* General Container */
 .country_page_container {
-  padding: 20px;
-  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+.country_page_content{
+  display: grid;
+  grid-template-areas: 
+  "LEFT HEADER"
+  "LEFT RIGHT";
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 12vh 88vh;
+  overflow: hidden;
+  }
+  
+
 .country_page_header {
+  grid-area: HEADER;
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 10px;
+  justify-self: flex-start;
 }
 
 .country_page_header img {
@@ -689,8 +708,18 @@ visibility: hidden;
   margin: 0;
 }
 
+
+/* New post form */
+
+.new-post-form-container {
+  grid-area: LEFT;
+  margin-top: 20px;
+}
+
 /* Grid Layout for Posts */
 .country_posts_grid {
+  grid-area: RIGHT;
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;

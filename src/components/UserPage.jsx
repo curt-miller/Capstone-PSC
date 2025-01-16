@@ -1,5 +1,4 @@
 import React from "react";
-import NewPostForm from "./NewPostForm";
 import Feed from "./Feed";
 import { useState } from "react";
 import Nav from "./Nav";
@@ -21,9 +20,10 @@ const UserPage = () => {
         <div className="user-profile-welcome">
       <p>Welcome Back, {displayName}</p>
       </div>
-        <div className="new-post-form-container">
-          <NewPostForm onPostSubmit={handleRefresh} />
-        </div>
+      <div className="user-profile-user-info">
+        <h1>user info stuff go here</h1>
+        <h2>new post form moved to country page</h2>
+      </div>
         <div className="feed-container">
           <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
           <Feed refreshPosts={refreshPosts} userId={userId} />
