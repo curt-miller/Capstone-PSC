@@ -15,7 +15,7 @@ export default function AttractionDetail(displayname) {
       try {
         const { data: post, error: fetchError } = await supabase
           .from("Posts")
-          .select("*, Users(display_name)")
+          .select("*, Users(display_name, profilePicture)")
           .eq("id", id)
           .single();
 
@@ -149,8 +149,6 @@ export default function AttractionDetail(displayname) {
         </div>
 
         <div id="att-detail-page-REVIEW-BLOCK">
-
-
           {reviews.length > 0 ? (
             <h2>Here's what Pals have to say:</h2>
           ) : (
