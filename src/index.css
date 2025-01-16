@@ -24,21 +24,21 @@ body {
 }
 
 #map-search {
-  height: 45vh;
+  height: 50vh;
   width: 36vw;
   background-color: rgb(162, 161, 167);
 }
 
 .mapboxgl-ctrl-geocoder {
-/* UGHHHHHH */
+  /* UGHHHHHH */
 }
 
 .mapboxgl-ctrl-geocoder--icon-search {
-visibility: hidden;
+  visibility: hidden;
 }
 
 .mapboxgl-ctrl-geocoder--input {
-/* UGHHH */
+  /* UGHHH */
 }
 
 /*NAVIGATION BAR COMPONENT */
@@ -108,7 +108,7 @@ visibility: hidden;
 .countries-homepage-container {
   padding: 20px;
   overflow-y: scroll;
-  background-color: lavender;
+  background-color: white;
 }
 
 /* LOGIN COMPONENT */
@@ -228,9 +228,10 @@ visibility: hidden;
   padding: 4px;
 }
 
-.new-post-form-container {
+/* .new-post-form-container {
   grid-area: LEFT;
-}
+} */
+/* MOVED TO COUNTRY PAGE GRID ^^^ */
 
 .feed-container {
   grid-area: RIGHT;
@@ -244,7 +245,7 @@ visibility: hidden;
   font-size: 1rem;
 }
 
-/* MapSearch COMPONENT (NEW POST FORM) */
+/* MapSearch COMPONENT (NEW POST FORM) now found in COUNTRY page */
 
 #newpost-form button {
   margin-top: 20px;
@@ -269,8 +270,8 @@ visibility: hidden;
 }
 
 #newpost-form {
-  width: 90%;
-  height: 90%;
+  width: auto;
+  height: auto;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -347,10 +348,10 @@ visibility: hidden;
 
 .post-card h1 {
   grid-area: TITLE;
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
   font-weight: bold;
   margin: 0;
-  padding: 0 10px; 
+  padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -363,10 +364,10 @@ visibility: hidden;
 .post-card p {
   grid-area: USER;
   align-self: center;
-  font-size: 1rem; 
+  font-size: 1rem;
   font-style: italic;
   margin: 0;
-  padding: 0 10px; 
+  padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -374,10 +375,10 @@ visibility: hidden;
 
 .post-card h2 {
   grid-area: BLURB;
-  font-size: 0.9rem; 
+  font-size: 0.9rem;
   color: #332e2e;
   margin: 0;
-  padding: 0 10px; 
+  padding: 0 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -385,15 +386,14 @@ visibility: hidden;
 
 .post-card h3 {
   grid-area: LOCATION;
-  font-size: 0.8rem; 
+  font-size: 0.8rem;
   color: #888;
   margin: 0;
-  padding: 0 10px; 
+  padding: 0 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 
 .post-card-IMAGE-BLOCK {
   grid-area: IMAGE;
@@ -505,6 +505,7 @@ visibility: hidden;
   justify-content: space-between;
   padding: 10px;
   box-sizing: border-box;
+  background-color: white; /*added*/
 }
 
 .country_card {
@@ -516,13 +517,19 @@ visibility: hidden;
     "CAPITAL IMAGES"
     "FLAG IMAGES"
     "FLAG IMAGES";
-  border: 2px solid rgb(66, 58, 99);
   border-radius: 10px;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  flex: 1 1 calc(100% - 20px);
-  min-width: 400px;
-  max-width: 810px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: lavender;
+  width: 400px;
+  /* max-width: 810px; */
+  padding: 1rem;
+}
+
+.country_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 @media (min-width: 1000px) {
@@ -546,7 +553,6 @@ visibility: hidden;
 .country_name_link {
   grid-area: NAME;
   text-decoration: none;
-  color: rgb(65, 65, 101);
   font-size: 1rem;
   font-weight: bold;
   margin: 0;
@@ -668,14 +674,29 @@ visibility: hidden;
 
 /* General Container */
 .country_page_container {
-  padding: 20px;
-  background-color: white;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.country_page_content {
+  display: grid;
+  grid-template-areas:
+    "LEFT HEADER"
+    "LEFT RIGHT";
+  grid-template-columns: 40% 60%;
+  grid-template-rows: 14vh 86vh;
+  overflow: hidden;
 }
 
 .country_page_header {
+  grid-area: HEADER;
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 10px;
+  justify-self: flex-start;
 }
 
 .country_page_header img {
@@ -689,22 +710,40 @@ visibility: hidden;
   margin: 0;
 }
 
+/* New post form */
+
+.new-post-form-container {
+  grid-area: LEFT;
+  margin-top: 20px;
+}
+
 /* Grid Layout for Posts */
 .country_posts_grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-area: RIGHT;
+  height: 100%;
+  display: flex;
+  flex-wrap: nowrap;
   gap: 20px;
   margin-top: 20px;
+  overflow-x: scroll;
 }
 
 /* Card Styles */
 .country_post_card {
-  border: 1px solid #ddd;
+  display: grid;
+  grid-template-areas:
+    "TITLE"
+    "IMAGE"
+    "BLURB"
+    "LOCATION"
+    "BUTTONS";
+  grid-template-rows: auto auto auto auto auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: lavender;
+  padding: 1rem;
 }
 
 .country_post_card:hover {
@@ -713,32 +752,39 @@ visibility: hidden;
 }
 
 /* Card Content */
-.country_post_content {
-  padding: 15px;
-}
 
 .country_post_title {
+  grid-area: TITLE;
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 10px 15px 0;
+  margin-top: 0;
+  margin-bottom: 6px;
 }
 
 .country_post_image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
+  grid-area: IMAGE;
+  border-radius: 10px;
+  height: 100%;
+  max-height: 300px;
+  object-fit: scale-down;
+  margin: 0;
 }
 
 .country_post_description {
+  grid-area: BLURB;
   margin: 10px 0;
   color: #555;
 }
 
 .country_post_location {
+  grid-area: LOCATION;
   font-size: 0.9rem;
   color: #777;
   margin-bottom: 10px;
+}
+
+.country_post_delete_button {
+  grid-area: BUTTONS;
 }
 
 .country_post_card_link {
