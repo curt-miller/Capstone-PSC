@@ -266,13 +266,13 @@ body {
 
 /* FEED COMPONENT */
 .post-card {
-  height: 20vh;
+  height: 22vh;
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 20% auto;
   grid-template-rows: 20% 20% 20% 20% 20%;
   grid-template-areas:
-    "IMAGE TITLE"
     "IMAGE USER"
+    "IMAGE TITLE"
     "IMAGE BLURB"
     "IMAGE LOCATION"
     "IMAGE BUTTONS";
@@ -309,9 +309,24 @@ body {
   width: 90%;
 }
 
-.post-card p {
+
+.post-card-USERNAME-AND-PHOTO{
   grid-area: USER;
+  display: flex;
   align-self: center;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 1rem;
+}
+
+.post-card-USERNAME-AND-PHOTO img{
+height: 40px;
+width: 40px;
+border-radius: 100%;
+margin-top: 1rem;
+}
+
+.post-card-USERNAME-AND-PHOTO p {
   font-size: 1rem;
   font-style: italic;
   margin: 0;
@@ -319,6 +334,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  align-self: flex-end;
 }
 
 .post-card h2 {
