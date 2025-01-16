@@ -907,6 +907,13 @@ margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
+#att-detail-page-TITLE-BLOCK img{
+  height: 30px;
+  width: 30px;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  }
+
 
 #att-detail-page-REVIEW-BLOCK {
   grid-area: REVIEWS;
