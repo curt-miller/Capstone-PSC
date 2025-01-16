@@ -108,7 +108,7 @@ body {
 .countries-homepage-container {
   padding: 20px;
   overflow-y: scroll;
-  background-color: lavender;
+  background-color: white;
 }
 
 /* LOGIN COMPONENT */
@@ -505,6 +505,7 @@ body {
   justify-content: space-between;
   padding: 10px;
   box-sizing: border-box;
+  background-color: white; /*added*/
 }
 
 .country_card {
@@ -516,13 +517,19 @@ body {
     "CAPITAL IMAGES"
     "FLAG IMAGES"
     "FLAG IMAGES";
-  border: 2px solid rgb(66, 58, 99);
   border-radius: 10px;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  flex: 1 1 calc(100% - 20px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: lavender;
   min-width: 400px;
   max-width: 810px;
+  padding: 1rem;
+}
+
+.country_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 @media (min-width: 1000px) {
@@ -546,7 +553,6 @@ body {
 .country_name_link {
   grid-area: NAME;
   text-decoration: none;
-  color: rgb(65, 65, 101);
   font-size: 1rem;
   font-weight: bold;
   margin: 0;
@@ -725,12 +731,12 @@ body {
 /* Card Styles */
 .country_post_card {
   display: grid;
-  grid-template-areas: 
-  "TITLE"
-  "IMAGE"
-  "BLURB"
-  "LOCATION"
-  "BUTTONS";
+  grid-template-areas:
+    "TITLE"
+    "IMAGE"
+    "BLURB"
+    "LOCATION"
+    "BUTTONS";
   grid-template-rows: auto auto auto auto auto;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -777,7 +783,7 @@ body {
   margin-bottom: 10px;
 }
 
-.country_post_delete_button{
+.country_post_delete_button {
   grid-area: BUTTONS;
 }
 

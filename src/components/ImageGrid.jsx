@@ -9,7 +9,7 @@ export default function ImageGrid({ country }) {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Fetch 
+        // Fetch
         const { data: posts, error } = await supabase
           .from("Posts")
           .select("id, img_url, location");
@@ -44,7 +44,9 @@ export default function ImageGrid({ country }) {
           </div>
         ))
       ) : (
-        <Link  className="image_grid_BETHEFIRST" to={"/userpage"}>Be the first to post in {country}!</Link>
+        <Link className="image_grid_BETHEFIRST" to={"/userpage"}>
+          Be the first to post!
+        </Link>
       )}
     </div>
   );
