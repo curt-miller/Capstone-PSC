@@ -5,8 +5,8 @@ import supabase from "../supaBaseClient";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
-  const [visitedCountries, setVisitedCountries] = useState([]); // State to store visited countries
-  const [likedCountries, setLikedCountries] = useState([]); // State to store liked countries
+  const [visitedCountries, setVisitedCountries] = useState([]);
+  const [likedCountries, setLikedCountries] = useState([]);
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
@@ -20,13 +20,13 @@ const UserPage = () => {
     const fetchVisitedCountries = async () => {
       try {
         const { data, error } = await supabase
-          .from("VisitedCountries") // Replace with your table name
-          .select("country_name") // Adjust to match your column name
+          .from("VisitedCountries")
+          .select("country_name")
           .eq("user_id", userId);
 
         if (error) throw error;
 
-        setVisitedCountries(data || []); // Set the retrieved data to state
+        setVisitedCountries(data || []);
       } catch (error) {
         console.error("Error fetching visited countries:", error);
       }
@@ -40,13 +40,13 @@ const UserPage = () => {
     const fetchLikedCountries = async () => {
       try {
         const { data, error } = await supabase
-          .from("LikedCountries") // Replace with your table name
-          .select("Country(name)") // Adjust to match your column name
+          .from("LikedCountries")
+          .select("country_name")
           .eq("user_id", userId);
 
         if (error) throw error;
 
-        setLikedCountries(data || []); // Set the retrieved data to state
+        setLikedCountries(data || []);
       } catch (error) {
         console.error("Error fetching liked countries:", error);
       }
