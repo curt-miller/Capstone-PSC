@@ -211,21 +211,48 @@ body {
   height: 100%;
   display: grid;
   grid-template-areas:
-    "WELCOME WELCOME"
+    "WELCOME RIGHT"
     "LEFT RIGHT";
   grid-template-columns: 40% 60%;
-  grid-template-rows: 5% 95%;
+  grid-template-rows: auto 1fr;
   overflow: hidden;
-  align-items: center;
 }
 
 .user-profile-welcome {
   grid-area: WELCOME;
   display: flex;
-  align-self: center;
-  justify-self: center;
+  align-items: center;
+  justify-content: left;
   font-size: 1.5rem;
   padding: 4px;
+}
+
+.user-profile-sidebar {
+  grid-area: LEFT;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto;
+}
+
+.user_profile_pic {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.user_page_visited_list {
+  height: 100px;
+  border: 1px solid black;
+}
+
+.user_page_liked_list {
+  height: 100px;
+  border: 1px solid black;
 }
 
 /* .new-post-form-container {
