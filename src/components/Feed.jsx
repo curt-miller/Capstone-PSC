@@ -8,6 +8,9 @@ const Feed = ({ refreshPosts, userId }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
+console.log(posts);
+
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -22,6 +25,7 @@ const Feed = ({ refreshPosts, userId }) => {
             location,
             user_id,
             Users(display_name)
+            Users(profilePicture)
           `
           )
           .order("created_at", { ascending: false });
@@ -53,7 +57,7 @@ const Feed = ({ refreshPosts, userId }) => {
             <h1>{post.title}</h1>
             <div className="post-card-USERNAME-AND-PHOTO">
             <p>{post.Users?.display_name || "Unknown User"}</p>
-              <img src={post.img_url} alt="profile picture" />
+              <img src={post.Users?.profilePicture} alt="profile picture" />
             </div>
             <h2>{post.description}</h2>
             <h3>{post.location}</h3>

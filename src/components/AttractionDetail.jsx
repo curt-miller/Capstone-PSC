@@ -142,6 +142,7 @@ export default function AttractionDetail(displayname) {
               minute: "2-digit"
             })}{" "}
             by {post.Users.display_name}
+            <img src={post.Users?.profilePicture} alt="profile photo" />
           </h2>
           <h4>Located in {post.location}</h4>
           <h3>{post.description}</h3>
