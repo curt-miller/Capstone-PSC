@@ -47,7 +47,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
       <div className="alphabet_filter">
         {[
           "A",
-          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i)),
+          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i))
         ].map((letter) => (
           <button
             key={letter}
@@ -64,12 +64,12 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
       {/* country cards */}
       <div className="countries_list_container">
         {filteredCountries.length === 0 ? (
-          <p>No countries found</p>
+          <p>Loading...</p>
         ) : (
           filteredCountries.map((country, index) => (
             <Link
               to={{
-                pathname: `/${country.name.toLowerCase()}`,
+                pathname: `/${country.name.toLowerCase()}`
               }}
               key={index}
               className="country_card_link"
