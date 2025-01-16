@@ -522,8 +522,8 @@ body {
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: lavender;
-  min-width: 400px;
-  max-width: 810px;
+  width: 400px;
+  /* max-width: 810px; */
   padding: 1rem;
 }
 
