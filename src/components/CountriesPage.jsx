@@ -5,9 +5,33 @@ import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 
-const CountriesPage = ({ country, refreshPosts }) => {
+const CountriesPage = ({ country: propCountry, refreshPosts }) => {
+  const [country, setCountry] = useState(() => {
+    // Retrieve the country object from localStorage on initial render
+    const storedCountry = localStorage.getItem("country");
+    console.log("propCountry", propCountry);
+    console.log("storedCountry", storedCountry);
+
+    const isPropCountryValid =
+      propCountry && Object.keys(propCountry).length > 0;
+
+    return isPropCountryValid
+      ? propCountry
+      : storedCountry
+      ? JSON.parse(storedCountry)
+      : null;
+  });
+
   const [posts, setPosts] = useState([]);
-  console.log("country page", country.name);
+
+  useEffect(() => {
+    // If propCountry exists, store it in localStorage and update the state
+    if (propCountry) {
+      localStorage.setItem("country", JSON.stringify(propCountry));
+      setCountry(propCountry);
+      console.log("Saved country to localStorage:", propCountry.name);
+    }
+  }, [propCountry]);
 
   useEffect(() => {
     const fetchPosts = async () => {

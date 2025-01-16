@@ -6,6 +6,7 @@ export default function NewPostForm({ onPostSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");
+  const [coordinates, setCoordinates] = useState(null);
   const [location, setLocation] = useState(null); // Capture marker coordinates
 
   const handleSubmit = async (e) => {
@@ -48,8 +49,9 @@ export default function NewPostForm({ onPostSubmit }) {
         return;
       }
 
-      const imageUrl = `${supabase.storage.from("uploads").getPublicUrl(filePath).data.publicUrl
-        }`;
+      const imageUrl = `${
+        supabase.storage.from("uploads").getPublicUrl(filePath).data.publicUrl
+      }`;
 
       const { data: userData, error: userQueryError } = await supabase
         .from("Users")
@@ -68,10 +70,10 @@ export default function NewPostForm({ onPostSubmit }) {
           description: description,
           img_url: imageUrl,
           location: location.country,
+          coordinates: location.coordinates,
           user_id: userData.id
         }
       ]);
-
       if (error) {
         console.error("Error inserting post:", error);
       } else {
@@ -79,6 +81,7 @@ export default function NewPostForm({ onPostSubmit }) {
         setTitle("");
         setDescription("");
         setImageFile(null);
+        setCoordinates(null);
         setLocation(null);
 
         onPostSubmit();
