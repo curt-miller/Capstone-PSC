@@ -47,7 +47,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
       <div className="alphabet_filter">
         {[
           "A",
-          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i))
+          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i)),
         ].map((letter) => (
           <button
             key={letter}
@@ -67,16 +67,20 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
           <p>No countries found</p>
         ) : (
           filteredCountries.map((country, index) => (
-            <div className="country_card" key={index}>
-              <Link
-                to={{
-                  pathname: `/${country.name.toLowerCase()}`
-                }}
-                onClick={() => setCountry(country)}
-                className="country_name_link"
-              >
-                <h2 className="country_name">{country.name}</h2>
-              </Link>
+            <div
+              className="country_card"
+              key={index}
+              onClick={(e) => {
+                // Prevent the card click from triggering when clicking buttons
+                if (e.target.tagName === "BUTTON" || e.target.closest("button"))
+                  return;
+                setCountry(country);
+              }}
+            >
+              {/* Country Name (Plain Text) */}
+              <h2 className="country_name">{country.name}</h2>
+
+              {/* Buttons */}
               <div className="country_buttons">
                 <button className="like_button">
                   <LikeButtonCountries country_name={country} />
@@ -88,12 +92,15 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
                   />
                 </button>
               </div>
-              <p id="country_card_capital">Capital: {country.capital}</p>
+
+              {/* Country Flag */}
               <img
                 src={country.href.flag}
                 alt={`Flag of ${country.name}`}
                 className="country_flag"
               />
+
+              {/* Image Grid */}
               <ImageGrid country={country.name} />
             </div>
           ))
