@@ -72,9 +72,7 @@ const CountriesPage = ({ country: propCountry, refreshPosts }) => {
             <h1 className="countries_page_name">{country.name}</h1>
           </div>
           <div className="new-post-form-container">
-            <NewPostForm
-            // onPostSubmit={handleRefresh}
-            />
+            <NewPostForm />
           </div>
           <div className="country_posts_grid">
             {posts.map((post) => (
