@@ -50,7 +50,6 @@ const Feed = ({ refreshPosts, userId }) => {
             <div className="post-card-IMAGE-BLOCK">
               <img src={post.img_url} alt={post.title} />
             </div>
-
             <h1>{post.title}</h1>
             <p>{post.Users?.display_name || "Unknown User"}</p>
 

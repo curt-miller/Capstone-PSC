@@ -9,6 +9,7 @@ import UserPage from "./components/UserPage";
 import CountriesPage from "./components/CountriesPage";
 import AttractionDetail from "./components/AttractionDetail";
 import ImageGrid from "./components/ImageGrid";
+import UserSettings from "./components/UserSettings";
 
 export default function App() {
   const [token, setToken] = useState("");
@@ -67,6 +68,7 @@ export default function App() {
         <Route path="/attraction/:id" element={<AttractionDetail />} />
         {/* just for testing */}
         <Route path="/imagegrid" element={<ImageGrid />} />
+        <Route path="/:userId/settings" element={<UserSettings />} />
       </Routes>
     </div>
   );
