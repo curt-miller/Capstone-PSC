@@ -131,7 +131,7 @@ export default function AttractionDetail(displayname) {
       <div id="att-detail-page-GRID">
         <div id="att-detail-page-TITLE-BLOCK">
           <h1>{post.title}</h1>
-          <p>{post.Users.display_name}</p>
+
           <h2>
             Pin dropped on{" "}
             {new Date(post.created_at).toLocaleDateString("en-US", {
@@ -141,29 +141,31 @@ export default function AttractionDetail(displayname) {
               hour: "2-digit",
               minute: "2-digit"
             })}{" "}
-            by {post.user}
+            by {post.Users.display_name}
           </h2>
+          <h4>Located in {post.location}</h4>
           <h3>{post.description}</h3>
-          <h4>{post.location}</h4>
         </div>
 
         <div id="att-detail-page-REVIEW-BLOCK">
-          <h2>Here's what Pals have to say:</h2>
+
 
           {reviews.length > 0 ? (
-            <div>
-              {reviews.map((review, index) => (
-                <div id="att-detail-page-REVIEW-CARD" key={index}>
-                  <h4>{review.Users?.display_name || "Anonymous"}</h4>
-                  <p>{review.review}</p>
-                </div>
-              ))}
-            </div>
+            <h2>Here's what Pals have to say:</h2>
           ) : (
             <p id="att-detail-page-NO-REVIEWS-MESSAGE">
               Be the first to review {post.title}
             </p>
           )}
+
+          <div>
+            {reviews.map((review, index) => (
+              <div id="att-detail-page-REVIEW-CARD" key={index}>
+                <h4>{review.Users?.display_name || "Anonymous"}</h4>
+                <p>{review.review}</p>
+              </div>
+            ))}
+          </div>
 
           <div id="att-detail-page-SUBMIT-COMMENT">
             <textarea

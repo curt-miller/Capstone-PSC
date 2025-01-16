@@ -842,25 +842,49 @@ body {
   background-color: lavender;
   margin-left: 2rem;
   margin-top: 2rem;
-  padding-left: 0.8rem;
+  padding: 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
   border-radius: 10px;
-  word-wrap: break-word;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  overflow-y: scroll;
 }
 
 #att-detail-page-TITLE-BLOCK h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
   line-height: 1.2;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(51, 51, 65, 0.5);
+  padding-bottom: 0.5rem;
 }
 
-#att-detail-page-TITLE-BLOCK h2,
-#att-detail-page-TITLE-BLOCK h3,
-#att-detail-page-TITLE-BLOCK h4 {
+#att-detail-page-TITLE-BLOCK h2 {
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+  margin-bottom: 0.75rem;
+  color: rgb(85, 85, 102);
+  font-style: italic;
 }
+
+#att-detail-page-TITLE-BLOCK h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: rgb(51, 51, 65);
+}
+
+#att-detail-page-TITLE-BLOCK h4 {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: rgb(102, 102, 119);
+}
+
+#att-detail-page-TITLE-BLOCK p {
+  font-size: 1rem;
+  color: rgb(85, 85, 102);
+  margin-bottom: 1rem;
+}
+
 
 #att-detail-page-REVIEW-BLOCK {
   grid-area: REVIEWS;
@@ -869,11 +893,13 @@ body {
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
 }
 
 #att-detail-page-REVIEW-BLOCK h2 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  margin-top: 0;
   font-style: italic;
   color: rgb(51, 51, 65);
 }
@@ -890,9 +916,16 @@ body {
   background-color: white;
 }
 
+#att-detail-page-REVIEW-CARD h4, p{
+margin: 4px;
+}
+
 #att-detail-page-NO-REVIEWS-MESSAGE {
+  font-size: 1.5rem;
   font-style: italic;
   color: gray;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #att-detail-page-SUBMIT-COMMENT textarea {
