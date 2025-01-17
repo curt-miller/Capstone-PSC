@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import supabase from "../supaBaseClient";
 import Nav from "./Nav";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 
 const UserSettings = () => {
   const userId = localStorage.getItem("userId") || "Guest";
@@ -15,7 +17,7 @@ const UserSettings = () => {
   };
 
   const handleProfilePictureUpload = async (e) => {
-    const file = e.target.files[0]; // Get the file directly from the event
+    const file = e.target.files[0];
     if (!file) return;
 
     try {
@@ -43,8 +45,6 @@ const UserSettings = () => {
         return;
       }
 
-      console.log(urlData.publicUrl);
-
       setProfilePictureUrl(urlData.publicUrl);
       alert("Profile picture uploaded successfully!");
     } catch (error) {
@@ -58,7 +58,7 @@ const UserSettings = () => {
   const handleSaveSettings = async () => {
     try {
       const updateFields = {
-        display_name: displayName
+        display_name: displayName,
       };
 
       if (profilePictureUrl) {
@@ -71,7 +71,7 @@ const UserSettings = () => {
         .eq("id", userId);
 
       if (error) {
-        console.error("Error fetching user data:", error);
+        console.error("Error saving settings:", error);
         alert("Failed to save settings. Please try again.");
         return;
       }
@@ -80,69 +80,67 @@ const UserSettings = () => {
       alert("Settings saved!");
     } catch (err) {
       console.error("Unexpected error while saving settings:", err);
-      alert("An unexpected error occured. Please try again.");
+      alert("An unexpected error occurred. Please try again.");
     }
   };
 
   return (
-    <div>
-      <Nav />
-      <div style={{ maxWidth: "500px", margin: "0 auto", padding: "20px" }}>
-        <h1>User Settings</h1>
-        <div style={{ marginBottom: "20px" }}>
-          <p>
-            <strong>Current Display Name:</strong> {storedDisplayName}
-          </p>
-        </div>
-        <div style={{ marginBottom: "20px" }}>
-          <label>
-            <strong>Update Display Name:</strong>
+    <>
+      <div className="settings-page-container">
+        <Nav />
+        <div className="settings">
+          <h1>User Settings</h1>
+          <div className="settings-info">
+            <Typography variant="subtitle1">
+              <strong>Current Display Name:</strong> {storedDisplayName}
+            </Typography>
+          </div>
+          <div className="settings-form">
+            <label htmlFor="displayName">
+              <strong>Update Display Name:</strong>
+            </label>
             <input
               type="text"
+              id="displayName"
+              className=""
               value={displayName}
               onChange={handleDisplayNameChange}
-              style={{ marginLeft: "10px", padding: "5px", width: "100%" }}
+              placeholder="Enter your new display name"
             />
-          </label>
-        </div>
-        <div style={{ marginBottom: "20px" }}>
-          <label>
-            <strong>Upload Profile Picture:</strong>
+            <br />
+            <label htmlFor="profilePicture">
+              <strong>Upload Profile Picture:</strong>
+            </label>
             <input
               type="file"
+              id="profilePicture"
               accept="image/*"
               onChange={handleProfilePictureUpload}
-              style={{ marginLeft: "10px" }}
             />
-          </label>
-          {profilePictureUrl && (
-            <div style={{ marginTop: "20px" }}>
-              <p>
-                <strong>Preview:</strong>
-              </p>
-              <img
-                src={profilePictureUrl}
-                alt="Profile Preview"
-                style={{ maxWidth: "100%", borderRadius: "10px" }}
-              />
-            </div>
-          )}
+            {uploading && <p>Uploading...</p>}
+            {profilePictureUrl && (
+              <div>
+                <p>
+                  <strong>Preview:</strong>
+                </p>
+                <img
+                  src={profilePictureUrl}
+                  alt="Profile Preview"
+                  style={{ maxWidth: "100%", borderRadius: "10px" }}
+                />
+              </div>
+            )}
+          </div>
+          <button
+            type="button"
+            className="save-button"
+            onClick={handleSaveSettings}
+          >
+            Save Settings
+          </button>
         </div>
-        <button
-          onClick={handleSaveSettings}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#007BFF",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer"
-          }}
-        >
-          Save Settings
-        </button>
       </div>
-    </div>
+    </>
   );
 };
 

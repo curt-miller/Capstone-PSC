@@ -345,21 +345,20 @@ body {
 .post-card-BLURB {
   grid-area: BLURB;
   grid-row: 1 / span 3;
-  font-size: .8rem;
+  font-size: 0.8rem;
   color: #332e2e;
   margin: 0;
-  display: flex; 
-  flex-direction: column; 
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
 }
 
 .post-card-BLURB h2 {
   margin: 0;
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-
 
 .post-card h3 {
   grid-area: LOCATION;
@@ -391,20 +390,20 @@ body {
   border-radius: 10px;
 }
 
-.post-card-BUTTON-CONTAINER{
+.post-card-BUTTON-CONTAINER {
   grid-area: BUTTONS;
   display: flex;
   height: 100%;
   width: 100%;
-gap: 10px;
+  gap: 10px;
 }
 
 .post-card-like-button {
-height: 90%;
-width: 80px;
+  height: 90%;
+  width: 80px;
 }
 
-.post-card-DELETE-BUTTON button{
+.post-card-DELETE-BUTTON button {
   height: 90%;
   width: 80px;
 }
@@ -996,4 +995,66 @@ p {
   object-fit: contain;
   border-radius: 10px;
   justify-self: center;
+}
+
+/* SETTINGS PAGE */
+
+.settings-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("./assets/planepath2.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+.settings {
+  width: 40vw;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.settings input[type="text"],
+.settings input[type="file"] {
+  width: 35vw;
+  padding: 10px;
+  margin: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.settings-info {
+  margin: 20px;
+}
+
+.save-button {
+  margin: 20px;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
+.settings img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 20px;
+  width: 35vw;
 }
