@@ -3,12 +3,14 @@ import Feed from "./Feed";
 import Nav from "./Nav";
 import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
+import { fetchCountries } from "../API/countries";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
+  const [countryMap, setCountryMap] = useState({}); // To store country name-to-flag mapping
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
@@ -30,50 +32,59 @@ const UserPage = () => {
 
         setProfilePicture(data?.profilePicture || "");
       } catch (error) {
-        console.error("Error fetching visited countries", error);
+        console.error("Error fetching profile picture:", error);
       }
     };
     fetchProfilePicture();
   }, [userId]);
 
-  // Fetch visited countries
   useEffect(() => {
-    const fetchVisitedCountries = async () => {
+    const fetchData = async () => {
       try {
-        const { data, error } = await supabase
+        // Fetch the list of countries with flags
+        const allCountries = await fetchCountries();
+        const countryMapping = allCountries.reduce((acc, country) => {
+          acc[country.name] = country.href.flag; // Assuming the API provides name and flag
+          return acc;
+        }, {});
+
+        setCountryMap(countryMapping);
+
+        // Fetch visited countries from Supabase
+        const { data: visitedData, error: visitedError } = await supabase
           .from("VisitedCountries")
           .select("country_name")
           .eq("user_id", userId);
 
-        if (error) throw error;
+        if (visitedError) throw visitedError;
 
-        setVisitedCountries(data || []);
-      } catch (error) {
-        console.error("Error fetching visited countries:", error);
-      }
-    };
+        const visitedWithFlags = (visitedData || []).map((country) => ({
+          name: country.country_name,
+          flag: countryMapping[country.country_name] || null,
+        }));
 
-    fetchVisitedCountries();
-  }, [userId]);
+        setVisitedCountries(visitedWithFlags);
 
-  // Fetch liked countries
-  useEffect(() => {
-    const fetchLikedCountries = async () => {
-      try {
-        const { data, error } = await supabase
+        // Fetch liked countries from Supabase
+        const { data: likedData, error: likedError } = await supabase
           .from("LikedCountries")
           .select("country_name")
           .eq("user_id", userId);
 
-        if (error) throw error;
+        if (likedError) throw likedError;
 
-        setLikedCountries(data || []);
+        const likedWithFlags = (likedData || []).map((country) => ({
+          name: country.country_name,
+          flag: countryMapping[country.country_name] || null,
+        }));
+
+        setLikedCountries(likedWithFlags);
       } catch (error) {
-        console.error("Error fetching liked countries:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchLikedCountries();
+    fetchData();
   }, [userId]);
 
   return (
@@ -94,7 +105,7 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`
+                  pathname: `/${userId}/settings`,
                 }}
               >
                 edit profile
@@ -102,33 +113,43 @@ const UserPage = () => {
               <br />
               <div className="user_page_visited_list">
                 <h3>Visited Countries:</h3>
-                <ul>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
-                      <li key={index}>{country.country_name}</li>
+                      <img
+                        key={index}
+                        src={country.flag}
+                        alt={country.name}
+                        style={{ width: "30px", height: "20px" }}
+                      />
                     ))
                   ) : (
-                    <li>No countries visited yet.</li>
+                    <p>No countries visited yet.</p>
                   )}
-                </ul>
+                </div>
               </div>
               <br />
               <div className="user_page_liked_list">
                 <h3>Liked Countries:</h3>
-                <ul>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {likedCountries.length > 0 ? (
                     likedCountries.map((country, index) => (
-                      <li key={index}>{country.country_name}</li>
+                      <img
+                        key={index}
+                        src={country.flag}
+                        alt={country.name}
+                        style={{ width: "30px", height: "20px" }}
+                      />
                     ))
                   ) : (
-                    <li>No countries liked yet.</li>
+                    <p>No countries liked yet.</p>
                   )}
-                </ul>
+                </div>
               </div>
             </div>
           </div>
           <div className="feed-container">
-            {/* <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1> */}
+            <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
             <Feed refreshPosts={refreshPosts} userId={userId} />
           </div>
         </div>
