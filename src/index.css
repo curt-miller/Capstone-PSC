@@ -275,8 +275,8 @@ body {
     "IMAGE USER TITLE"
     "IMAGE USER BLURB"
     "IMAGE USER BLURB"
-    "IMAGE USER LOCATION"
-    "IMAGE USER BUTTONS";
+    "IMAGE LOCATION LOCATION"
+    "IMAGE BUTTONS BUTTONS";
   overflow: hidden;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -396,14 +396,17 @@ body {
   display: flex;
   height: 100%;
   width: 100%;
+gap: 10px;
 }
 
 .post-card-like-button {
-margin: 4px;
+height: 90%;
+width: 80px;
 }
 
-.post-card-DELETE-BUTTON{
-  margin: 4px;
+.post-card-DELETE-BUTTON button{
+  height: 90%;
+  width: 80px;
 }
 
 .liked {
@@ -420,25 +423,6 @@ margin: 4px;
 .like_button {
   border: none;
 }
-
-/* old delete button styling, messes with the like button */
-
-/* .post-card button {
-  grid-area: BUTTONS;
-  font-size: 1rem;
-  width: auto;
-  max-width: 30%;
-  background-color: rgb(95, 95, 169);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-} */
-
-/* .post-card button:hover {
-  background-color: rgb(75, 75, 149);
-} */
 
 /* COUNTRY API LIST COMPONENT */
 
