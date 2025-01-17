@@ -70,25 +70,31 @@ const Feed = ({ refreshPosts, userId }) => {
               <img src={post.img_url} alt={post.title} />
             </div>
             <h1>{post.title}</h1>
-            <div className="post-card-USERNAME-AND-PHOTO">
-              <p>{post.Users?.display_name || "Unknown User"}</p>
+            <div className="post-card-USER">
               <img src={post.Users?.profilePicture} alt="profile picture" />
+              {/* <p>{post.Users?.display_name || "Unknown User"}</p> */}
             </div>
-            <h2>{post.description}</h2>
+            <div className="post-card-BLURB">
+              <h2>{post.description}</h2>
+            </div>
 
             <h3>{post.location}</h3>
-            <LikeButton post_id={post.id} userId={userId} />
+            <div className="post-card-BUTTON-CONTAINER">
+              <LikeButton post_id={post.id} userId={userId} />
+              <div className="post-card-DELETE-BUTTON">
+                {post.user_id == userId && (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deletePost(post.id);
+                    }}
+                  >
+                    delete
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
-          {post.user_id == userId && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                deletePost(post.id);
-              }}
-            >
-              delete
-            </button>
-          )}
         </div>
       ))}
     </div>
