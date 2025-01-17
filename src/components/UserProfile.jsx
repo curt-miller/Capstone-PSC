@@ -6,6 +6,7 @@ const UserProfile = () => {
   const profileId = localStorage.getItem("profileId") || "Guest";
   const [profile, setProfile] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -24,6 +25,24 @@ const UserProfile = () => {
       }
     };
     fetchProfile();
+  }, [profileId]);
+
+  useEffect(() => {
+    const fetchFollowing = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("Following")
+          .select(`*`)
+          .eq("user_id", profileId);
+
+        if (error) throw error;
+        setFollowing(data);
+        console.log("Following", data);
+      } catch (error) {
+        console.error("Error fetching Following", error);
+      }
+    };
+    fetchFollowing();
   }, [profileId]);
 
   useEffect(() => {
@@ -58,6 +77,17 @@ const UserProfile = () => {
           style={{ height: "80px", width: "auto" }}
         />
       </div>
+      <div>Following</div>
+      <div>
+        {following.length > 0 ? (
+          following.map((follow) => (
+            <p key={follow.id}>{follow.following_id}</p>
+          ))
+        ) : (
+          <p>No following data available.</p>
+        )}
+      </div>
+
       <div>
         <h2>User Posts</h2>
         {posts.length > 0 ? (
