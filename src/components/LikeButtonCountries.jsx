@@ -61,7 +61,7 @@ const LikeButtonCountries = ({ country_name }) => {
   };
 
   return (
-    <button onClick={handleLiked} className={`post-card-like-button`}>
+    <button onClick={handleLiked} className={`country-card-like-button`}>
       {liked ? <FaHeart className="liked" /> : <CiHeart className="notLiked" />}{" "}
       ({likesCount})
     </button>
