@@ -30,7 +30,12 @@ const UserProfile = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("*")
+          .select(
+            `
+          id,
+          following_id,
+          Users!Following_following_id_fkey(display_name, profilePicture)`
+          )
           .eq("user_id", profileId);
 
         if (error) throw error;
@@ -54,6 +59,21 @@ const UserProfile = () => {
           alt={profile.display_name || "User"}
           style={{ height: "80px", width: "auto" }}
         />
+      </div>
+      <div>Following</div>
+      <div>
+        {following.length > 0 ? (
+          following.map((follow) => (
+            <img
+              src={follow.Users.profilePicture}
+              alt={follow.Users.display_name}
+              key={follow.id}
+              style={{ height: "80px", width: "auto" }}
+            />
+          ))
+        ) : (
+          <p>No following data available.</p>
+        )}
       </div>
       <div>
         <h2>{profile.display_name}'s Posts</h2>
