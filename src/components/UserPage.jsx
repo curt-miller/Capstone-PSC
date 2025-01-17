@@ -128,7 +128,7 @@ const UserPage = () => {
             </div>
           </div>
           <div className="feed-container">
-            <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
+            {/* <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1> */}
             <Feed refreshPosts={refreshPosts} userId={userId} />
           </div>
         </div>
