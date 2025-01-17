@@ -345,7 +345,7 @@ body {
   padding: 0;
   object-fit: cover;
   border-radius: 100%;
-  border: .8px solid rgb(58, 38, 62);
+  border: 0.8px solid rgb(58, 38, 62);
 }
 
 .post-card-USERNAME-AND-PHOTO p {
@@ -1093,4 +1093,43 @@ p {
   border-radius: 10px;
   margin: 20px;
   width: 35vw;
+}
+
+/* USER PROFILE PAGE */
+
+.use-profile-page-CONTAINER {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.user-profile-page-CONTENT {
+  width: 100%;
+  height: calc(100vh - 80px);
+  display: grid;
+  grid-template-areas: "USER FEED";
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr;
+  overflow: hidden;
+}
+
+.user-profile-page-FEED-CONTAINER {
+  grid-area: FEED;
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+/* container for the left half of the page chnage and delete as needed */
+.user-profile-page-USER-INFO {
+  grid-area: USER;
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(221, 203, 203);
 }
