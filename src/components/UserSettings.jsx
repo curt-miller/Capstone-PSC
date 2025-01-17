@@ -57,14 +57,17 @@ const UserSettings = () => {
 
   const handleSaveSettings = async () => {
     try {
-      console.log("Profile Picture URL:", profilePictureUrl);
+      const updateFields = {
+        display_name: displayName
+      };
+
+      if (profilePictureUrl) {
+        updateFields.profilePicture = profilePictureUrl;
+      }
 
       const { data, error } = await supabase
         .from("Users")
-        .update({
-          profilePicture: profilePictureUrl,
-          display_name: displayName
-        })
+        .update(updateFields)
         .eq("id", userId);
 
       if (error) {
