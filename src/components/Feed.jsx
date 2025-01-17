@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import LikeButton from "./LikeButton";
 
-const Feed = ({ refreshPosts, userId }) => {
+const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
-
-  console.log(posts);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const { data: posts, error: fetchError } = await supabase
+        let query = supabase
           .from("Posts")
           .select(
             `
@@ -27,6 +25,25 @@ const Feed = ({ refreshPosts, userId }) => {
           )
           .order("created_at", { ascending: false });
 
+        if (followerPosts) {
+          const { data: followingIds, error: followingError } = await supabase
+            .from("Following")
+            .select("following_id")
+            .eq("user_id", userId);
+
+          if (followingError) {
+            console.error("Error fetching following IDs:", followingError);
+            return;
+          }
+
+          const ids = followingIds?.map((item) => item.following_id) || [];
+          query = query.in("user_id", ids);
+        } else {
+          query = query.eq("user_id", userId);
+        }
+
+        const { data: posts, error: fetchError } = await query;
+
         if (fetchError) {
           console.error("Error fetching posts:", fetchError);
         } else {
@@ -34,11 +51,11 @@ const Feed = ({ refreshPosts, userId }) => {
         }
       } catch (error) {
         console.error("Error during fetching posts", error);
-        setError("Something went wrong. Please try again.");
       }
     };
+
     fetchPosts();
-  }, [refreshPosts]);
+  }, [refreshPosts, followerPosts, userId]);
 
   const deletePost = async (postId) => {
     try {
@@ -60,43 +77,52 @@ const Feed = ({ refreshPosts, userId }) => {
 
   return (
     <div>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <div
-            className="post-card"
-            onClick={() => navigate(`/attraction/${post.id}`)}
-          >
-            <div className="post-card-IMAGE-BLOCK">
-              <img src={post.img_url} alt={post.title} />
-            </div>
-            <h1>{post.title}</h1>
-            <div className="post-card-USER">
-              <img src={post.Users?.profilePicture} alt="profile picture" />
-              {/* <p>{post.Users?.display_name || "Unknown User"}</p> */}
-            </div>
-            <div className="post-card-BLURB">
-              <h2>{post.description}</h2>
-            </div>
-
-            <h3>{post.location}</h3>
-            <div className="post-card-BUTTON-CONTAINER">
-              <LikeButton post_id={post.id} userId={userId} />
-              <div className="post-card-DELETE-BUTTON">
-                {post.user_id == userId && (
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      deletePost(post.id);
-                    }}
-                  >
-                    delete
-                  </button>
-                )}
+      {posts.length > 0 ? (
+        posts.map((post) => (
+          <div key={post.id}>
+            <div
+              className="post-card"
+              onClick={(e) => {
+                if (!e.defaultPrevented) {
+                  navigate(`/attraction/${post.id}`);
+                }
+              }}
+            >
+              <div className="post-card-IMAGE-BLOCK">
+                <img src={post.img_url} alt={post.title} />
+              </div>
+              <h1>{post.title}</h1>
+              <div className="post-card-USER">
+                <img
+                  src={post.Users?.profilePicture || "default-profile-pic-url"}
+                  alt="profile picture"
+                />
+              </div>
+              <div className="post-card-BLURB">
+                <h2>{post.description}</h2>
+              </div>
+              <h3>{post.location}</h3>
+              <div className="post-card-BUTTON-CONTAINER">
+                <LikeButton post_id={post.id} userId={userId} />
+                <div className="post-card-DELETE-BUTTON">
+                  {post.user_id === userId && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deletePost(post.id);
+                      }}
+                    >
+                      delete
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <p>No posts available.</p>
+      )}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { fetchCountries } from "../API/countries";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
+  const [showFollowerPosts, setShowFollowerPosts] = useState(false);
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
@@ -149,13 +150,16 @@ const UserPage = () => {
             </div>
           </div>
           <div className="feed-container">
-            <h1 className="user-profile-page-YOUR-POSTS">Your Posts</h1>
-            <Feed refreshPosts={refreshPosts} userId={userId} />
-          </div>
+          <h1 className="user-profile-page-YOUR-POSTS">
+            Posts from Following
+          </h1>
+          <Feed refreshPosts={refreshPosts} userId={userId} followerPosts={true} />
         </div>
       </div>
     </div>
+  </div>
   );
 };
+
 
 export default UserPage;
