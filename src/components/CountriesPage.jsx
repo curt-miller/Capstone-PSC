@@ -1,37 +1,23 @@
-import React from "react";
 import Nav from "./Nav";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 
-const CountriesPage = ({ country: propCountry, refreshPosts }) => {
-  const [country, setCountry] = useState(() => {
-    // Retrieve the country object from localStorage on initial render
-    const storedCountry = localStorage.getItem("country");
-    console.log("propCountry", propCountry);
-    console.log("storedCountry", storedCountry);
-
-    const isPropCountryValid =
-      propCountry && Object.keys(propCountry).length > 0;
-
-    return isPropCountryValid
-      ? propCountry
-      : storedCountry
-      ? JSON.parse(storedCountry)
-      : null;
-  });
-
+const CountriesPage = ({ setCountry, country, refreshPosts }) => {
   const [posts, setPosts] = useState([]);
+  const storedCountry = JSON.parse(localStorage.getItem("country"));
 
   useEffect(() => {
-    // If propCountry exists, store it in localStorage and update the state
-    if (propCountry) {
-      localStorage.setItem("country", JSON.stringify(propCountry));
-      setCountry(propCountry);
-      console.log("Saved country to localStorage:", propCountry.name);
+    if (country && country.name !== undefined) {
+      localStorage.setItem("country", JSON.stringify(country));
+      console.log("Saved country to localStorage:", country.name);
+    } else {
+      setCountry = { storedCountry };
+      localStorage.setItem("country", JSON.stringify(storedCountry));
+      console.log("No country, stored country:", country);
     }
-  }, [propCountry]);
+  }, []);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -39,7 +25,7 @@ const CountriesPage = ({ country: propCountry, refreshPosts }) => {
         const { data: posts, error: fetchError } = await supabase
           .from("Posts")
           .select("*")
-          .eq("location", country.name)
+          .eq("location", country.name || storedCountry.name)
           .order("created_at", { ascending: false });
 
         if (fetchError) {
@@ -48,7 +34,6 @@ const CountriesPage = ({ country: propCountry, refreshPosts }) => {
         if (!posts) {
           console.log("no posts");
         } else {
-          console.log("Posts:", posts);
           setPosts(posts);
         }
       } catch (error) {
@@ -62,13 +47,19 @@ const CountriesPage = ({ country: propCountry, refreshPosts }) => {
     return <p>Country not found or invalid link.</p>;
   }
 
+  console.log("Country", country);
+  console.log("Stored Country:", storedCountry);
+
   return (
     <div>
       <div className="country_page_container">
         <Nav />
         <div className="country_page_content">
           <div className="country_page_header">
-            <img src={country.href.flag} alt="country_flag" />
+            <img
+              src={country?.href?.flag || storedCountry?.href?.flag}
+              alt="country_flag"
+            />
             <h1 className="countries_page_name">{country.name}</h1>
           </div>
           <div className="new-post-form-container">
