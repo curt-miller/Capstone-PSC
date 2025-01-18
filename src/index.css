@@ -253,16 +253,23 @@ body {
   border: 1px solid black;
   justify-content: center;
   align-items: center;
+  margin: 20px;
 }
 
 .user_page_visited_list {
-  /* height: 100px; */
-  border: 1px solid black;
+  margin: 20px;
+}
+
+.user_page_visited_list img {
+  border-radius: 5px;
 }
 
 .user_page_liked_list {
-  /* height: 100px; */
-  border: 1px solid black;
+  margin: 20px;
+}
+
+.user_page_liked_list img {
+  border-radius: 5px;
 }
 
 /* .new-post-form-container {
