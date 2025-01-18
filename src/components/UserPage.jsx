@@ -113,7 +113,7 @@ const UserPage = () => {
               </Link>
               <br />
               <div className="user_page_visited_list">
-                <h3>Visited Countries:</h3>
+                <h3>Visited Countries</h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
@@ -131,7 +131,7 @@ const UserPage = () => {
               </div>
               <br />
               <div className="user_page_liked_list">
-                <h3>Liked Countries:</h3>
+                <h3>Liked Countries</h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {likedCountries.length > 0 ? (
                     likedCountries.map((country, index) => (
@@ -150,16 +150,19 @@ const UserPage = () => {
             </div>
           </div>
           <div className="feed-container">
-          <h1 className="user-profile-page-YOUR-POSTS">
-            Posts from Following
-          </h1>
-          <Feed refreshPosts={refreshPosts} userId={userId} followerPosts={true} />
+            <h1 className="user-profile-page-YOUR-POSTS">
+              Posts from Following
+            </h1>
+            <Feed
+              refreshPosts={refreshPosts}
+              userId={userId}
+              followerPosts={true}
+            />
+          </div>
         </div>
       </div>
     </div>
-  </div>
   );
 };
-
 
 export default UserPage;
