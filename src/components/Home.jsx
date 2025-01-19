@@ -1,5 +1,6 @@
 import React from "react";
 import MapShaded from "./MapShaded";
+import MapHomePage from "./MapHomePage";
 import Nav from "./Nav";
 import Countries from "./Countries";
 
@@ -9,7 +10,7 @@ const Home = ({ setCountry, country, setUserId, userId }) => {
       <Nav setUserId={setUserId} />
       <div className="home_page_content">
         <div className="home_page_map">
-          <MapShaded />
+          <MapHomePage/>
         </div>
         {/* <div className="home_page_photogrid"> */}
         <Countries setCountry={setCountry} country={country} userId={userId} />

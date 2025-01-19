@@ -41,7 +41,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
   return (
     // entire countries list container
     <div className="countries-homepage-container">
-      <h1 className="countries_header">See where our users have traveled</h1>
+
 
       {/* alphabet filter */}
       <div className="alphabet_filter">

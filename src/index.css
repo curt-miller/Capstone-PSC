@@ -33,11 +33,11 @@ body {
 
 /* MAPS (mapbox containers only) */
 
-#map-shaded {
+#map-home-page {
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgb(142, 128, 211);
-  display: flex;
 }
 
 #map-search {
@@ -109,8 +109,17 @@ body {
 }
 
 /* just the map (left) */
+.home_page_header {
+  font-style: italic;
+  color: rgb(62, 52, 67);
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 0;
+}
+
 .home_page_map {
   display: flex;
+  flex-direction: column;
 }
 
 /* just the countries list (right) */
@@ -459,10 +468,7 @@ body {
 
 /* COUNTRY API LIST COMPONENT */
 
-.countries_header {
-  font-style: italic;
-  color: rgb(62, 52, 67);
-}
+
 
 .alphabet_filter {
   display: flex;
