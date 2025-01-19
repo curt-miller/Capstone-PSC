@@ -20,27 +20,28 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
             description,
             location,
             user_id,
+            coordinates,
             Users(display_name, profilePicture)
           `
           )
           .order("created_at", { ascending: false });
 
-        if (followerPosts) {
-          const { data: followingIds, error: followingError } = await supabase
-            .from("Following")
-            .select("following_id")
-            .eq("user_id", userId);
+        // if (followerPosts) {
+        //   const { data: followingIds, error: followingError } = await supabase
+        //     .from("Following")
+        //     .select("following_id")
+        //     .eq("user_id", userId);
 
-          if (followingError) {
-            console.error("Error fetching following IDs:", followingError);
-            return;
-          }
+        //   if (followingError) {
+        //     console.error("Error fetching following IDs:", followingError);
+        //     return;
+        //   }
 
-          const ids = followingIds?.map((item) => item.following_id) || [];
-          query = query.in("user_id", ids);
-        } else {
-          query = query.eq("user_id", userId);
-        }
+        //   const ids = followingIds?.map((item) => item.following_id) || [];
+        //   query = query.in("user_id", ids);
+        // } else {
+        //   query = query.eq("user_id", userId);
+        // }
 
         const { data: posts, error: fetchError } = await query;
 
@@ -54,8 +55,11 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
       }
     };
 
+    
     fetchPosts();
+    
   }, [refreshPosts, followerPosts, userId]);
+  console.log(posts);
 
   const deletePost = async (postId) => {
     try {
