@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
 import { useNavigate } from "react-router-dom";
 
-const UserPage = () => {
+const UserPage = ({ setCountry, country }) => {
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [showFollowerPosts, setShowFollowerPosts] = useState(false);
   const [visitedCountries, setVisitedCountries] = useState([]);
@@ -90,6 +90,7 @@ const UserPage = () => {
     fetchData();
   }, [userId]);
 
+
   const handleClick = (country) => {
     navigate(`/${country.name}`);
     localStorage.setItem("country", JSON.stringify(country));
@@ -112,6 +113,7 @@ const UserPage = () => {
                 alt={displayName}
                 className="user_profile_pic"
               />
+
               <Link
                 to={{
                   pathname: `/${userId}/settings`
@@ -125,6 +127,7 @@ const UserPage = () => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
+
                       <button
                         key={index}
                         className="country_card_link"
@@ -154,7 +157,7 @@ const UserPage = () => {
                         }}
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)} // When the card is clicked, set the country
+                        onClick={() => handleCountryClick(country)} // Set country on click
                       >
                         <img
                           src={country.flag}
