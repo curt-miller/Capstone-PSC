@@ -6,16 +6,16 @@ import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
 import { useNavigate } from "react-router-dom";
 
-
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [showFollowerPosts, setShowFollowerPosts] = useState(false); // State to toggle between your posts and follower posts
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
   const [countryMap, setCountryMap] = useState({}); // To store country name-to-flag mapping
   const navigate = useNavigate();
-
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
@@ -44,6 +44,42 @@ const UserPage = () => {
   }, [userId]);
 
   useEffect(() => {
+    const fetchFollowers = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("Following")
+          .select("following_id")
+          .eq("user_id", userId);
+
+        if (error) throw error;
+
+        setFollowers(data || []);
+      } catch (error) {
+        console.error("Error fetching followers:", error);
+      }
+    };
+    fetchFollowers();
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchFollowing = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("Following")
+          .select("user_id")
+          .eq("following_id", userId);
+
+        if (error) throw error;
+
+        setFollowing(data || []);
+      } catch (error) {
+        console.error("Error fetching followers:", error);
+      }
+    };
+    fetchFollowing();
+  }, [userId]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         // Fetch the list of countries with flags
@@ -66,7 +102,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -81,7 +117,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -93,13 +129,11 @@ const UserPage = () => {
     fetchData();
   }, [userId]);
 
-
   const handleClick = (country) => {
     localStorage.setItem("country", JSON.stringify(country));
     console.log(country);
     navigate(`/${country.name}`);
   };
-
 
   return (
     <div>
@@ -119,11 +153,35 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`,
+                  pathname: `/${userId}/settings`
                 }}
               >
                 edit profile
               </Link>
+              <div className="follow-list">
+                <h3>Followers</h3>
+                <ul>
+                  {followers.length > 0 ? (
+                    followers.map((follower, index) => (
+                      <li key={index}>{follower.following_id}</li>
+                    ))
+                  ) : (
+                    <p>No followers yet.</p>
+                  )}
+                </ul>
+              </div>
+              <div className="follow-list">
+                <h3>Following</h3>
+                <ul>
+                  {following.length > 0 ? (
+                    following.map((follow, index) => (
+                      <li key={index}>{follow.user_id}</li>
+                    ))
+                  ) : (
+                    <p>No followers yet.</p>
+                  )}
+                </ul>
+              </div>
               <br />
               <div className="user_page_visited_list">
                 <h3>Visited Countries</h3>
