@@ -1134,31 +1134,3 @@ p {
   display: flex;
   flex-direction: column;
 }
-
-/* container for the left half of the page chnage and delete as needed */
-.user-profile-page-USER-INFO {
-  grid-area: USER;
-  height: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(221, 203, 203);
-}
-
-.user-profile-visited-countries,
-.user-profile-liked-countries {
-  margin-top: 20px;
-}
-
-.user-profile-following-section,
-.user-profile-visited-countries,
-.user-profile-liked-countries {
-  background: #f9f9f9;
-  padding: 10px;
-  border-radius: 8px;
-}
-
-.country-card-link img {
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
