@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
-  const [showFollowerPosts, setShowFollowerPosts] = useState(false); // State to toggle between your posts and follower posts
+  const [showFollowingPosts, setShowFollowingPosts] = useState(false);
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
@@ -233,23 +233,23 @@ const UserPage = () => {
           <div className="feed-container">
             <div className="toggle-buttons">
               <button
-                onClick={() => setShowFollowerPosts(false)}
-                className={!showFollowerPosts ? "active-toggle" : ""}
+                onClick={() => setShowFollowingPosts(false)}
+                className={!showFollowingPosts ? "active-toggle" : ""}
               >
                 My Posts
               </button>
               <button
-                onClick={() => setShowFollowerPosts(true)}
-                className={showFollowerPosts ? "active-toggle" : ""}
+                onClick={() => setShowFollowingPosts(true)}
+                className={showFollowingPosts ? "active-toggle" : ""}
               >
-                Posts from Followers
+                People I Follow
               </button>
             </div>
             <div className="feed-container-FEED">
               <Feed
                 refreshPosts={refreshPosts}
                 userId={userId}
-                followerPosts={showFollowerPosts}
+                followerPosts={showFollowingPosts}
               />
             </div>
           </div>
