@@ -349,6 +349,7 @@ cursor: pointer;
   margin-bottom: 8px;
   padding-top: 4px;
   padding-bottom: 4px;
+
 }
 
 .post-card:hover {
@@ -424,6 +425,8 @@ cursor: pointer;
   -webkit-line-clamp: 3;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 .post-card h3 {
