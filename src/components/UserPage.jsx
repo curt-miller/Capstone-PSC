@@ -4,6 +4,8 @@ import Nav from "./Nav";
 import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
+import { useNavigate } from "react-router-dom";
+
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
@@ -12,6 +14,8 @@ const UserPage = () => {
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
   const [countryMap, setCountryMap] = useState({}); // To store country name-to-flag mapping
+  const navigate = useNavigate();
+
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
@@ -42,6 +46,7 @@ const UserPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch the list of countries with flags
         const allCountries = await fetchCountries();
         const countryMapping = allCountries.reduce((acc, country) => {
           acc[country.name] = country.href.flag; // Assuming the API provides name and flag
@@ -49,6 +54,8 @@ const UserPage = () => {
         }, {});
 
         setCountryMap(countryMapping);
+
+        // Fetch visited countries from Supabase
 
         const { data: visitedData, error: visitedError } = await supabase
           .from("VisitedCountries")
@@ -64,6 +71,7 @@ const UserPage = () => {
 
         setVisitedCountries(visitedWithFlags);
 
+        // Fetch liked countries from Supabase
         const { data: likedData, error: likedError } = await supabase
           .from("LikedCountries")
           .select("country_name")
@@ -84,6 +92,14 @@ const UserPage = () => {
 
     fetchData();
   }, [userId]);
+
+
+  const handleClick = (country) => {
+    localStorage.setItem("country", JSON.stringify(country));
+    console.log(country);
+    navigate(`/${country.name}`);
+  };
+
 
   return (
     <div>
@@ -114,20 +130,17 @@ const UserPage = () => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
-                      <Link
-                        to={{
-                          pathname: `/${country.name.toLowerCase()}`,
-                        }}
+                      <button
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)}
+                        onClick={() => handleClick(country)}
                       >
                         <img
                           src={country.flag}
                           alt={country.name}
                           style={{ width: "30px", height: "20px" }}
                         />
-                      </Link>
+                      </button>
                     ))
                   ) : (
                     <p>No countries visited yet.</p>
@@ -140,20 +153,17 @@ const UserPage = () => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {likedCountries.length > 0 ? (
                     likedCountries.map((country, index) => (
-                      <Link
-                        to={{
-                          pathname: `/${country.name.toLowerCase()}`,
-                        }}
+                      <button
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)}
+                        onClick={() => handleClick(country)}
                       >
                         <img
                           src={country.flag}
                           alt={country.name}
                           style={{ width: "30px", height: "20px" }}
                         />
-                      </Link>
+                      </button>
                     ))
                   ) : (
                     <p>No countries liked yet.</p>
@@ -178,11 +188,11 @@ const UserPage = () => {
               </button>
             </div>
             <div className="feed-container-FEED">
-            <Feed
-              refreshPosts={refreshPosts}
-              userId={userId}
-              followerPosts={showFollowerPosts}
-            />
+              <Feed
+                refreshPosts={refreshPosts}
+                userId={userId}
+                followerPosts={showFollowerPosts}
+              />
             </div>
           </div>
         </div>
