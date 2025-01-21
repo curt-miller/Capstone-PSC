@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
 import { useNavigate } from "react-router-dom";
 
-const UserPage = ({ setCountry, country }) => {
+const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
-  const [showFollowerPosts, setShowFollowerPosts] = useState(false); // State to toggle between your posts and follower posts
+  const [showFollowerPosts, setShowFollowerPosts] = useState(false);
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
@@ -44,6 +44,7 @@ const UserPage = ({ setCountry, country }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch the list of countries with flags
         const allCountries = await fetchCountries();
         const countryMapping = allCountries.reduce((acc, country) => {
           acc[country.name] = country.href.flag; // Assuming the API provides name and flag
@@ -52,6 +53,7 @@ const UserPage = ({ setCountry, country }) => {
 
         setCountryMap(countryMapping);
 
+        // Fetch visited countries from Supabase
         const { data: visitedData, error: visitedError } = await supabase
           .from("VisitedCountries")
           .select("country_name")
@@ -66,6 +68,7 @@ const UserPage = ({ setCountry, country }) => {
 
         setVisitedCountries(visitedWithFlags);
 
+        // Fetch liked countries from Supabase
         const { data: likedData, error: likedError } = await supabase
           .from("LikedCountries")
           .select("country_name")
@@ -86,7 +89,6 @@ const UserPage = ({ setCountry, country }) => {
 
     fetchData();
   }, [userId]);
-
 
   const handleClick = (country) => {
     navigate(`/${country.name}`);
@@ -110,7 +112,6 @@ const UserPage = ({ setCountry, country }) => {
                 alt={displayName}
                 className="user_profile_pic"
               />
-
               <Link
                 to={{
                   pathname: `/${userId}/settings`
@@ -124,14 +125,10 @@ const UserPage = ({ setCountry, country }) => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
-
                       <button
                         key={index}
                         className="country_card_link"
-
                         onClick={() => handleClick(country)} // When the card is clicked, set the country
-
-
                       >
                         <img
                           src={country.flag}
@@ -157,7 +154,7 @@ const UserPage = ({ setCountry, country }) => {
                         }}
                         key={index}
                         className="country_card_link"
-                        onClick={() => handleCountryClick(country)} // Set country on click
+                        onClick={() => setCountry(country)} // When the card is clicked, set the country
                       >
                         <img
                           src={country.flag}
@@ -174,27 +171,14 @@ const UserPage = ({ setCountry, country }) => {
             </div>
           </div>
           <div className="feed-container">
-            <div className="toggle-buttons">
-              <button
-                onClick={() => setShowFollowerPosts(false)}
-                className={!showFollowerPosts ? "active-toggle" : ""}
-              >
-                My Posts
-              </button>
-              <button
-                onClick={() => setShowFollowerPosts(true)}
-                className={showFollowerPosts ? "active-toggle" : ""}
-              >
-                Posts from Followers
-              </button>
-            </div>
-            <div className="feed-container-FEED">
+            <h1 className="user-profile-page-YOUR-POSTS">
+              Posts from Following
+            </h1>
             <Feed
               refreshPosts={refreshPosts}
               userId={userId}
-              followerPosts={showFollowerPosts}
+              followerPosts={true}
             />
-            </div>
           </div>
         </div>
       </div>
