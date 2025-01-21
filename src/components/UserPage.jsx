@@ -5,7 +5,7 @@ import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
 
-const UserPage = () => {
+const UserPage = ({ setCountry, country }) => {
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [showFollowerPosts, setShowFollowerPosts] = useState(false); // State to toggle between your posts and follower posts
   const [visitedCountries, setVisitedCountries] = useState([]);
@@ -85,6 +85,13 @@ const UserPage = () => {
     fetchData();
   }, [userId]);
 
+  const handleCountryClick = (country) => {
+    setCountry(country); // Update country state in the parent component
+    localStorage.setItem("country", country.name);
+    console.log("check country", country);
+    // Persist the selected country in localStorage
+  };
+
   return (
     <div>
       <div className="user-profile-page-container">
@@ -101,13 +108,7 @@ const UserPage = () => {
                 alt={displayName}
                 className="user_profile_pic"
               />
-              <Link
-                to={{
-                  pathname: `/${userId}/settings`,
-                }}
-              >
-                edit profile
-              </Link>
+              <Link to={`/${userId}/settings`}>edit profile</Link>
               <br />
               <div className="user_page_visited_list">
                 <h3>Visited Countries</h3>
@@ -115,12 +116,11 @@ const UserPage = () => {
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
                       <Link
-                        to={{
-                          pathname: `/${country.name.toLowerCase()}`,
-                        }}
+                        to={`/${country.name.toLowerCase()}`}
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)}
+
+                        onClick={() => handleCountryClick(country)} // Set country on click
                       >
                         <img
                           src={country.flag}
@@ -141,12 +141,10 @@ const UserPage = () => {
                   {likedCountries.length > 0 ? (
                     likedCountries.map((country, index) => (
                       <Link
-                        to={{
-                          pathname: `/${country.name.toLowerCase()}`,
-                        }}
+                        to={`/${country.name.toLowerCase()}`}
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)}
+                        onClick={() => handleCountryClick(country)} // Set country on click
                       >
                         <img
                           src={country.flag}
