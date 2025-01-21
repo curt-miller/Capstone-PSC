@@ -11,6 +11,10 @@ const CountriesPage = ({ setCountry, country, refreshPosts }) => {
 
   const storedCountry = JSON.parse(localStorage.getItem("country"));
 
+  if (storedCountry !== undefined) {
+    country = storedCountry;
+  }
+
   useEffect(() => {
     if (country && country.name !== undefined) {
       localStorage.setItem("country", JSON.stringify(country));

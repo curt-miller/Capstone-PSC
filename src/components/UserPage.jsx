@@ -91,9 +91,9 @@ const UserPage = () => {
   }, [userId]);
 
   const handleClick = (country) => {
-    navigate(`/${country.name}`);
     localStorage.setItem("country", JSON.stringify(country));
     console.log(country);
+    navigate(`/${country.name}`);
   };
 
   return (
@@ -154,7 +154,7 @@ const UserPage = () => {
                         }}
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)} // When the card is clicked, set the country
+                        onClick={() => handleClick(country)} // When the card is clicked, set the country
                       >
                         <img
                           src={country.flag}
