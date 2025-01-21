@@ -7,7 +7,7 @@ import { fetchCountries } from "../API/countries";
 
 const UserPage = ({ setCountry, country }) => {
   const [refreshPosts, setRefreshPosts] = useState(false);
-  const [showFollowerPosts, setShowFollowerPosts] = useState(false);
+  const [showFollowerPosts, setShowFollowerPosts] = useState(false); // State to toggle between your posts and follower posts
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
@@ -42,7 +42,6 @@ const UserPage = ({ setCountry, country }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch the list of countries with flags
         const allCountries = await fetchCountries();
         const countryMapping = allCountries.reduce((acc, country) => {
           acc[country.name] = country.href.flag; // Assuming the API provides name and flag
@@ -51,7 +50,6 @@ const UserPage = ({ setCountry, country }) => {
 
         setCountryMap(countryMapping);
 
-        // Fetch visited countries from Supabase
         const { data: visitedData, error: visitedError } = await supabase
           .from("VisitedCountries")
           .select("country_name")
@@ -66,7 +64,6 @@ const UserPage = ({ setCountry, country }) => {
 
         setVisitedCountries(visitedWithFlags);
 
-        // Fetch liked countries from Supabase
         const { data: likedData, error: likedError } = await supabase
           .from("LikedCountries")
           .select("country_name")
@@ -122,6 +119,7 @@ const UserPage = ({ setCountry, country }) => {
                         to={`/${country.name.toLowerCase()}`}
                         key={index}
                         className="country_card_link"
+
                         onClick={() => handleCountryClick(country)} // Set country on click
                       >
                         <img
@@ -163,14 +161,27 @@ const UserPage = ({ setCountry, country }) => {
             </div>
           </div>
           <div className="feed-container">
-            <h1 className="user-profile-page-YOUR-POSTS">
-              Posts from Following
-            </h1>
+            <div className="toggle-buttons">
+              <button
+                onClick={() => setShowFollowerPosts(false)}
+                className={!showFollowerPosts ? "active-toggle" : ""}
+              >
+                My Posts
+              </button>
+              <button
+                onClick={() => setShowFollowerPosts(true)}
+                className={showFollowerPosts ? "active-toggle" : ""}
+              >
+                Posts from Followers
+              </button>
+            </div>
+            <div className="feed-container-FEED">
             <Feed
               refreshPosts={refreshPosts}
               userId={userId}
-              followerPosts={true}
+              followerPosts={showFollowerPosts}
             />
+            </div>
           </div>
         </div>
       </div>

@@ -142,12 +142,13 @@ export default function AttractionDetail(displayname) {
               hour: "2-digit",
               minute: "2-digit"
             })}{" "}
+            by {" "}
             <Link
               to={{
                 pathname: `/${post.Users.id}/profile`
               }}
             >
-              by {post.Users.display_name}
+              {post.Users.display_name}
               <img src={post.Users?.profilePicture} alt="profile photo" />
             </Link>
           </h2>
