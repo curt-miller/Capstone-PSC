@@ -4,6 +4,8 @@ import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
 
+//making changes
+
 const CountriesPage = ({ setCountry, country, refreshPosts }) => {
   const [posts, setPosts] = useState([]);
 
