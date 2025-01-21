@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -15,9 +15,20 @@ import UserProfile from "./components/UserProfile";
 export default function App() {
   const [token, setToken] = useState("");
   const [username, setUsername] = useState("");
-  const [country, setCountry] = useState({});
+  const [country, setCountry] = useState(() => {
+    // Initialize country state from localStorage if available
+    const storedCountry = localStorage.getItem("country");
+    return storedCountry ? { name: storedCountry } : {}; // Default to empty if not found
+  });
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [userId, setUserId] = useState(null);
+
+  // Effect to update localStorage when country changes
+  useEffect(() => {
+    if (country.name) {
+      localStorage.setItem("country", country.name);
+    }
+  }, [country]);
 
   return (
     <div>
@@ -51,7 +62,13 @@ export default function App() {
         <Route path="/NewPost" element={<NewPostForm />} />
         <Route
           path="/userpage"
-          element={<UserPage refreshPosts={refreshPosts} userId={userId} />}
+          element={
+            <UserPage
+              refreshPosts={refreshPosts}
+              userId={userId}
+              setCountry={setCountry}
+            />
+          }
         />
         {/* Country Route */}
         <Route
@@ -64,10 +81,8 @@ export default function App() {
             />
           }
         />
-        <Route path="/Markers" element={<MapMarkers />} />{" "}
-        {/* just for testing */}
+        <Route path="/Markers" element={<MapMarkers />} />
         <Route path="/attraction/:id" element={<AttractionDetail />} />
-        {/* just for testing */}
         <Route path="/imagegrid" element={<ImageGrid />} />
         <Route path="/:userId/settings" element={<UserSettings />} />
         <Route path="/:userId/profile" element={<UserProfile />} />
