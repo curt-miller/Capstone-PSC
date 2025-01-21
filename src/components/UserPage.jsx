@@ -117,12 +117,20 @@ const UserPage = () => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
-                      <img
+                      <Link
+                        to={{
+                          pathname: `/${country.name.toLowerCase()}`,
+                        }}
                         key={index}
-                        src={country.flag}
-                        alt={country.name}
-                        style={{ width: "30px", height: "20px" }}
-                      />
+                        className="country_card_link"
+                        onClick={() => setCountry(country)} // When the card is clicked, set the country
+                      >
+                        <img
+                          src={country.flag}
+                          alt={country.name}
+                          style={{ width: "30px", height: "20px" }}
+                        />
+                      </Link>
                     ))
                   ) : (
                     <p>No countries visited yet.</p>
@@ -135,12 +143,20 @@ const UserPage = () => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {likedCountries.length > 0 ? (
                     likedCountries.map((country, index) => (
-                      <img
+                      <Link
+                        to={{
+                          pathname: `/${country.name.toLowerCase()}`,
+                        }}
                         key={index}
-                        src={country.flag}
-                        alt={country.name}
-                        style={{ width: "30px", height: "20px" }}
-                      />
+                        className="country_card_link"
+                        onClick={() => setCountry(country)} // When the card is clicked, set the country
+                      >
+                        <img
+                          src={country.flag}
+                          alt={country.name}
+                          style={{ width: "30px", height: "20px" }}
+                        />
+                      </Link>
                     ))
                   ) : (
                     <p>No countries liked yet.</p>
