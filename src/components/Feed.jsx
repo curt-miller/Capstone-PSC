@@ -26,22 +26,22 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
           )
           .order("created_at", { ascending: false });
 
-        // if (followerPosts) {
-        //   const { data: followingIds, error: followingError } = await supabase
-        //     .from("Following")
-        //     .select("following_id")
-        //     .eq("user_id", userId);
+        if (followerPosts) {
+          const { data: followingIds, error: followingError } = await supabase
+            .from("Following")
+            .select("following_id")
+            .eq("user_id", userId);
 
-        //   if (followingError) {
-        //     console.error("Error fetching following IDs:", followingError);
-        //     return;
-        //   }
+          if (followingError) {
+            console.error("Error fetching following IDs:", followingError);
+            return;
+          }
 
-        //   const ids = followingIds?.map((item) => item.following_id) || [];
-        //   query = query.in("user_id", ids);
-        // } else {
-        //   query = query.eq("user_id", userId);
-        // }
+          const ids = followingIds?.map((item) => item.following_id) || [];
+          query = query.in("user_id", ids);
+        } else {
+          query = query.eq("user_id", userId);
+        }
 
         const { data: posts, error: fetchError } = await query;
 
@@ -59,7 +59,6 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
     fetchPosts();
     
   }, [refreshPosts, followerPosts, userId]);
-  console.log(posts);
 
   const deletePost = async (postId) => {
     try {
@@ -78,6 +77,12 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
       console.error("Error during deletion:", error);
     }
   };
+
+  useEffect(() => {
+    console.log("Logged in userId:", userId);
+    console.log("Posts:", posts);
+  }, [posts, userId]);
+  
 
   return (
     <div>
@@ -109,7 +114,7 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
               <div className="post-card-BUTTON-CONTAINER">
                 <LikeButton post_id={post.id} userId={userId} />
                 <div className="post-card-DELETE-BUTTON">
-                  {post.user_id === userId && (
+                  {post.user_id == userId && (
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
