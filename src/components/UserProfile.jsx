@@ -204,8 +204,8 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-        <div className="feed-container">
-          <h1 className="user-profile-page-YOUR-POSTS">
+        <div className="user-profile-feed-container">
+          <h1>
             {profile.display_name}'s Posts
           </h1>
           <Feed

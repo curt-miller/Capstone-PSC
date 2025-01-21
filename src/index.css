@@ -288,6 +288,19 @@ body {
   flex-direction: column;
 }
 
+.user-profile-feed-container {
+  grid-area: RIGHT;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.user-profile-feed-container h1{
+  font-size: 2rem;
+  margin: 4px;
+}
+
 .feed-container-FEED {
   height: 100%;
   overflow-y: scroll;
