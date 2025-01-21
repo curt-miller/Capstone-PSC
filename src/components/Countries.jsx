@@ -7,6 +7,7 @@ import LikeButton from "./LikeButton";
 import supabase from "../supaBaseClient";
 import VisitedCountries from "./VisitedCountries";
 import LikeButtonCountries from "./LikeButtonCountries";
+import { useNavigate } from "react-router-dom";
 
 const Countries = ({ setCountry, refreshPosts, country }) => {
   const [countries, setCountries] = useState([]);
@@ -14,6 +15,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
   const [selectedLetter, setSelectedLetter] = useState("A");
   const [posts, setPosts] = useState([]);
   const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCountries = async () => {
@@ -38,16 +40,20 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
     setFilteredCountries(filtered);
   };
 
+  const handleClick = (country) => {
+    localStorage.setItem("country", JSON.stringify(country));
+    console.log(country);
+    navigate(`/${country.name}`);
+  };
+
   return (
     // entire countries list container
     <div className="countries-homepage-container">
-
-
       {/* alphabet filter */}
       <div className="alphabet_filter">
         {[
           "A",
-          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i)),
+          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i))
         ].map((letter) => (
           <button
             key={letter}
@@ -78,16 +84,12 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
               }}
             >
               {/* Country Name (Plain Text) */}
-              <Link
-                to={{
-                  pathname: `/${country.name.toLowerCase()}`,
-                }}
-                key={index}
+              <button
                 className="country_card_link"
-                onClick={() => setCountry(country)} // When the card is clicked, set the country
+                onClick={() => handleClick(country)} // When the card is clicked, set the country
               >
                 <h2 className="country_name">{country.name}</h2>
-              </Link>
+              </button>
 
               {/* Buttons */}
               <div className="country_buttons">
