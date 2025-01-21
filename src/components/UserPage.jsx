@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
+import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
@@ -12,6 +13,7 @@ const UserPage = () => {
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
   const [countryMap, setCountryMap] = useState({}); // To store country name-to-flag mapping
+  const navigate = useNavigate();
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
@@ -61,7 +63,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -76,7 +78,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -87,6 +89,12 @@ const UserPage = () => {
 
     fetchData();
   }, [userId]);
+
+  const handleClick = (country) => {
+    navigate(`/${country.name}`);
+    localStorage.setItem("country", JSON.stringify(country));
+    console.log(country);
+  };
 
   return (
     <div>
@@ -106,7 +114,7 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`,
+                  pathname: `/${userId}/settings`
                 }}
               >
                 edit profile
@@ -117,20 +125,17 @@ const UserPage = () => {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                   {visitedCountries.length > 0 ? (
                     visitedCountries.map((country, index) => (
-                      <Link
-                        to={{
-                          pathname: `/${country.name.toLowerCase()}`,
-                        }}
+                      <button
                         key={index}
                         className="country_card_link"
-                        onClick={() => setCountry(country)} // When the card is clicked, set the country
+                        onClick={() => handleClick(country)} // When the card is clicked, set the country
                       >
                         <img
                           src={country.flag}
                           alt={country.name}
                           style={{ width: "30px", height: "20px" }}
                         />
-                      </Link>
+                      </button>
                     ))
                   ) : (
                     <p>No countries visited yet.</p>
@@ -145,7 +150,7 @@ const UserPage = () => {
                     likedCountries.map((country, index) => (
                       <Link
                         to={{
-                          pathname: `/${country.name.toLowerCase()}`,
+                          pathname: `/${country.name.toLowerCase()}`
                         }}
                         key={index}
                         className="country_card_link"

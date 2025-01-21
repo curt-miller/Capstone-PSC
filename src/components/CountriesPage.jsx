@@ -6,6 +6,7 @@ import NewPostForm from "./NewPostForm";
 
 const CountriesPage = ({ setCountry, country, refreshPosts }) => {
   const [posts, setPosts] = useState([]);
+
   const storedCountry = JSON.parse(localStorage.getItem("country"));
 
   useEffect(() => {
@@ -57,10 +58,16 @@ const CountriesPage = ({ setCountry, country, refreshPosts }) => {
         <div className="country_page_content">
           <div className="country_page_header">
             <img
-              src={country?.href?.flag || storedCountry?.href?.flag}
+              src={
+                country?.href?.flag ||
+                storedCountry?.flag ||
+                storedCountry?.href?.flag
+              }
               alt="country_flag"
             />
-            <h1 className="countries_page_name">{country.name}</h1>
+            <h1 className="countries_page_name">
+              {country.name || storedCountry.name}
+            </h1>
           </div>
           <div className="new-post-form-container">
             <NewPostForm />
