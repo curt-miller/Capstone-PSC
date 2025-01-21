@@ -55,9 +55,7 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
       }
     };
 
-    
     fetchPosts();
-    
   }, [refreshPosts, followerPosts, userId]);
 
   const deletePost = async (postId) => {
