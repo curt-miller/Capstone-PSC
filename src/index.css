@@ -231,7 +231,7 @@ body {
   grid-template-areas:
     "WELCOME RIGHT"
     "LEFT RIGHT";
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 30% 70%;
   grid-template-rows: auto 1fr;
   overflow: hidden;
 }
@@ -1106,9 +1106,9 @@ p {
   width: 35vw;
 }
 
-/* USER PROFILE PAGE */
+/* USER PROFILE PAGE - dont need i believe */
 
-.use-profile-page-CONTAINER {
+/* .use-profile-page-CONTAINER {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -1123,7 +1123,7 @@ p {
   display: grid;
   grid-template-areas: "USER FEED";
   grid-template-columns: 50% 50%;
-  grid-template-rows: 1fr;
+  grid-template-rows: 1fr 1fr;
   overflow: hidden;
 }
 
@@ -1133,4 +1133,4 @@ p {
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
-}
+} */
