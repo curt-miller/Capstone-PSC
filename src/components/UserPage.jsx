@@ -104,7 +104,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -119,7 +119,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setLikedCountries(likedWithFlags);
@@ -161,7 +161,7 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`
+                  pathname: `/${userId}/settings`,
                 }}
               >
                 edit profile
@@ -209,7 +209,6 @@ const UserPage = () => {
                   <p>No followers yet.</p>
                 )}
               </div>
-              <br />
               <div className="user_page_visited_list">
                 <h3>Visited Countries</h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
@@ -233,7 +232,6 @@ const UserPage = () => {
                   )}
                 </div>
               </div>
-              <br />
               <div className="user_page_liked_list">
                 <h3>Liked Countries</h3>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
