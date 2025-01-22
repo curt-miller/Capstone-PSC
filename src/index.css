@@ -122,11 +122,20 @@ body {
   flex-direction: column;
 }
 
+.home_page_map_loading_message{
+  justify-self: center;
+  align-self: center;
+  margin-top: 40vh;
+  font-size: 1.5rem;
+  font-style: italic;
+}
+
 /* just the countries list (right) */
 .countries-homepage-container {
   padding: 20px;
   overflow-y: scroll;
   background-color: white;
+  margin-bottom: 10vh;
 }
 
 /* LOGIN COMPONENT */
@@ -1114,7 +1123,6 @@ p {
   margin-bottom: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1124,7 +1132,6 @@ p {
   height: 100%;
   object-fit: contain;
   border-radius: 10px;
-  justify-self: center;
 }
 
 /* SETTINGS PAGE */

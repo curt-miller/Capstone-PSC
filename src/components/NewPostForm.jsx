@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MapSearch from "./MapSearch";
 import supabase from "../supaBaseClient";
 
-export default function NewPostForm({ onPostSubmit }) {
+export default function NewPostForm({ onPostSubmit, capital }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");

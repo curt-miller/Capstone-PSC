@@ -57,6 +57,8 @@ const CountriesPage = ({ setCountry, country, refreshPosts }) => {
   console.log("Country", country);
   console.log("Stored Country:", storedCountry);
 
+  const storedCapital = storedCountry.capital
+
   return (
     <div>
       <div className="country_page_container">
