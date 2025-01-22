@@ -13,6 +13,7 @@ const MapSearch = ({ onLocationChange }) => {
   const markerAddedRef = useRef(false); // Ref to track if the marker is added
   const [markerLocation, setMarkerLocation] = useState(null);
   const KEY = import.meta.env.VITE_MAPBOX_TOKEN;
+  const [mapView, setMapView] = useState([-97.784965, 39.800321])
 
   // Function to fetch reverse geocode data
   const fetchReverseGeocode = async (coords) => {
@@ -42,7 +43,7 @@ const MapSearch = ({ onLocationChange }) => {
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: [-97.784965, 39.800321],
+      center: mapView,
       zoom: 2,
       attributionControl: false,
     });
