@@ -94,7 +94,10 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
               {/* Buttons */}
               <div className="country_buttons">
                 <button className="like_button">
-                  <LikeButtonCountries country_name={country} />
+                  <LikeButtonCountries
+                    className="like_button_icon"
+                    country_name={country}
+                  />
                 </button>
                 <button className="visited_country_button">
                   <VisitedCountries
