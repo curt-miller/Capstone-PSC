@@ -14,6 +14,7 @@ const UserProfile = () => {
   const [following, setFollowing] = useState([]);
   const [countryMap, setCountryMap] = useState({});
   const [refreshPosts, setRefreshPosts] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const userId = localStorage.getItem("userId");
 
@@ -34,6 +35,26 @@ const UserProfile = () => {
     };
     fetchProfile();
   }, [profileId]);
+  //comment
+  useEffect(() => {
+    const checkFollowingStatus = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("Following")
+          .select("*")
+          .eq("following_id", userId)
+          .eq("user_id", profileId)
+          .single();
+
+        console.log("Fetched data:", data);
+        if (error && error.code !== "PGRST116") throw error;
+        setIsFollowing(!!data);
+      } catch (error) {
+        console.error("Error checking following status:", error);
+      }
+    };
+    checkFollowingStatus();
+  }, [profileId, userId]);
 
   useEffect(() => {
     const fetchFollowers = async () => {
@@ -44,8 +65,6 @@ const UserProfile = () => {
           .eq("user_id", profileId); // Who I am following
 
         if (error) throw error;
-
-        console.log("Follower list fetched:", data);
         setFollowers(data || []);
       } catch (error) {
         console.error("Error fetching followers:", error);
@@ -64,7 +83,6 @@ const UserProfile = () => {
 
         if (error) throw error;
 
-        console.log("Following list fetched:", data); // Logs the fetched data
         setFollowing(data || []); // Updates state
       } catch (error) {
         console.error("Error fetching following:", error);
@@ -93,7 +111,7 @@ const UserProfile = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -106,7 +124,7 @@ const UserProfile = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -128,6 +146,8 @@ const UserProfile = () => {
           .eq("following_id", userId)
           .eq("user_id", profileId)
           .single();
+
+      setIsFollowing(true);
 
       if (checkFollowingError && checkFollowingError.code !== "PGRST116") {
         throw checkFollowingError;
@@ -167,6 +187,23 @@ const UserProfile = () => {
     }
   };
 
+  const handleUnfollow = async (e) => {
+    try {
+      const { data: deletedFollowing, error: deletedFollowingError } =
+        await supabase
+          .from("Following")
+          .delete()
+          .eq("following_id", userId)
+          .eq("user_id", profileId);
+
+      setIsFollowing(false);
+      if (deletedFollowingError) throw deletedFollowingError;
+      console.log("Unfollow relationship successfully removed.");
+    } catch (error) {
+      console.error("Error handling unfollow action:", error);
+    }
+  };
+
   return (
     <div className="user-profile-page-container">
       <Nav />
@@ -181,7 +218,15 @@ const UserProfile = () => {
               alt={profile.display_name}
               className="user_profile_pic"
             />
-            <button onClick={handleFollow}>FOLLOW</button>
+            {isFollowing ? (
+              <button onClick={handleUnfollow} className="follow-btn">
+                UNFOLLOW
+              </button>
+            ) : (
+              <button onClick={handleFollow} className="follow-btn">
+                FOLLOW
+              </button>
+            )}
             <br />
             <div className="follow-list">
               <h3>Followers</h3>
