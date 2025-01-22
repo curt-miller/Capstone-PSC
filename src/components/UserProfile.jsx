@@ -4,6 +4,7 @@ import Feed from "./Feed";
 import Nav from "./Nav";
 import { fetchCountries } from "../API/countries";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const profileId = localStorage.getItem("profileId") || "Guest";
@@ -17,6 +18,7 @@ const UserProfile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const userId = localStorage.getItem("userId");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -111,7 +113,7 @@ const UserProfile = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -124,7 +126,7 @@ const UserProfile = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setLikedCountries(likedWithFlags);
@@ -204,6 +206,18 @@ const UserProfile = () => {
     }
   };
 
+  const handleClickCountry = (country) => {
+    localStorage.setItem("country", JSON.stringify(country));
+    console.log(country);
+    navigate(`/${country.name}`);
+  };
+
+  const handleClickFriend = (profileId) => {
+    console.log("follower", profileId);
+    localStorage.setItem("profileId", profileId);
+    navigate(`/${profileId}/profile`);
+  };
+
   return (
     <div className="user-profile-page-container">
       <Nav />
@@ -232,12 +246,19 @@ const UserProfile = () => {
               <h3>Followers</h3>
               {followers.length > 0 ? (
                 followers.map((follower, index) => (
-                  <img
+                  <button
                     key={index}
-                    src={follower.Users.profilePicture}
-                    alt="follower list"
-                    style={{ width: "40px", height: "40px" }}
-                  />
+                    to={`/${follower.following_id}/profile`}
+                    className="follower-card-link"
+                    onClick={() => handleClickFriend(follower.following_id)}
+                  >
+                    <img
+                      key={index}
+                      src={follower.Users.profilePicture}
+                      alt="follower list"
+                      style={{ width: "40px", height: "40px" }}
+                    />
+                  </button>
                 ))
               ) : (
                 <p>No followers yet.</p>
@@ -247,27 +268,34 @@ const UserProfile = () => {
               <h3>Following</h3>
               {following.length > 0 ? (
                 following.map((follow, index) => (
-                  <img
+                  <button
                     key={index}
-                    src={follow.Users.profilePicture}
-                    alt="follower list"
-                    style={{ width: "40px", height: "40px" }}
-                  />
+                    to={`/${follow.user_id}/profile`}
+                    className="follower-card-link"
+                    onClick={() => handleClickFriend(follow.user_id)}
+                  >
+                    <img
+                      key={index}
+                      src={follow.Users.profilePicture}
+                      alt="follower list"
+                      style={{ width: "40px", height: "40px" }}
+                    />
+                  </button>
                 ))
               ) : (
                 <p>No followers yet.</p>
               )}
             </div>
-            <br></br>
+
             <div className="user_page_visited_list">
               <h3>Visited Countries</h3>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {visitedCountries.length > 0 ? (
                   visitedCountries.map((country, index) => (
-                    <Link
-                      to={`/${country.name.toLowerCase()}`}
+                    <button
                       key={index}
                       className="country_card_link"
+                      onClick={() => handleClickCountry(country)}
                     >
                       <img
                         src={country.flag}
@@ -275,23 +303,22 @@ const UserProfile = () => {
                         title={country.name}
                         style={{ width: "40px", height: "30px" }}
                       />
-                    </Link>
+                    </button>
                   ))
                 ) : (
                   <p>No countries visited yet.</p>
                 )}
               </div>
             </div>
-            <br />
             <div className="user_page_liked_list">
               <h3>Liked Countries</h3>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {likedCountries.length > 0 ? (
                   likedCountries.map((country, index) => (
-                    <Link
-                      to={`/${country.name.toLowerCase()}`}
+                    <button
                       key={index}
                       className="country_card_link"
+                      onClick={() => handleClickCountry(country)}
                     >
                       <img
                         src={country.flag}
@@ -299,7 +326,7 @@ const UserProfile = () => {
                         title={country.name}
                         style={{ width: "40px", height: "30px" }}
                       />
-                    </Link>
+                    </button>
                   ))
                 ) : (
                   <p>No countries liked yet.</p>

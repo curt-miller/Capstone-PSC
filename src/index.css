@@ -273,6 +273,7 @@ body {
 .follower-card-link {
   background-color: lavender;
   border: none;
+  cursor: pointer;
 }
 
 .follow-list img {
