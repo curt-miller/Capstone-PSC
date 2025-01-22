@@ -40,11 +40,12 @@ const UserProfile = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("following_id")
-          .eq("user_id", profileId);
+          .select("following_id, Users!fk_following_id(profilePicture)")
+          .eq("user_id", profileId); // Who I am following
 
         if (error) throw error;
 
+        console.log("Follower list fetched:", data);
         setFollowers(data || []);
       } catch (error) {
         console.error("Error fetching followers:", error);
@@ -58,14 +59,15 @@ const UserProfile = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("user_id")
+          .select("user_id, Users!fk_user_id(profilePicture)")
           .eq("following_id", profileId);
 
         if (error) throw error;
 
-        setFollowing(data || []);
+        console.log("Following list fetched:", data); // Logs the fetched data
+        setFollowing(data || []); // Updates state
       } catch (error) {
-        console.error("Error fetching followers:", error);
+        console.error("Error fetching following:", error);
       }
     };
     fetchFollowing();
@@ -116,6 +118,55 @@ const UserProfile = () => {
     fetchData();
   }, [profileId]);
 
+  const handleFollow = async (e) => {
+    try {
+      // Check if the follow relationship already exists
+      const { data: existingFollowing, error: checkFollowingError } =
+        await supabase
+          .from("Following")
+          .select("*")
+          .eq("following_id", userId)
+          .eq("user_id", profileId)
+          .single();
+
+      if (checkFollowingError && checkFollowingError.code !== "PGRST116") {
+        throw checkFollowingError;
+      }
+
+      if (!existingFollowing) {
+        // Add the follow relationship to the "Following" table
+        const { data: followingData, error: followingError } = await supabase
+          .from("Following")
+          .insert([
+            {
+              following_id: userId, // The user being followed
+              user_id: profileId // The user performing the follow action
+            }
+          ]);
+
+        if (followingError) throw followingError;
+
+        // Add the reciprocal relationship to the "Followers" table
+        const { data: followerData, error: followerError } = await supabase
+          .from("Followers")
+          .insert([
+            {
+              follower_id: profileId, // The user performing the follow action
+              user_id: userId // The user being followed
+            }
+          ]);
+
+        if (followerError) throw followerError;
+
+        console.log("Follow relationship successfully added.");
+      } else {
+        console.log("Follow relationship already exists.");
+      }
+    } catch (error) {
+      console.error("Error handling follow action:", error);
+    }
+  };
+
   return (
     <div className="user-profile-page-container">
       <Nav />
@@ -130,31 +181,37 @@ const UserProfile = () => {
               alt={profile.display_name}
               className="user_profile_pic"
             />
-            <button>FOLLOW</button>
+            <button onClick={handleFollow}>FOLLOW</button>
             <br />
             <div className="follow-list">
               <h3>Followers</h3>
-              <ul>
-                {followers.length > 0 ? (
-                  followers.map((follower, index) => (
-                    <li key={index}>{follower.following_id}</li>
-                  ))
-                ) : (
-                  <p>No followers yet.</p>
-                )}
-              </ul>
+              {followers.length > 0 ? (
+                followers.map((follower, index) => (
+                  <img
+                    key={index}
+                    src={follower.Users.profilePicture}
+                    alt="follower list"
+                    style={{ width: "40px", height: "40px" }}
+                  />
+                ))
+              ) : (
+                <p>No followers yet.</p>
+              )}
             </div>
             <div className="follow-list">
               <h3>Following</h3>
-              <ul>
-                {following.length > 0 ? (
-                  following.map((follow, index) => (
-                    <li key={index}>{follow.user_id}</li>
-                  ))
-                ) : (
-                  <p>No followers yet.</p>
-                )}
-              </ul>
+              {following.length > 0 ? (
+                following.map((follow, index) => (
+                  <img
+                    key={index}
+                    src={follow.Users.profilePicture}
+                    alt="follower list"
+                    style={{ width: "40px", height: "40px" }}
+                  />
+                ))
+              ) : (
+                <p>No followers yet.</p>
+              )}
             </div>
             <br></br>
             <div className="user_page_visited_list">

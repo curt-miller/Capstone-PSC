@@ -48,11 +48,12 @@ const UserPage = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("following_id")
-          .eq("user_id", userId);
+          .select("following_id, Users!fk_following_id(profilePicture)")
+          .eq("user_id", userId); // Who I am following
 
         if (error) throw error;
 
+        console.log("Follower list fetched:", data);
         setFollowers(data || []);
       } catch (error) {
         console.error("Error fetching followers:", error);
@@ -66,14 +67,15 @@ const UserPage = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("user_id")
+          .select("user_id, Users!fk_user_id(profilePicture)")
           .eq("following_id", userId);
 
         if (error) throw error;
 
-        setFollowing(data || []);
+        console.log("Following list fetched:", data); // Logs the fetched data
+        setFollowing(data || []); // Updates state
       } catch (error) {
-        console.error("Error fetching followers:", error);
+        console.error("Error fetching following:", error);
       }
     };
     fetchFollowing();
@@ -160,27 +162,33 @@ const UserPage = () => {
               </Link>
               <div className="follow-list">
                 <h3>Followers</h3>
-                <ul>
-                  {followers.length > 0 ? (
-                    followers.map((follower, index) => (
-                      <li key={index}>{follower.following_id}</li>
-                    ))
-                  ) : (
-                    <p>No followers yet.</p>
-                  )}
-                </ul>
+                {followers.length > 0 ? (
+                  followers.map((follower, index) => (
+                    <img
+                      key={index}
+                      src={follower.Users.profilePicture}
+                      alt="follower list"
+                      style={{ width: "40px", height: "40px" }}
+                    />
+                  ))
+                ) : (
+                  <p>No followers yet.</p>
+                )}
               </div>
               <div className="follow-list">
                 <h3>Following</h3>
-                <ul>
-                  {following.length > 0 ? (
-                    following.map((follow, index) => (
-                      <li key={index}>{follow.user_id}</li>
-                    ))
-                  ) : (
-                    <p>No followers yet.</p>
-                  )}
-                </ul>
+                {following.length > 0 ? (
+                  following.map((follow, index) => (
+                    <img
+                      key={index}
+                      src={follow.Users.profilePicture}
+                      alt="follower list"
+                      style={{ width: "40px", height: "40px" }}
+                    />
+                  ))
+                ) : (
+                  <p>No followers yet.</p>
+                )}
               </div>
               <br />
               <div className="user_page_visited_list">

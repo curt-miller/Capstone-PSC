@@ -79,11 +79,6 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
     }
   };
 
-  useEffect(() => {
-    console.log("Logged in userId:", userId);
-    console.log("Posts:", posts);
-  }, [posts, userId]);
-
 
   return (
     <div>
