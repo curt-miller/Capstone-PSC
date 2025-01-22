@@ -27,7 +27,7 @@ const MapHomePage = () => {
                 const geoJSONData = {
                     type: 'FeatureCollection',
                     features: data
-                        .filter(post => post.coordinates) // Only include posts with coordinates
+                        .filter(post => post.coordinates)
                         .map(post => ({
                             type: 'Feature',
                             geometry: {
@@ -40,9 +40,11 @@ const MapHomePage = () => {
                                 img_url: post.img_url,
                                 username: post.Users.display_name,
                                 profilePicture: post.Users.profilePicture,
+                                weight: 1,
                             },
                         })),
                 };
+
 
                 setPostData(geoJSONData);
             } catch (err) {
@@ -81,10 +83,11 @@ const MapHomePage = () => {
                         'heatmap-weight': [
                             'interpolate',
                             ['linear'],
-                            ['get', 'weight'], // Use weight property if available
+                            ['get', 'weight'],
                             0, 0,
-                            1, 1
+                            1, 1,
                         ],
+
                         'heatmap-intensity': [
                             'interpolate',
                             ['linear'],
@@ -181,7 +184,7 @@ const MapHomePage = () => {
         });
 
 
-// TITLE
+        // TITLE
         class TitleControl {
             onAdd(map) {
                 this._map = map;
@@ -193,7 +196,7 @@ const MapHomePage = () => {
                 this._container.innerHTML = '<h2 style="font-size: 16px; text-align: center;">Explore the map to view where our users have traveled!</h2>';
                 return this._container;
             }
-        
+
             onRemove() {
                 this._container.parentNode.removeChild(this._container);
                 this._map = undefined;
