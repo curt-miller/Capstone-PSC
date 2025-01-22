@@ -93,7 +93,7 @@ const UserProfile = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -106,7 +106,7 @@ const UserProfile = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -167,6 +167,10 @@ const UserProfile = () => {
     }
   };
 
+  const handleUnfollow = async (e) => {
+    console.log("unfollow");
+  };
+
   return (
     <div className="user-profile-page-container">
       <Nav />
@@ -182,6 +186,7 @@ const UserProfile = () => {
               className="user_profile_pic"
             />
             <button onClick={handleFollow}>FOLLOW</button>
+            <button onClick={handleUnfollow}>UNFOLLOW</button>
             <br />
             <div className="follow-list">
               <h3>Followers</h3>
