@@ -48,11 +48,12 @@ const UserPage = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("following_id, Users(profilePicture)")
-          .eq("user_id", userId);
+          .select("following_id, Users!fk_following_id(profilePicture)")
+          .eq("user_id", userId); // Who I am following
 
         if (error) throw error;
 
+        console.log("Follower list fetched:", data);
         setFollowers(data || []);
       } catch (error) {
         console.error("Error fetching followers:", error);
@@ -65,9 +66,9 @@ const UserPage = () => {
     const fetchFollowing = async () => {
       try {
         const { data, error } = await supabase
-          .from("Followers")
-          .select("follower_id, Users(profilePicture)")
-          .eq("user_id", userId);
+          .from("Following")
+          .select("user_id, Users!fk_user_id(profilePicture)")
+          .eq("following_id", userId);
 
         if (error) throw error;
 

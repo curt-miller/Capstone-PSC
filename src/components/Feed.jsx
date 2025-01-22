@@ -55,9 +55,7 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
       }
     };
 
-    
     fetchPosts();
-    
   }, [refreshPosts, followerPosts, userId]);
 
   const deletePost = async (postId) => {
@@ -78,11 +76,10 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
     }
   };
 
-  useEffect(() => {
-    console.log("Logged in userId:", userId);
-    console.log("Posts:", posts);
-  }, [posts, userId]);
-  
+  // useEffect(() => {
+  //   console.log("Logged in userId:", userId);
+  //   console.log("Posts:", posts);
+  // }, [posts, userId]);
 
   return (
     <div>

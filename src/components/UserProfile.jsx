@@ -40,11 +40,12 @@ const UserProfile = () => {
       try {
         const { data, error } = await supabase
           .from("Following")
-          .select("following_id, Users(profilePicture)")
-          .eq("user_id", profileId);
+          .select("following_id, Users!fk_following_id(profilePicture)")
+          .eq("user_id", profileId); // Who I am following
 
         if (error) throw error;
 
+        console.log("Follower list fetched:", data);
         setFollowers(data || []);
       } catch (error) {
         console.error("Error fetching followers:", error);
@@ -57,9 +58,9 @@ const UserProfile = () => {
     const fetchFollowing = async () => {
       try {
         const { data, error } = await supabase
-          .from("Followers")
-          .select("follower_id, Users(profilePicture)")
-          .eq("user_id", profileId);
+          .from("Following")
+          .select("user_id, Users!fk_user_id(profilePicture)")
+          .eq("following_id", profileId);
 
         if (error) throw error;
 
@@ -118,12 +119,52 @@ const UserProfile = () => {
   }, [profileId]);
 
   const handleFollow = async (e) => {
-    const { data, error } = await supabase.from("Following").insert([
-      {
-        following_id: userId,
-        user_id: profileId
+    try {
+      // Check if the follow relationship already exists
+      const { data: existingFollowing, error: checkFollowingError } =
+        await supabase
+          .from("Following")
+          .select("*")
+          .eq("following_id", userId)
+          .eq("user_id", profileId)
+          .single();
+
+      if (checkFollowingError && checkFollowingError.code !== "PGRST116") {
+        throw checkFollowingError;
       }
-    ]);
+
+      if (!existingFollowing) {
+        // Add the follow relationship to the "Following" table
+        const { data: followingData, error: followingError } = await supabase
+          .from("Following")
+          .insert([
+            {
+              following_id: userId, // The user being followed
+              user_id: profileId // The user performing the follow action
+            }
+          ]);
+
+        if (followingError) throw followingError;
+
+        // Add the reciprocal relationship to the "Followers" table
+        const { data: followerData, error: followerError } = await supabase
+          .from("Followers")
+          .insert([
+            {
+              follower_id: profileId, // The user performing the follow action
+              user_id: userId // The user being followed
+            }
+          ]);
+
+        if (followerError) throw followerError;
+
+        console.log("Follow relationship successfully added.");
+      } else {
+        console.log("Follow relationship already exists.");
+      }
+    } catch (error) {
+      console.error("Error handling follow action:", error);
+    }
   };
 
   return (
