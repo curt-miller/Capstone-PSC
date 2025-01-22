@@ -102,7 +102,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -117,7 +117,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setLikedCountries(likedWithFlags);
@@ -153,7 +153,7 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`
+                  pathname: `/${userId}/settings`,
                 }}
               >
                 edit profile
@@ -196,7 +196,8 @@ const UserPage = () => {
                         <img
                           src={country.flag}
                           alt={country.name}
-                          style={{ width: "30px", height: "20px" }}
+                          title={country.name}
+                          style={{ width: "40px", height: "30px" }}
                         />
                       </button>
                     ))
@@ -219,7 +220,8 @@ const UserPage = () => {
                         <img
                           src={country.flag}
                           alt={country.name}
-                          style={{ width: "30px", height: "20px" }}
+                          title={country.name}
+                          style={{ width: "40px", height: "30px" }}
                         />
                       </button>
                     ))
