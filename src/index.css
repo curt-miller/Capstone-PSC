@@ -29,12 +29,6 @@ body {
 
 .like_button {
   border: none;
-  background-color: lavender;
-}
-
-.like_button_icon {
-  color: lavender;
-  background-color: lavender;
 }
 
 /* MAPS (mapbox containers only) */
@@ -232,7 +226,7 @@ body {
 
 .user-profile-page-content {
   width: 100%;
-  height: calc(100vh - 80px);
+  height: 100%;
   display: grid;
   grid-template-areas:
     "WELCOME RIGHT"
@@ -272,8 +266,24 @@ body {
   margin: 20px;
 }
 
+.follow-list {
+  margin: 10px;
+}
+
+.follower-card-link {
+  background-color: lavender;
+  border: none;
+}
+
+.follow-list img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: black 1px solid;
+}
+
 .user_page_visited_list {
-  margin: 20px;
+  margin: 10px;
 }
 
 .user_page_visited_list img {
@@ -291,7 +301,7 @@ body {
 }
 
 .user_page_liked_list {
-  margin: 20px;
+  margin: 10px;
 }
 
 .user_page_liked_list img {
@@ -672,7 +682,6 @@ body {
   transition: transform 0.15s ease-in-out;
   align-self: center;
   justify-self: flex-start;
-  background-color: lavender;
 }
 
 .visited_button_icon {
@@ -684,7 +693,6 @@ body {
   border: none;
   width: auto;
   height: 90%;
-  background-color: lavender;
 }
 
 .like_button:hover,

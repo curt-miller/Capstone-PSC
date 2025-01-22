@@ -131,10 +131,16 @@ const UserPage = () => {
     fetchData();
   }, [userId]);
 
-  const handleClick = (country) => {
+  const handleClickCountry = (country) => {
     localStorage.setItem("country", JSON.stringify(country));
     console.log(country);
     navigate(`/${country.name}`);
+  };
+
+  const handleClickFriend = (profileId) => {
+    console.log("follower", profileId);
+    localStorage.setItem("profileId", profileId);
+    navigate(`/${profileId}/profile`);
   };
 
   return (
@@ -164,12 +170,18 @@ const UserPage = () => {
                 <h3>Followers</h3>
                 {followers.length > 0 ? (
                   followers.map((follower, index) => (
-                    <img
+                    <button
                       key={index}
-                      src={follower.Users.profilePicture}
-                      alt="follower list"
-                      style={{ width: "40px", height: "40px" }}
-                    />
+                      to={`/${follower.following_id}/profile`}
+                      className="follower-card-link"
+                      onClick={() => handleClickFriend(follower.following_id)}
+                    >
+                      <img
+                        key={index}
+                        src={follower.Users.profilePicture}
+                        alt="follower list"
+                      />
+                    </button>
                   ))
                 ) : (
                   <p>No followers yet.</p>
@@ -179,12 +191,19 @@ const UserPage = () => {
                 <h3>Following</h3>
                 {following.length > 0 ? (
                   following.map((follow, index) => (
-                    <img
+                    <button
                       key={index}
-                      src={follow.Users.profilePicture}
-                      alt="follower list"
-                      style={{ width: "40px", height: "40px" }}
-                    />
+                      to={`/${follower.following_id}/profile`}
+                      className="follower-card-link"
+                      onClick={() => handleClickFriend(follower.following_id)}
+                    >
+                      <img
+                        key={index}
+                        src={follow.Users.profilePicture}
+                        alt="follower list"
+                        style={{ width: "40px", height: "40px" }}
+                      />
+                    </button>
                   ))
                 ) : (
                   <p>No followers yet.</p>
@@ -199,7 +218,7 @@ const UserPage = () => {
                       <button
                         key={index}
                         className="country_card_link"
-                        onClick={() => handleClick(country)}
+                        onClick={() => handleClickCountry(country)}
                       >
                         <img
                           src={country.flag}
@@ -223,7 +242,7 @@ const UserPage = () => {
                       <button
                         key={index}
                         className="country_card_link"
-                        onClick={() => handleClick(country)}
+                        onClick={() => handleClickCountry(country)}
                       >
                         <img
                           src={country.flag}

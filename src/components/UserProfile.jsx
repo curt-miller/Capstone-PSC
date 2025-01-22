@@ -140,8 +140,8 @@ const UserProfile = () => {
           .insert([
             {
               following_id: userId, // The user being followed
-              user_id: profileId // The user performing the follow action
-            }
+              user_id: profileId, // The user performing the follow action
+            },
           ]);
 
         if (followingError) throw followingError;
@@ -152,8 +152,8 @@ const UserProfile = () => {
           .insert([
             {
               follower_id: profileId, // The user performing the follow action
-              user_id: userId // The user being followed
-            }
+              user_id: userId, // The user being followed
+            },
           ]);
 
         if (followerError) throw followerError;
