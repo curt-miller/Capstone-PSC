@@ -235,7 +235,7 @@ body {
 
 .user-profile-page-content {
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 80px);
   display: grid;
   grid-template-areas:
     "WELCOME RIGHT"
