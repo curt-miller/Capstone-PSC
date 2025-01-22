@@ -91,7 +91,7 @@ const UserProfile = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -104,7 +104,7 @@ const UserProfile = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setLikedCountries(likedWithFlags);
@@ -170,7 +170,8 @@ const UserProfile = () => {
                       <img
                         src={country.flag}
                         alt={country.name}
-                        style={{ width: "30px", height: "20px" }}
+                        title={country.name}
+                        style={{ width: "40px", height: "30px" }}
                       />
                     </Link>
                   ))
@@ -193,7 +194,8 @@ const UserProfile = () => {
                       <img
                         src={country.flag}
                         alt={country.name}
-                        style={{ width: "30px", height: "20px" }}
+                        title={country.name}
+                        style={{ width: "40px", height: "30px" }}
                       />
                     </Link>
                   ))
@@ -205,9 +207,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="user-profile-feed-container">
-          <h1>
-            {profile.display_name}'s Posts
-          </h1>
+          <h1>{profile.display_name}'s Posts</h1>
           <Feed
             refreshPosts={refreshPosts}
             userId={profileId}

@@ -316,6 +316,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  background-color: lavender;
 }
 
 .user-profile-feed-container h1 {
@@ -616,20 +617,6 @@ body {
   }
 }
 
-.country_name_link {
-  grid-area: NAME;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0;
-  align-self: center;
-}
-
-.country_name_link:hover {
-  text-decoration: underline;
-  color: rgb(75, 75, 149);
-}
-
 .country_name {
   width: auto;
   margin: 0;
@@ -639,6 +626,16 @@ body {
   grid-area: CAPITAL;
   font-style: italic;
   align-self: flex-end;
+}
+
+.country_card_link {
+  background-color: lavender;
+  border: none;
+}
+
+.country_card_link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .country_flag {
