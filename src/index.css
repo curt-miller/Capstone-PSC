@@ -251,6 +251,7 @@ body {
   flex-direction: column;
   padding: 10px;
   overflow-y: auto;
+  background-color: lavender;
 }
 
 .user_profile_pic {
@@ -271,6 +272,16 @@ body {
 
 .user_page_visited_list img {
   border-radius: 5px;
+  border: black 1px solid;
+}
+
+.user_page_visited_list button {
+  border: none;
+  background-color: lavender;
+}
+
+.user_page_visited_list button:hover {
+  cursor: pointer;
 }
 
 .user_page_liked_list {
@@ -279,6 +290,16 @@ body {
 
 .user_page_liked_list img {
   border-radius: 5px;
+  border: black 1px solid;
+}
+
+.user_page_liked_list button {
+  border: none;
+  background-color: lavender;
+}
+
+.user_page_liked_list button:hover {
+  cursor: pointer;
 }
 
 .feed-container {
@@ -286,6 +307,21 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  background-color: lavender;
+}
+
+.user-profile-feed-container {
+  grid-area: RIGHT;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  background-color: lavender;
+}
+
+.user-profile-feed-container h1 {
+  font-size: 2rem;
+  margin: 4px;
 }
 
 .feed-container-FEED {
@@ -314,13 +350,12 @@ body {
   font-size: 0.8rem;
   border-radius: 10px;
   transition: 0.5s;
- font-size: 1rem;
+  font-size: 1rem;
 }
 
-
 .toggle-buttons button:hover {
-background-color: rgb(144, 144, 191);
-cursor: pointer;
+  background-color: rgb(144, 144, 191);
+  cursor: pointer;
 }
 
 .user-profile-page-POSTS {
@@ -349,7 +384,6 @@ cursor: pointer;
   margin-bottom: 8px;
   padding-top: 4px;
   padding-bottom: 4px;
-
 }
 
 .post-card:hover {
@@ -583,20 +617,6 @@ cursor: pointer;
   }
 }
 
-.country_name_link {
-  grid-area: NAME;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: bold;
-  margin: 0;
-  align-self: center;
-}
-
-.country_name_link:hover {
-  text-decoration: underline;
-  color: rgb(75, 75, 149);
-}
-
 .country_name {
   width: auto;
   margin: 0;
@@ -606,6 +626,16 @@ cursor: pointer;
   grid-area: CAPITAL;
   font-style: italic;
   align-self: flex-end;
+}
+
+.country_card_link {
+  background-color: lavender;
+  border: none;
+}
+
+.country_card_link:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .country_flag {

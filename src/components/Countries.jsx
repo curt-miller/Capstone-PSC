@@ -53,7 +53,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
       <div className="alphabet_filter">
         {[
           "A",
-          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i))
+          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i)),
         ].map((letter) => (
           <button
             key={letter}

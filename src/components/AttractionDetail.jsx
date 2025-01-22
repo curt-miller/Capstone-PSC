@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 
 export default function AttractionDetail(displayname) {
   const { id } = useParams(); // Get the post ID from the route
@@ -10,6 +11,7 @@ export default function AttractionDetail(displayname) {
   const [error, setError] = useState(null);
   const [newReview, setNewReview] = useState(""); // variable for the new review
   const [reviews, setReviews] = useState([]); // vraible for the full list of reviews
+  const [rating, setRating] = useState(0); // Store the selected rating
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -70,7 +72,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError
+        error: userError,
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -100,8 +102,8 @@ export default function AttractionDetail(displayname) {
           {
             review: newReview,
             post_id: id,
-            user_id: userData.id
-          }
+            user_id: userData.id,
+          },
         ])
         .select();
       console.log("INSERTED REVIEW:", insertedReview);
@@ -140,12 +142,12 @@ export default function AttractionDetail(displayname) {
               month: "long",
               day: "numeric",
               hour: "2-digit",
-              minute: "2-digit"
+              minute: "2-digit",
             })}{" "}
-            by {" "}
+            by{" "}
             <Link
               to={{
-                pathname: `/${post.Users.id}/profile`
+                pathname: `/${post.Users.id}/profile`,
               }}
             >
               {post.Users.display_name}
@@ -165,6 +167,21 @@ export default function AttractionDetail(displayname) {
             </p>
           )}
 
+          {/* RATING FEATURE */}
+
+          <div id="att-detail-page-RATING-BLOCK">
+            <h2>Rate this attraction:</h2>
+            <ReactStars
+              count={5}
+              onChange={(newRating) => setRating(newRating)}
+              size={30}
+              activeColor="#daa520"
+              value={rating}
+              isHalf={true}
+            />
+            <p>Rating: {rating}/5</p>
+            <br />
+          </div>
           <div>
             {reviews.map((review, index) => (
               <div id="att-detail-page-REVIEW-CARD" key={index}>

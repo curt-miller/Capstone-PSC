@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
-  const [showFollowerPosts, setShowFollowerPosts] = useState(false); // State to toggle between your posts and follower posts
+  const [showFollowingPosts, setShowFollowingPosts] = useState(false);
   const [visitedCountries, setVisitedCountries] = useState([]);
   const [likedCountries, setLikedCountries] = useState([]);
   const [profilePicture, setProfilePicture] = useState([]);
@@ -104,7 +104,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -119,7 +119,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null
+          flag: countryMapping[country.country_name] || null,
         }));
 
         setLikedCountries(likedWithFlags);
@@ -155,7 +155,7 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`
+                  pathname: `/${userId}/settings`,
                 }}
               >
                 edit profile
@@ -204,7 +204,8 @@ const UserPage = () => {
                         <img
                           src={country.flag}
                           alt={country.name}
-                          style={{ width: "30px", height: "20px" }}
+                          title={country.name}
+                          style={{ width: "40px", height: "30px" }}
                         />
                       </button>
                     ))
@@ -227,7 +228,8 @@ const UserPage = () => {
                         <img
                           src={country.flag}
                           alt={country.name}
-                          style={{ width: "30px", height: "20px" }}
+                          title={country.name}
+                          style={{ width: "40px", height: "30px" }}
                         />
                       </button>
                     ))
@@ -241,23 +243,23 @@ const UserPage = () => {
           <div className="feed-container">
             <div className="toggle-buttons">
               <button
-                onClick={() => setShowFollowerPosts(false)}
-                className={!showFollowerPosts ? "active-toggle" : ""}
+                onClick={() => setShowFollowingPosts(false)}
+                className={!showFollowingPosts ? "active-toggle" : ""}
               >
                 My Posts
               </button>
               <button
-                onClick={() => setShowFollowerPosts(true)}
-                className={showFollowerPosts ? "active-toggle" : ""}
+                onClick={() => setShowFollowingPosts(true)}
+                className={showFollowingPosts ? "active-toggle" : ""}
               >
-                Posts from Followers
+                People I Follow
               </button>
             </div>
             <div className="feed-container-FEED">
               <Feed
                 refreshPosts={refreshPosts}
                 userId={userId}
-                followerPosts={showFollowerPosts}
+                followerPosts={showFollowingPosts}
               />
             </div>
           </div>

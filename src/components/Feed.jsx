@@ -27,19 +27,21 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
           .order("created_at", { ascending: false });
 
         if (followerPosts) {
+          // Fetch posts by users followed by the logged-in user
           const { data: followingIds, error: followingError } = await supabase
             .from("Following")
-            .select("following_id")
-            .eq("user_id", userId);
+            .select("user_id")
+            .eq("following_id", userId);
 
           if (followingError) {
             console.error("Error fetching following IDs:", followingError);
             return;
           }
 
-          const ids = followingIds?.map((item) => item.following_id) || [];
+          const ids = followingIds?.map((item) => item.user_id) || [];
           query = query.in("user_id", ids);
-        } else {
+        } else if (userId) {
+          // Fetch posts by the specific user
           query = query.eq("user_id", userId);
         }
 
@@ -57,6 +59,7 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
 
     fetchPosts();
   }, [refreshPosts, followerPosts, userId]);
+
 
   const deletePost = async (postId) => {
     try {
@@ -76,10 +79,6 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("Logged in userId:", userId);
-  //   console.log("Posts:", posts);
-  // }, [posts, userId]);
 
   return (
     <div>
