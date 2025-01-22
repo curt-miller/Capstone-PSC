@@ -58,7 +58,7 @@ const UserSettings = () => {
   const handleSaveSettings = async () => {
     try {
       const updateFields = {
-        display_name: displayName,
+        display_name: displayName
       };
 
       if (profilePictureUrl) {
@@ -86,8 +86,8 @@ const UserSettings = () => {
 
   return (
     <>
+      <Nav />
       <div className="settings-page-container">
-        <Nav />
         <div className="settings">
           <h1>User Settings</h1>
           <div className="settings-info">
