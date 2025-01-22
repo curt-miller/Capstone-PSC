@@ -193,9 +193,9 @@ const UserPage = () => {
                   following.map((follow, index) => (
                     <button
                       key={index}
-                      to={`/${follow.following_id}/profile`}
+                      to={`/${follow.user_id}/profile`}
                       className="follower-card-link"
-                      onClick={() => handleClickFriend(follower.following_id)}
+                      onClick={() => handleClickFriend(follow.user_id)}
                     >
                       <img
                         key={index}
