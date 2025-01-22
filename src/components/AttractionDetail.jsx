@@ -12,6 +12,7 @@ export default function AttractionDetail(displayname) {
   const [newReview, setNewReview] = useState(""); // variable for the new review
   const [reviews, setReviews] = useState([]); // vraible for the full list of reviews
   const [rating, setRating] = useState(0); // Store the selected rating
+  const [averageRating, setAverageRating] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -66,8 +67,35 @@ export default function AttractionDetail(displayname) {
   }, [id]);
 
   useEffect(() => {
-    const fetchRatings = async () => {};
-  });
+    const fetchRatings = async () => {
+      try {
+        const { data: ratingsData, error: ratingsError } = await supabase
+          .from("Reviews")
+          .select("rating")
+          .eq("post_id", id);
+
+        if (ratingsError) {
+          console.error("Error fetching ratings:", ratingsError);
+          return;
+        }
+
+        if (ratingsData && ratingsData.length > 0) {
+          const total = ratingsData.reduce(
+            (sum, review) => sum + (review.rating || 0),
+            0
+          );
+          const averageRating = total / ratingsData.length;
+
+          setAverageRating(`Average Rating: ${averageRating.toFixed(1)}`);
+        } else {
+          setAverageRating(null);
+        }
+      } catch (error) {
+        console.error("Unexpected error fetching ratings:", err);
+      }
+    };
+    if (id) fetchRatings();
+  }, [id]);
 
   /*COMMENT BOX FUNCTIONALITY */
   const handleSubmitReview = async (e) => {
@@ -106,7 +134,8 @@ export default function AttractionDetail(displayname) {
           {
             review: newReview,
             post_id: id,
-            user_id: userData.id
+            user_id: userData.id,
+            rating: rating
           }
         ])
         .select();
@@ -185,6 +214,11 @@ export default function AttractionDetail(displayname) {
             />
             <p>Rating: {rating}/5</p>
             <br />
+            {averageRating !== null ? (
+              <p>{averageRating}/5</p>
+            ) : (
+              <p>No ratings yet.</p>
+            )}
           </div>
           <div>
             {reviews.map((review, index) => (
