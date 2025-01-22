@@ -65,6 +65,10 @@ export default function AttractionDetail(displayname) {
     if (id) fetchReviews();
   }, [id]);
 
+  useEffect(() => {
+    const fetchRatings = async () => {};
+  });
+
   /*COMMENT BOX FUNCTIONALITY */
   const handleSubmitReview = async (e) => {
     e.preventDefault();
@@ -72,7 +76,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError,
+        error: userError
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -102,8 +106,8 @@ export default function AttractionDetail(displayname) {
           {
             review: newReview,
             post_id: id,
-            user_id: userData.id,
-          },
+            user_id: userData.id
+          }
         ])
         .select();
       console.log("INSERTED REVIEW:", insertedReview);
@@ -142,12 +146,12 @@ export default function AttractionDetail(displayname) {
               month: "long",
               day: "numeric",
               hour: "2-digit",
-              minute: "2-digit",
+              minute: "2-digit"
             })}{" "}
             by{" "}
             <Link
               to={{
-                pathname: `/${post.Users.id}/profile`,
+                pathname: `/${post.Users.id}/profile`
               }}
             >
               {post.Users.display_name}
