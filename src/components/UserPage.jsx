@@ -104,7 +104,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -119,7 +119,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -161,7 +161,7 @@ const UserPage = () => {
               />
               <Link
                 to={{
-                  pathname: `/${userId}/settings`,
+                  pathname: `/${userId}/settings`
                 }}
               >
                 edit profile
@@ -193,7 +193,7 @@ const UserPage = () => {
                   following.map((follow, index) => (
                     <button
                       key={index}
-                      to={`/${follower.following_id}/profile`}
+                      to={`/${follow.following_id}/profile`}
                       className="follower-card-link"
                       onClick={() => handleClickFriend(follower.following_id)}
                     >
