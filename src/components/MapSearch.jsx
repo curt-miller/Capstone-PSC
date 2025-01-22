@@ -8,12 +8,13 @@ import NewPostForm from './NewPostForm';
 
 const MapSearch = ({ onLocationChange }) => {
   const mapContainerRef = useRef();
-  const mapRef = useRef();
+  const mapRef = useRef(); // Ref to store map instance
   const markerRef = useRef(null); // Ref for the marker
   const markerAddedRef = useRef(false); // Ref to track if the marker is added
   const [markerLocation, setMarkerLocation] = useState(null);
   const KEY = import.meta.env.VITE_MAPBOX_TOKEN;
-  const [mapView, setMapView] = useState([-97.784965, 39.800321])
+  const storedCountry = JSON.parse(localStorage.getItem("country"));
+  const capital = storedCountry.capital;
 
   // Function to fetch reverse geocode data
   const fetchReverseGeocode = async (coords) => {
@@ -37,14 +38,40 @@ const MapSearch = ({ onLocationChange }) => {
     };
   };
 
+  // Reverse geocode the capital and update the map view
+  function reverseGeocodeCapital(capital) {
+
+    if (capital === 'Washington') {
+      return;
+    }
+
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(capital)}.json?access_token=${KEY}`;
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        if (data.features && data.features.length > 0) {
+          const coordinates = data.features[0].geometry.coordinates;
+          console.log('Coordinates for', capital, ':', coordinates);
+          if (mapRef.current) {
+            mapRef.current.setCenter(coordinates);
+          }
+        } else {
+          console.log('No results found for', capital);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching reverse geocode data:', error);
+      });
+  }
+
   useEffect(() => {
     mapboxgl.accessToken = KEY;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: mapView,
-      zoom: 2,
+      center: [-97.784965, 39.800321], // Default center
+      zoom: 3.5,
       attributionControl: false,
     });
 
@@ -80,17 +107,18 @@ const MapSearch = ({ onLocationChange }) => {
 
     mapRef.current.on('click', handleClick);
 
+    // Call reverseGeocodeCapital to center the map on the capital
+    reverseGeocodeCapital(capital);
+
     return () => {
       mapRef.current.off('click', handleClick);
       mapRef.current.remove();
     };
-  }, [onLocationChange]);
-
+  }, [capital, onLocationChange]);
 
   return (
     <>
-    
-      <div ref={mapContainerRef}  id='map-search'/>
+      <div ref={mapContainerRef} id='map-search' />
       {markerLocation && !markerAddedRef.current && (
         <NewPostForm location={markerLocation} />
       )}

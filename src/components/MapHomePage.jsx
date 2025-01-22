@@ -9,6 +9,15 @@ const MapHomePage = () => {
     const mapRef = useRef(null);
     const navigate = useNavigate();
     const [postData, setPostData] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    // 500ms loading timer
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoaded(true);
+        }, 500);
+        return () => clearTimeout(timer);
+    }, []);
 
     // Fetch post data from Supabase
     useEffect(() => {
@@ -45,7 +54,6 @@ const MapHomePage = () => {
                         })),
                 };
 
-
                 setPostData(geoJSONData);
             } catch (err) {
                 console.error("Unexpected error fetching post data:", err.message);
@@ -55,7 +63,10 @@ const MapHomePage = () => {
         fetchPostData();
     }, []);
 
+    // Initialize Mapbox only when isLoaded is true
     useEffect(() => {
+        if (!isLoaded) return; // Avoid running map setup if not loaded
+
         mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
         mapRef.current = new mapboxgl.Map({
@@ -78,7 +89,7 @@ const MapHomePage = () => {
                     id: 'posts-heat',
                     type: 'heatmap',
                     source: 'posts',
-                    maxzoom: 8, // Define when the heatmap transitions to circles
+                    maxzoom: 8,
                     paint: {
                         'heatmap-weight': [
                             'interpolate',
@@ -87,12 +98,11 @@ const MapHomePage = () => {
                             0, 0,
                             1, 1,
                         ],
-
                         'heatmap-intensity': [
                             'interpolate',
                             ['linear'],
                             ['zoom'],
-                            0, 2, // Increased intensity at lower zoom levels
+                            0, 2,
                             9, 1
                         ],
                         'heatmap-color': [
@@ -110,8 +120,8 @@ const MapHomePage = () => {
                             'interpolate',
                             ['linear'],
                             ['zoom'],
-                            0, 20, // Larger radius at low zoom
-                            9, 40  // Scales up with zoom level
+                            0, 20,
+                            9, 40
                         ],
                         'heatmap-opacity': [
                             'interpolate',
@@ -122,7 +132,6 @@ const MapHomePage = () => {
                         ]
                     },
                 });
-
 
                 // Add a circle layer for individual points
                 mapRef.current.addLayer({
@@ -135,15 +144,13 @@ const MapHomePage = () => {
                             'interpolate',
                             ['linear'],
                             ['zoom'],
-                            0,  // At the lowest zoom level
-                            6,  // Base circle size
-                            8,  // At higher zoom levels
-                            12  // Larger size for more visibility
+                            0, 6,
+                            8, 12
                         ],
                         'circle-color': 'rgb(239,138,98)',
                         'circle-stroke-color': 'white',
-                        'circle-stroke-width': 1.5, // Slightly thicker stroke
-                        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 7, 0.8, 8, 1], // Maintain visibility
+                        'circle-stroke-width': 1.5,
+                        'circle-opacity': ['interpolate', ['linear'], ['zoom'], 7, 0.8, 8, 1],
                     },
                 });
 
@@ -183,8 +190,6 @@ const MapHomePage = () => {
             }
         });
 
-
-        // TITLE
         class TitleControl {
             onAdd(map) {
                 this._map = map;
@@ -206,9 +211,17 @@ const MapHomePage = () => {
         mapRef.current.addControl(new TitleControl(), 'top');
 
         return () => mapRef.current.remove();
-    }, [postData, navigate]);
+    }, [isLoaded, postData, navigate]); 
 
-    return <div ref={mapContainerRef} style={{ height: '100vh', width: '100%' }} />;
+    return (
+        <div>
+            {!isLoaded ? (
+                <p className='home_page_map_loading_message'>Loading map...</p> //  loading indicator
+            ) : (
+                <div ref={mapContainerRef} style={{ height: '100vh', width: '100%' }} />
+            )}
+        </div>
+    );
 };
 
 export default MapHomePage;
