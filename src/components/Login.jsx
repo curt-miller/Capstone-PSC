@@ -13,6 +13,11 @@ const Login = ({ setUserId }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const defaultPhoto =
+    "https://wagtwrwcrjgunioswvkr.supabase.co/storage/v1/object/public/profile-pictures/public/profile%20picture.jpg";
+
+  localStorage.setItem("defaultPhoto", defaultPhoto);
+
   useEffect(() => {
     const checkUserSession = async () => {
       const token = localStorage.getItem("authToken");
