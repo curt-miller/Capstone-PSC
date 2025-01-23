@@ -93,24 +93,22 @@ const MapHomePage = () => {
                     source: "posts",
                     maxzoom: 8,
                     paint: {
-                        "heatmap-weight": [
-                            "interpolate",
-                            ["linear"],
-                            ["get", "weight"],
-                            0,
-                            0,
-                            1,
-                            1,
+                        'heatmap-weight': [
+                            'interpolate',
+                            ['linear'],
+                            ['get', 'weight'],
+                            0, 0,
+                            1, 0.6 
                         ],
-                        "heatmap-intensity": [
-                            "interpolate",
-                            ["linear"],
-                            ["zoom"],
-                            0,
-                            2,
-                            9,
-                            1,
+
+                        'heatmap-intensity': [
+                            'interpolate',
+                            ['linear'],
+                            ['zoom'],
+                            0, 1.5,  
+                            9, .5   
                         ],
+
                         "heatmap-color": [
                             "interpolate",
                             ["linear"],
@@ -156,7 +154,7 @@ const MapHomePage = () => {
                     source: "posts",
                     minzoom: 7,
                     paint: {
-                        "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 6, 8, 12],
+                        "circle-radius": ["interpolate", ["linear"], ["zoom"], 0, 3, 8, 12],
                         "circle-color": "rgb(239,138,98)",
                         "circle-stroke-color": "white",
                         "circle-stroke-width": 1.5,
