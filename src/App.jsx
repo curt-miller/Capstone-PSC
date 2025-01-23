@@ -22,6 +22,10 @@ export default function App() {
   });
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [userId, setUserId] = useState(null);
+  const defaultPhoto =
+    "https://wagtwrwcrjgunioswvkr.supabase.co/storage/v1/object/public/profile-pictures/public/profile%20picture.jpg";
+
+  localStorage.setItem("defaultPhoto", defaultPhoto);
 
   // Effect to update localStorage when country changes
   useEffect(() => {
