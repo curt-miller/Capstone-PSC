@@ -202,15 +202,6 @@ export default function AttractionDetail(displayname) {
           {/* RATING FEATURE */}
 
           <div id="att-detail-page-RATING-BLOCK">
-            <h2>Rate this attraction:</h2>
-            <ReactStars
-              count={5}
-              onChange={(newRating) => setRating(newRating)}
-              size={30}
-              activeColor="#daa520"
-              value={rating}
-              isHalf={true}
-            />
             <p>Rating: {rating}/5</p>
             <br />
             {averageRating !== null ? (
@@ -234,6 +225,18 @@ export default function AttractionDetail(displayname) {
               value={newReview}
               onChange={(e) => setNewReview(e.target.value)}
             />
+            <div className="react_stars">
+              {/*Rating stars */}
+              <ReactStars
+                count={5}
+                onChange={(newRating) => setRating(newRating)}
+                size={30}
+                activeColor="#daa520"
+                value={rating}
+                isHalf={true}
+                edit={true}
+              />
+            </div>
             <br />
             <button onClick={handleSubmitReview}>Submit Review</button>
           </div>
