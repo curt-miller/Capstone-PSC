@@ -104,7 +104,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError
+        error: userError,
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -135,8 +135,8 @@ export default function AttractionDetail(displayname) {
             review: newReview,
             post_id: id,
             user_id: userData.id,
-            rating: rating
-          }
+            rating: rating,
+          },
         ])
         .select();
       console.log("INSERTED REVIEW:", insertedReview);
@@ -167,7 +167,6 @@ export default function AttractionDetail(displayname) {
       <div id="att-detail-page-GRID">
         <div id="att-detail-page-TITLE-BLOCK">
           <h1>{post.title}</h1>
-
           <h2>
             Pin dropped on{" "}
             {new Date(post.created_at).toLocaleDateString("en-US", {
@@ -175,12 +174,12 @@ export default function AttractionDetail(displayname) {
               month: "long",
               day: "numeric",
               hour: "2-digit",
-              minute: "2-digit"
+              minute: "2-digit",
             })}{" "}
             by{" "}
             <Link
               to={{
-                pathname: `/${post.Users.id}/profile`
+                pathname: `/${post.Users.id}/profile`,
               }}
             >
               {post.Users.display_name}
