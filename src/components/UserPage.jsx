@@ -20,6 +20,7 @@ const UserPage = () => {
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
   const profileId = localStorage.getItem("profileId");
+  const defaultPhoto = localStorage.getItem("defaultPhoto");
 
   const handleRefresh = () => {
     setRefreshPosts((prev) => !prev);
@@ -105,7 +106,7 @@ const UserPage = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -120,7 +121,7 @@ const UserPage = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -153,10 +154,7 @@ const UserPage = () => {
             <p className="user-profile-welcome">Welcome Back, {displayName}</p>
             <div className="user-profile-user-info">
               <img
-                src={
-                  profilePicture ||
-                  "https://wagtwrwcrjgunioswvkr.supabase.co/storage/v1/object/public/profile-pictures/public/profile%20picture.jpg"
-                }
+                src={profilePicture || defaultPhoto}
                 alt={displayName}
                 className="user_profile_pic"
               />
@@ -178,7 +176,7 @@ const UserPage = () => {
                     >
                       <img
                         key={index}
-                        src={follower.Users.profilePicture}
+                        src={follower.Users?.profilePicture || defaultPhoto}
                         alt="follower list"
                       />
                     </button>
@@ -199,7 +197,7 @@ const UserPage = () => {
                     >
                       <img
                         key={index}
-                        src={follow.Users.profilePicture}
+                        src={follow.Users.profilePicture || defaultPhoto}
                         alt="follower list"
                         style={{ width: "40px", height: "40px" }}
                       />

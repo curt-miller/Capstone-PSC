@@ -14,6 +14,7 @@ export default function AttractionDetail(displayname) {
   const [reviews, setReviews] = useState([]); // vraible for the full list of reviews
   const [rating, setRating] = useState(0); // Store the selected rating
   const [averageRating, setAverageRating] = useState(null);
+  const defaultPhoto = localStorage.getItem("defaultPhoto");
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -215,7 +216,10 @@ export default function AttractionDetail(displayname) {
               }}
             >
               {post.Users.display_name}
-              <img src={post.Users?.profilePicture} alt="profile photo" />
+              <img
+                src={post.Users?.profilePicture || defaultPhoto}
+                alt="profile photo"
+              />
             </Link>
           </h2>
           <h4>Located in {post.location}</h4>
@@ -256,7 +260,7 @@ export default function AttractionDetail(displayname) {
               <div id="att-detail-page-REVIEW-CARD" key={index}>
                 <h4>{review.Users?.display_name || "Anonymous"}</h4>
                 <img
-                  src={review.Users?.profilePicture}
+                  src={review.Users?.profilePicture || defaultPhoto}
                   alt={review.Users?.display_name}
                   style={{ width: "40px", height: "40px" }}
                 />

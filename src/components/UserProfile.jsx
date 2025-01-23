@@ -18,6 +18,8 @@ const UserProfile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   const userId = localStorage.getItem("userId");
+  const defaultPhoto = localStorage.getItem("defaultPhoto");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -113,7 +115,7 @@ const UserProfile = () => {
 
         const visitedWithFlags = (visitedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setVisitedCountries(visitedWithFlags);
@@ -126,7 +128,7 @@ const UserProfile = () => {
 
         const likedWithFlags = (likedData || []).map((country) => ({
           name: country.country_name,
-          flag: countryMapping[country.country_name] || null,
+          flag: countryMapping[country.country_name] || null
         }));
 
         setLikedCountries(likedWithFlags);
@@ -162,8 +164,8 @@ const UserProfile = () => {
           .insert([
             {
               following_id: userId, // The user being followed
-              user_id: profileId, // The user performing the follow action
-            },
+              user_id: profileId // The user performing the follow action
+            }
           ]);
 
         if (followingError) throw followingError;
@@ -174,8 +176,8 @@ const UserProfile = () => {
           .insert([
             {
               follower_id: profileId, // The user performing the follow action
-              user_id: userId, // The user being followed
-            },
+              user_id: userId // The user being followed
+            }
           ]);
 
         if (followerError) throw followerError;
@@ -228,7 +230,7 @@ const UserProfile = () => {
           </p>
           <div className="user-profile-user-info">
             <img
-              src={profile.profilePicture || "https://via.placeholder.com/150"}
+              src={profile.profilePicture || defaultPhoto}
               alt={profile.display_name}
               className="user_profile_pic"
             />
@@ -254,7 +256,7 @@ const UserProfile = () => {
                   >
                     <img
                       key={index}
-                      src={follower.Users.profilePicture}
+                      src={follower.Users.profilePicture || defaultPhoto}
                       alt="follower list"
                       style={{ width: "40px", height: "40px" }}
                     />

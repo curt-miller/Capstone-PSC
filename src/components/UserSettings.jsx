@@ -8,6 +8,11 @@ const UserSettings = () => {
   const userId = localStorage.getItem("userId") || "Guest";
   const storedDisplayName = localStorage.getItem("displayName") || "Anonymous";
 
+  const defaultPhoto =
+    "https://wagtwrwcrjgunioswvkr.supabase.co/storage/v1/object/public/profile-pictures/public/profile%20picture.jpg";
+
+  localStorage.setItem("defaultPhoto", defaultPhoto);
+
   const [displayName, setDisplayName] = useState(storedDisplayName);
   const [profilePictureUrl, setProfilePictureUrl] = useState(null);
   const [uploading, setUploading] = useState(false);

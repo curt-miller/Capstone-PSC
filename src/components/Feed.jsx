@@ -6,6 +6,7 @@ import LikeButton from "./LikeButton";
 const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const defaultPhoto = localStorage.getItem("defaultPhoto");
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -60,7 +61,6 @@ const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
     fetchPosts();
   }, [refreshPosts, followerPosts, userId]);
 
-
   const deletePost = async (postId) => {
     try {
       const { error } = await supabase
@@ -78,7 +78,6 @@ const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
       console.error("Error during deletion:", error);
     }
   };
-
 
   return (
     <div>
@@ -99,7 +98,7 @@ const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
               <h1>{post.title}</h1>
               <div className="post-card-USER">
                 <img
-                  src={post.Users?.profilePicture || "default-profile-pic-url"}
+                  src={post.Users?.profilePicture || defaultPhoto}
                   alt="profile picture"
                 />
               </div>
