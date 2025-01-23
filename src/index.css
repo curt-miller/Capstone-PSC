@@ -1124,6 +1124,10 @@ p {
   margin: 4px;
 }
 
+.react_stars > span {
+  color: purple;
+}
+
 #att-detail-page-NO-REVIEWS-MESSAGE {
   font-size: 1.5rem;
   font-style: italic;
