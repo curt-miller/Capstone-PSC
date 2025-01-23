@@ -102,10 +102,20 @@ export default function AttractionDetail(displayname) {
   const handleSubmitReview = async (e) => {
     e.preventDefault();
 
+    if (rating === 0) {
+      alert("Please provide a star rating before submitting your review");
+      return;
+    }
+
+    if (!newReview.trim()) {
+      alert("Please write a review before submitting.");
+      return;
+    }
+
     try {
       const {
         data: { user },
-        error: userError,
+        error: userError
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -136,8 +146,8 @@ export default function AttractionDetail(displayname) {
             review: newReview,
             post_id: id,
             user_id: userData.id,
-            rating: rating,
-          },
+            rating: rating
+          }
         ])
         .select();
       console.log("INSERTED REVIEW:", insertedReview);
@@ -196,12 +206,12 @@ export default function AttractionDetail(displayname) {
               month: "long",
               day: "numeric",
               hour: "2-digit",
-              minute: "2-digit",
+              minute: "2-digit"
             })}{" "}
             by{" "}
             <Link
               to={{
-                pathname: `/${post.Users.id}/profile`,
+                pathname: `/${post.Users.id}/profile`
               }}
             >
               {post.Users.display_name}
