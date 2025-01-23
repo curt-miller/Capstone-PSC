@@ -120,8 +120,8 @@ const MapHomePage = () => {
                             'interpolate',
                             ['linear'],
                             ['zoom'],
-                            0, 20,
-                            9, 40
+                            0, 18,
+                            15, 40
                         ],
                         'heatmap-opacity': [
                             'interpolate',
