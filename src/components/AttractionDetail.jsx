@@ -47,7 +47,7 @@ export default function AttractionDetail(displayname) {
           .select(
             `
             *,
-            Users(display_name)
+            Users(display_name, profilePicture)
             `
           )
           .eq("post_id", id);
@@ -224,11 +224,17 @@ export default function AttractionDetail(displayname) {
             {reviews.map((review, index) => (
               <div id="att-detail-page-REVIEW-CARD" key={index}>
                 <h4>{review.Users?.display_name || "Anonymous"}</h4>
+                <img
+                  src={review.Users?.profilePicture}
+                  alt={review.Users?.display_name}
+                  style={{ width: "40px", height: "40px" }}
+                />
+                <h5>{review.rating}/5</h5>
                 <p>{review.review}</p>
               </div>
             ))}
           </div>
-
+          {/* REVIEWS */}
           <div id="att-detail-page-SUBMIT-COMMENT">
             <textarea
               placeholder="Add a review!"
