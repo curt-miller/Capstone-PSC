@@ -29,6 +29,7 @@ body {
 
 .like_button {
   border: none;
+  background-color: lavender;
 }
 
 /* MAPS (mapbox containers only) */
@@ -122,7 +123,7 @@ body {
   flex-direction: column;
 }
 
-.home_page_map_loading_message{
+.home_page_map_loading_message {
   justify-self: center;
   align-self: center;
   margin-top: 40vh;
@@ -290,6 +291,7 @@ body {
   height: 40px;
   border-radius: 50%;
   border: black 1px solid;
+  object-fit: cover;
 }
 
 .user_page_visited_list {
@@ -646,6 +648,7 @@ body {
 .country_name {
   width: auto;
   margin: 0;
+  justify-self: flex-start;
 }
 
 #country_card_capital {
@@ -666,7 +669,7 @@ body {
 
 .country_flag {
   grid-area: FLAG;
-  width: 180px;
+  width: 150px;
   height: auto;
   border: solid 1px rgb(200, 200, 200);
   border-radius: 10px;
@@ -692,6 +695,7 @@ body {
   transition: transform 0.15s ease-in-out;
   align-self: center;
   justify-self: flex-start;
+  background-color: lavender;
 }
 
 .visited_button_icon {
@@ -703,6 +707,7 @@ body {
   border: none;
   width: auto;
   height: 90%;
+  background-color: lavender;
 }
 
 .like_button:hover,

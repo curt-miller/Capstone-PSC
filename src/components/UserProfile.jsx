@@ -224,7 +224,7 @@ const UserProfile = () => {
       <div className="user-profile-page-content">
         <div className="user-profile-sidebar">
           <p className="user-profile-welcome">
-            Welcome Back, {profile.display_name}
+            {profile.display_name}'s Profile
           </p>
           <div className="user-profile-user-info">
             <img
