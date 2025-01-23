@@ -8,6 +8,7 @@ const Home = ({ setCountry, country, setUserId, userId }) => {
   return (
     <div className="home-page-container">
       <Nav setUserId={setUserId} />
+      <h4>this is a test to see if netlify auto deploys changes</h4>
       <div className="home_page_content">
         <div className="home_page_map">
           <MapHomePage/>
