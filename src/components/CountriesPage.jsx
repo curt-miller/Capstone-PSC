@@ -57,7 +57,7 @@ const CountriesPage = ({ setCountry, country, refreshPosts }) => {
   console.log("Country", country);
   console.log("Stored Country:", storedCountry);
 
-  const storedCapital = storedCountry.capital
+  const storedCapital = storedCountry.capital;
 
   return (
     <div>
@@ -98,7 +98,6 @@ const CountriesPage = ({ setCountry, country, refreshPosts }) => {
                   <p className="country_post_location">
                     <strong>Location:</strong> {post.location}
                   </p>
-                  <button className="country_post_delete_button">Delete</button>
                 </div>
               </Link>
             ))}
