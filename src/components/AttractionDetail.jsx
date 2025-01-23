@@ -149,7 +149,7 @@ export default function AttractionDetail(displayname) {
             rating: rating
           }
         ])
-        .select();
+        .select("*, Users(display_name, profilePicture)");
       console.log("INSERTED REVIEW:", insertedReview);
 
       if (insertError) {
