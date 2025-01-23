@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import LikeButton from "./LikeButton";
 
-const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
+const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
@@ -110,7 +110,7 @@ const Feed = ({ refreshPosts, userId, followerPosts = false }) => {
               <div className="post-card-BUTTON-CONTAINER">
                 <LikeButton post_id={post.id} userId={userId} />
                 <div className="post-card-DELETE-BUTTON">
-                  {post.user_id == userId && (
+                  {post.user_id == profileId && (
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
