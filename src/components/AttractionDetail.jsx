@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 export default function AttractionDetail(displayname) {
+  const userId = localStorage.getItem("userId") || "Guest";
   const { id } = useParams(); // Get the post ID from the route
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
@@ -161,6 +162,27 @@ export default function AttractionDetail(displayname) {
     return <div>Loading...</div>;
   }
 
+  const handleDelete = async (reviewId) => {
+    try {
+      const { error } = await supabase
+        .from("Posts")
+        .delete()
+        .eq("id", reviewId);
+
+      if (error) {
+        console.error("Error deleting post:", error);
+      } else {
+        setReviews((prevReviews) =>
+          prevReviews.filter((review) => review.id !== reviewId)
+        );
+      }
+    } catch (error) {
+      console.error("Error during deletion:", error);
+    }
+  };
+
+  console.log("UserId", userId);
+
   return (
     <div id="att-detail-page-container">
       <Nav />
@@ -231,6 +253,15 @@ export default function AttractionDetail(displayname) {
                 />
                 <h5>{review.rating}/5</h5>
                 <p>{review.review}</p>
+                {userId == review.user_id && (
+                  <button
+                    onClick={(e) => {
+                      handleDelete(review.id);
+                    }}
+                  >
+                    delete
+                  </button>
+                )}
               </div>
             ))}
           </div>
