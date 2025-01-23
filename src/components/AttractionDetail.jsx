@@ -165,7 +165,7 @@ export default function AttractionDetail(displayname) {
   const handleDelete = async (reviewId) => {
     try {
       const { error } = await supabase
-        .from("Posts")
+        .from("Reviews")
         .delete()
         .eq("id", reviewId);
 
