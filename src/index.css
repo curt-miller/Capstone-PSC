@@ -63,7 +63,7 @@ body {
   overflow: hidden;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .navContainer {
     height: 60px;
   }
@@ -76,7 +76,7 @@ body {
   cursor: pointer;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .navLogo {
     height: 80px;
   }
@@ -641,7 +641,7 @@ body {
   overflow: hidden;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   .alphabet_filter {
     flex-wrap: nowrap;
     overflow-x: scroll;
