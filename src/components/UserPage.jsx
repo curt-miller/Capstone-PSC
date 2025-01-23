@@ -160,13 +160,12 @@ const UserPage = () => {
                 alt={displayName}
                 className="user_profile_pic"
               />
-              <Link
-                to={{
-                  pathname: `/${userId}/settings`,
-                }}
+              <button
+                className="edit_profile_button"
+                onClick={() => navigate(`/${userId}/settings`)}
               >
                 edit profile
-              </Link>
+              </button>
               <div className="follow-list">
                 <h3>Followers</h3>
                 {followers.length > 0 ? (
