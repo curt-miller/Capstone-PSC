@@ -10,6 +10,7 @@ const MapHomePage = () => {
     const navigate = useNavigate();
     const [postData, setPostData] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     // 500ms loading timer
     useEffect(() => {
@@ -18,6 +19,15 @@ const MapHomePage = () => {
         }, 500);
         return () => clearTimeout(timer);
     }, []);
+
+
+    // media query:
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
 
     // Fetch post data from Supabase
     useEffect(() => {
@@ -98,15 +108,15 @@ const MapHomePage = () => {
                             ['linear'],
                             ['get', 'weight'],
                             0, 0,
-                            1, 0.6 
+                            1, 0.6
                         ],
 
                         'heatmap-intensity': [
                             'interpolate',
                             ['linear'],
                             ['zoom'],
-                            0, 1.5,  
-                            9, .5   
+                            0, 1.5,
+                            9, .5
                         ],
 
                         "heatmap-color": [
@@ -232,12 +242,20 @@ const MapHomePage = () => {
         return () => mapRef.current.remove();
     }, [isLoaded, postData, navigate]);
 
+
+
     return (
         <div>
             {!isLoaded ? (
                 <p className="home_page_map_loading_message">Loading map...</p> //  loading indicator
             ) : (
-                <div ref={mapContainerRef} style={{ height: "100vh", width: "100%" }} />
+                <div
+                    ref={mapContainerRef}
+                    style={{
+                        height: isMobile ? "40vh" : "100vh",
+                        width: isMobile ? "100vw" : "100%",
+                    }}
+                />
             )}
         </div>
     );

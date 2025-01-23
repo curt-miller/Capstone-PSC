@@ -63,11 +63,23 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 400px) {
+  .navContainer {
+    height: 60px;
+  }
+}
+
 .navLogo {
   height: 130px;
   align-self: left;
   padding-left: 20px;
   cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .navLogo {
+    height: 80px;
+  }
 }
 
 .navButtons {
@@ -85,6 +97,14 @@ body {
   cursor: pointer;
 }
 
+@media (max-width: 500px) {
+  .navContainer button {
+    width: 45px;
+    height: 22px;
+    font-size: 10px;
+  }
+}
+
 .navContainer button:hover {
   background-color: rgb(137, 137, 154);
 }
@@ -100,13 +120,23 @@ body {
   align-items: center;
 }
 
+
+
 /* home page below the navbar */
 .home_page_content {
   display: grid;
   grid-template-columns: 1fr 2fr;
   width: 100%;
-  height: calc(100vh - 80px); /* subtracts navbar height */
+  height: calc(100vh - 80px);
   overflow: hidden;
+}
+
+@media (max-width: 500px) {
+  .home_page_content {
+    height: calc(100vh - 60px);
+    grid-template-columns: none;
+    grid-template-rows: 2fr 1fr;
+  }
 }
 
 /* just the map (left) */
@@ -137,6 +167,14 @@ body {
   overflow-y: scroll;
   background-color: white;
   margin-bottom: 10vh;
+}
+
+@media (max-width: 500px) {
+  .countries-homepage-container {
+    grid-row: 1;
+    margin-bottom: 0;
+    border-bottom: 3px solid rgb(95, 95, 143);
+  }
 }
 
 /* LOGIN COMPONENT */
@@ -596,16 +634,25 @@ body {
 .alphabet_filter {
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
+  justify-content: center;
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+@media (max-width: 400px) {
+  .alphabet_filter {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    justify-content: left;
+  }
 }
 
 .alphabet_button {
-  margin: 5px;
-  padding: 10px;
-  font-size: 14px;
+  margin: 3px;
+  padding: 8px;
+  font-size: 10px;
   background-color: rgb(225, 208, 208);
   border: 1px solid rgb(154, 146, 146);
   border-radius: 5px;
