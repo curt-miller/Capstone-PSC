@@ -19,6 +19,7 @@ const UserPage = () => {
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
+  const profileId = localStorage.getItem("profileId");
 
   const handleRefresh = () => {
     setRefreshPosts((prev) => !prev);
@@ -277,6 +278,7 @@ const UserPage = () => {
                 refreshPosts={refreshPosts}
                 userId={userId}
                 followerPosts={showFollowingPosts}
+                profileId={userId}
               />
             </div>
           </div>
