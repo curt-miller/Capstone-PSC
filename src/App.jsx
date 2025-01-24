@@ -4,7 +4,6 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import NewPostForm from "./components/NewPostForm";
-import MapMarkers from "./components/MapMarkers";
 import UserPage from "./components/UserPage";
 import CountriesPage from "./components/CountriesPage";
 import AttractionDetail from "./components/AttractionDetail";
@@ -81,7 +80,6 @@ export default function App() {
             />
           }
         />
-        <Route path="/Markers" element={<MapMarkers />} />
         <Route path="/attraction/:id" element={<AttractionDetail />} />
         <Route path="/imagegrid" element={<ImageGrid />} />
         <Route path="/:userId/settings" element={<UserSettings />} />

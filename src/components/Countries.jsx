@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchCountries } from "../API/countries";
 import "../index.css";
-import { Link } from "react-router-dom";
 import ImageGrid from "./ImageGrid";
-import LikeButton from "./LikeButton";
-import supabase from "../supaBaseClient";
 import VisitedCountries from "./VisitedCountries";
 import LikeButtonCountries from "./LikeButtonCountries";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +50,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
       <div className="alphabet_filter">
         {[
           "A",
-          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i)),
+          ...Array.from({ length: 25 }, (_, i) => String.fromCharCode(66 + i))
         ].map((letter) => (
           <button
             key={letter}

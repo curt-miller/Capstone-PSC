@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Feed from "./Feed";
 import Nav from "./Nav";
 import supabase from "../supaBaseClient";
-import { Link } from "react-router-dom";
 import { fetchCountries } from "../API/countries";
 import { useNavigate } from "react-router-dom";
 

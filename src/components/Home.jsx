@@ -1,5 +1,4 @@
 import React from "react";
-import MapShaded from "./MapShaded";
 import MapHomePage from "./MapHomePage";
 import Nav from "./Nav";
 import Countries from "./Countries";

@@ -3,7 +3,6 @@ import supabase from "../supaBaseClient";
 import Feed from "./Feed";
 import Nav from "./Nav";
 import { fetchCountries } from "../API/countries";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {

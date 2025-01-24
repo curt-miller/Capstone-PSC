@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import supabase from "../supaBaseClient";
 import Nav from "./Nav";
-import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 
 const UserSettings = () => {
