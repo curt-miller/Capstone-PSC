@@ -338,7 +338,7 @@ const UserProfile = () => {
           </div>
         </div>
         <div className="user-profile-feed-container">
-          <h1>{profile.display_name}'s Posts</h1>
+          <h4>{profile.display_name}'s Posts</h4>
           <Feed
             refreshPosts={refreshPosts}
             userId={profileId}
