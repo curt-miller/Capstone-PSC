@@ -7,7 +7,9 @@ export default function NewPostForm({ onPostSubmit, capital }) {
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");
   const [coordinates, setCoordinates] = useState(null);
-  const [location, setLocation] = useState(null); // Capture marker coordinates
+  const [location, setLocation] = useState(null);
+
+  const userId = localStorage.getItem("userId");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +27,7 @@ export default function NewPostForm({ onPostSubmit, capital }) {
     try {
       const {
         data: { user },
-        error: userError
+        error: userError,
       } = await supabase.auth.getUser();
       console.log("USER:", user);
       if (userError) {
@@ -56,7 +58,7 @@ export default function NewPostForm({ onPostSubmit, capital }) {
       const { data: userData, error: userQueryError } = await supabase
         .from("Users")
         .select("*")
-        .eq("user_id", user.id) // Assuming `auth_user_id` links `Users` to `auth.users`
+        .eq("user_id", user.id)
         .single();
 
       if (userQueryError) {
@@ -71,8 +73,8 @@ export default function NewPostForm({ onPostSubmit, capital }) {
           img_url: imageUrl,
           location: location.country,
           coordinates: location.coordinates,
-          user_id: userData.id
-        }
+          user_id: userData.id,
+        },
       ]);
       if (error) {
         console.error("Error inserting post:", error);
@@ -135,7 +137,12 @@ export default function NewPostForm({ onPostSubmit, capital }) {
           <MapSearch onLocationChange={setLocation} />
         </div>
 
-        <button type="submit">Submit</button>
+        {/* Conditional rendering based on userId */}
+        {userId ? (
+          <button type="submit">Submit</button>
+        ) : (
+          <p>Please login to drop a pin!</p>
+        )}
       </form>
     </div>
   );
