@@ -85,7 +85,7 @@ const MapHomePage = () => {
             container: mapContainerRef.current,
             style: "mapbox://styles/millercw3/cm5hfi5yx002701qf6cl5anau",
             center: [10, 55],
-            zoom: 1.5,
+            zoom: isMobile ? .5 : 1.2,
             bearing: 0,
         });
 

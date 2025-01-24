@@ -197,104 +197,106 @@ export default function AttractionDetail(displayname) {
   return (
     <div id="att-detail-page-container">
       <Nav />
-      <div id="att-detail-page-GRID">
-        <div id="att-detail-page-TITLE-BLOCK">
-          <h1>{post.title}</h1>
-          <h2>
-            Pin dropped on{" "}
-            {new Date(post.created_at).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "2-digit",
-              minute: "2-digit"
-            })}{" "}
-            by{" "}
-            <Link
-              to={{
-                pathname: `/${post.Users.id}/profile`
-              }}
-            >
-              {post.Users.display_name}
-              <img
-                src={post.Users?.profilePicture || defaultPhoto}
-                alt="profile photo"
-              />
-            </Link>
-          </h2>
-          <h4>Located in {post.location}</h4>
-          <h3>{post.description}</h3>
-        </div>
-
-        <div id="att-detail-page-REVIEW-BLOCK">
-          {reviews.length > 0 ? (
-            <h2>Here's what Pals have to say:</h2>
-          ) : (
-            <p id="att-detail-page-NO-REVIEWS-MESSAGE">
-              Be the first to review {post.title}
-            </p>
-          )}
-
-          {/* RATING FEATURE */}
-
-          <div id="att-detail-page-RATING-BLOCK">
-            <p>Rating: {rating}/5</p>
-            <br />
-            {averageRating !== null ? (
-              <p>{averageRating}/5</p>
-            ) : (
-              <p>No ratings yet.</p>
-            )}
-          </div>
-          <div>
-            {reviews.map((review, index) => (
-              <div id="att-detail-page-REVIEW-CARD" key={index}>
-                <h4>{review.Users?.display_name || "Anonymous"}</h4>
+      <div id="att-detail-page-MOBILE">
+        <div id="att-detail-page-GRID">
+          <div id="att-detail-page-TITLE-BLOCK">
+            <h1>{post.title}</h1>
+            <h2>
+              Pin dropped on{" "}
+              {new Date(post.created_at).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+              })}{" "}
+              by{" "}
+              <Link
+                to={{
+                  pathname: `/${post.Users.id}/profile`
+                }}
+              >
+                {post.Users.display_name}
                 <img
-                  src={review.Users?.profilePicture || defaultPhoto}
-                  alt={review.Users?.display_name}
-                  style={{ width: "40px", height: "40px" }}
+                  src={post.Users?.profilePicture || defaultPhoto}
+                  alt="profile photo"
                 />
-                <h5>{review.rating}/5</h5>
-                <p>{review.review}</p>
-                {userId == review.user_id && (
-                  <button
-                    onClick={(e) => {
-                      handleDelete(review.id);
-                    }}
-                  >
-                    delete
-                  </button>
-                )}
-              </div>
-            ))}
+              </Link>
+            </h2>
+            <h4>Located in {post.location}</h4>
+            <h3>{post.description}</h3>
           </div>
-          {/* REVIEWS */}
-          <div id="att-detail-page-SUBMIT-COMMENT">
-            <textarea
-              placeholder="Add a review!"
-              value={newReview}
-              onChange={(e) => setNewReview(e.target.value)}
-            />
-            <div className="react_stars">
-              {/*Rating stars */}
-              <ReactStars
-                count={5}
-                onChange={(newRating) => setRating(newRating)}
-                size={30}
-                activeColor="#daa520"
-                value={rating}
-                isHalf={true}
-                edit={true}
-              />
-            </div>
-            <br />
-            <button onClick={handleSubmitReview}>Submit Review</button>
-          </div>
-        </div>
 
-        <div id="att-detail-page-IMAGE-BLOCK">
-          <img src={post.img_url} alt={post.title} />
+          <div id="att-detail-page-REVIEW-BLOCK">
+            {reviews.length > 0 ? (
+              <h2>Here's what Pals have to say:</h2>
+            ) : (
+              <p id="att-detail-page-NO-REVIEWS-MESSAGE">
+                Be the first to review {post.title}
+              </p>
+            )}
+
+            {/* RATING FEATURE */}
+
+            <div id="att-detail-page-RATING-BLOCK">
+              <p>Rating: {rating}/5</p>
+              <br />
+              {averageRating !== null ? (
+                <p>{averageRating}/5</p>
+              ) : (
+                <p>No ratings yet.</p>
+              )}
+            </div>
+            <div>
+              {reviews.map((review, index) => (
+                <div id="att-detail-page-REVIEW-CARD" key={index}>
+                  <h4>{review.Users?.display_name || "Anonymous"}</h4>
+                  <img
+                    src={review.Users?.profilePicture || defaultPhoto}
+                    alt={review.Users?.display_name}
+                    style={{ width: "40px", height: "40px" }}
+                  />
+                  <h5>{review.rating}/5</h5>
+                  <p>{review.review}</p>
+                  {userId == review.user_id && (
+                    <button
+                      onClick={(e) => {
+                        handleDelete(review.id);
+                      }}
+                    >
+                      delete
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* REVIEWS */}
+            <div id="att-detail-page-SUBMIT-COMMENT">
+              <textarea
+                placeholder="Add a review!"
+                value={newReview}
+                onChange={(e) => setNewReview(e.target.value)}
+              />
+              <div className="react_stars">
+                {/*Rating stars */}
+                <ReactStars
+                  count={5}
+                  onChange={(newRating) => setRating(newRating)}
+                  size={30}
+                  activeColor="#daa520"
+                  value={rating}
+                  isHalf={true}
+                  edit={true}
+                />
+              </div>
+              <br />
+              <button onClick={handleSubmitReview}>Submit Review</button>
+            </div>
+          </div>
+
+          <div id="att-detail-page-IMAGE-BLOCK">
+            <img src={post.img_url} alt={post.title} />
+          </div>
         </div>
       </div>
     </div>

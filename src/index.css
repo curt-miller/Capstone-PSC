@@ -120,8 +120,6 @@ body {
   align-items: center;
 }
 
-
-
 /* home page below the navbar */
 .home_page_content {
   display: grid;
@@ -284,6 +282,18 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 500px) {
+  .user-profile-page-content {
+    height: calc(100vh - 60px);
+    display: grid;
+    grid-template-areas:
+      "LEFT LEFT"
+      "RIGHT RIGHT";
+    grid-template-rows: 20vh 1fr;
+    overflow: scroll;
+  }
+}
+
 .user-profile-welcome {
   grid-area: WELCOME;
   display: flex;
@@ -293,6 +303,15 @@ body {
   padding: 4px;
 }
 
+@media (max-width: 500px) {
+  .user-profile-welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+}
+
 .user-profile-sidebar {
   grid-area: LEFT;
   display: flex;
@@ -300,6 +319,17 @@ body {
   padding: 10px;
   overflow-y: auto;
   background-color: lavender;
+}
+
+@media (max-width: 500px) {
+  .user-profile-sidebar {
+    grid-area: LEFT;
+    display: flex;
+    /* flex-direction: column; */
+    padding: 10px;
+    overflow-y: auto;
+    background-color: lavender;
+  }
 }
 
 .user_profile_pic {
@@ -314,6 +344,21 @@ body {
   margin: 20px;
 }
 
+@media (max-width: 500px) {
+  .user_profile_pic {
+    display: flex;
+    object-fit: cover;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 1px solid black;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    margin: 0;
+  }
+}
+
 .edit_profile_button {
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(187, 187, 220);
@@ -323,6 +368,21 @@ body {
   cursor: pointer;
   padding: 10px;
   width: 80px;
+}
+
+@media (max-width: 500px) {
+  .edit_profile_button {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(187, 187, 220);
+    border: none;
+    font-size: 0.6rem;
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 4px;
+    width: 80px;
+    margin-top: 4px;
+    margin-left: 37vw;
+  }
 }
 
 .edit_profile_button:hover {
@@ -400,6 +460,7 @@ body {
 }
 
 .feed-container {
+  /*user page*/
   grid-area: RIGHT;
   height: 100%;
   display: flex;
@@ -416,9 +477,18 @@ body {
   background-color: lavender;
 }
 
-.user-profile-feed-container h1 {
-  font-size: 2rem;
+.user-profile-feed-container h4 {
+  font-size: 1.5rem;
   margin: 4px;
+}
+
+@media (max-width: 500px) {
+  .user-profile-feed-container h4 {
+    display: flex;
+    font-size: 0.8rem;
+    margin: 4px;
+    justify-content: center;
+  }
 }
 
 .feed-container-FEED {
@@ -448,6 +518,16 @@ body {
   border-radius: 10px;
   transition: 0.5s;
   font-size: 1rem;
+}
+
+@media (max-width: 500px) {
+  .toggle-buttons button {
+    height: 50%;
+    align-self: center;
+    width: 80%;
+    font-size: 0.8rem;
+    text-align: center;
+  }
 }
 
 .toggle-buttons button:hover {
@@ -483,6 +563,14 @@ body {
   padding-bottom: 4px;
 }
 
+@media (max-width: 500px) {
+  .post-card {
+    height: 15vh;
+    margin-bottom: 4px;
+    justify-self: center;
+  }
+}
+
 .post-card:hover {
   cursor: pointer;
   transform: translateY(5px);
@@ -501,6 +589,12 @@ body {
   border-bottom: 1px solid rgb(85, 77, 77);
   padding-right: 20px;
   width: 90%;
+}
+
+@media (max-width: 500px) {
+  .post-card h1 {
+    font-size: 1rem;
+  }
 }
 
 .post-card-USER {
@@ -525,6 +619,13 @@ body {
   border: 0.8px solid rgb(58, 38, 62);
 }
 
+@media (max-width: 500px) {
+  .post-card-USER img {
+    height: 30px;
+    width: 30px;
+  }
+}
+
 .post-card-USERNAME-AND-PHOTO p {
   font-size: 1rem;
   font-style: italic;
@@ -542,7 +643,6 @@ body {
   display: flex;
   width: 100%;
   height: 100%;
-  font-size: 0.8rem;
   color: #332e2e;
   margin: 0;
   text-overflow: ellipsis;
@@ -558,6 +658,12 @@ body {
   text-overflow: ellipsis;
   font-weight: normal;
   font-size: 1rem;
+}
+
+@media (max-width: 500px) {
+  .post-card-BLURB h2 {
+    font-size: 0.6rem;
+  }
 }
 
 .post-card h3 {
@@ -1066,6 +1172,16 @@ body {
   align-items: center;
 }
 
+@media (max-width: 500px) {
+  #att-detail-page-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 #att-detail-page-GRID {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1076,6 +1192,28 @@ body {
   height: 100vh;
   width: 100vw;
   gap: 1rem;
+}
+
+@media (max-width: 500px) {
+#att-detail-page-MOBILE{
+position: absolute;
+top: 60px;
+}
+}
+
+@media (max-width: 500px) {
+  #att-detail-page-GRID {
+    display: grid;
+    grid-template-columns: 92%;
+    grid-template-rows: auto 400px auto;
+    grid-template-areas:
+      "NAME"
+      "IMAGE"
+      "REVIEWS";
+    height: auto;
+    width: 100vw;
+    gap: 1rem;
+  }
 }
 
 #att-detail-page-TITLE-BLOCK {
@@ -1090,6 +1228,22 @@ body {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   word-wrap: break-word;
   overflow-y: scroll;
+}
+
+@media (max-width: 500px) {
+  #att-detail-page-TITLE-BLOCK {
+    grid-area: NAME;
+    background-color: lavender;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow-y: scroll;
+  }
 }
 
 #att-detail-page-TITLE-BLOCK h1 {
@@ -1134,6 +1288,14 @@ body {
   border-radius: 100%;
   object-fit: cover;
   padding-left: 4px;
+}
+
+@media (max-width: 500px) {
+  #att-detail-page-REVIEW-BLOCK {
+    grid-area: REVIEWS;
+    width: 75%;
+    margin-top: 0;
+  }
 }
 
 #att-detail-page-REVIEW-BLOCK {
@@ -1220,6 +1382,13 @@ p {
   height: 100%;
   object-fit: contain;
   border-radius: 10px;
+}
+
+@media (max-width: 500px) {
+  #att-detail-page-IMAGE-BLOCK img {
+    width: 100%;
+    border-radius: 10px;
+  }
 }
 
 /* SETTINGS PAGE */
