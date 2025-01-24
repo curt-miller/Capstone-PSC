@@ -68,6 +68,8 @@ export default function AttractionDetail(displayname) {
     if (id) fetchReviews();
   }, [id]);
 
+  //FETCH RATINGS
+
   useEffect(() => {
     const fetchRatings = async () => {
       try {
@@ -239,8 +241,6 @@ export default function AttractionDetail(displayname) {
             {/* RATING FEATURE */}
 
             <div id="att-detail-page-RATING-BLOCK">
-              <p>Rating: {rating}/5</p>
-              <br />
               {averageRating !== null ? (
                 <p>{averageRating}/5</p>
               ) : (

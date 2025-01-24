@@ -46,15 +46,12 @@ function Register() {
 
       if (authData?.user) {
         const userId = authData.user.id;
-
         const { error: insertError } = await supabase.from("Users").insert([
           {
             user_id: userId,
             display_name: username
           }
         ]);
-
-        alert("Check your inbox for a confirmation email");
 
         if (insertError) {
           console.error("Error inserting user into Users table:", insertError);
@@ -68,6 +65,11 @@ function Register() {
         setEmail("");
         setPassword("");
         setUsername("");
+
+        alert(
+          "Registration successful! Please check your email to verify your account."
+        );
+
         navigate("/login");
       }
     } catch (err) {
