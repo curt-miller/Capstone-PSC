@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { fetchCountries } from "../API/countries";
 import "../index.css";
 import ImageGrid from "./ImageGrid";
@@ -19,32 +19,39 @@ const Countries = ({ setCountry }) => {
       const data = await fetchCountries();
       setCountries(data);
 
-      const defaultFiltered = data.filter((country) =>
-        country.name.toLowerCase().startsWith("a")
-      );
-      setFilteredCountries(defaultFiltered);
+      const grouped = data.reduce((acc, country) => {
+        const letter = country.name[0].toUpperCase();
+        acc[letter] = acc[letter] || [];
+        acc[letter].push(country);
+        return acc;
+      }, {});
+      setFilteredCountries(grouped["A"] || []);
     };
 
     getCountries();
   }, []);
 
   //Filter by letter
-  const handleFilter = (letter) => {
-    setSelectedLetter(letter);
-
-    const filtered = countries.filter((country) =>
-      country.name.toLowerCase().startsWith(letter.toLowerCase())
-    );
-    setFilteredCountries(filtered);
-  };
+  const handleFilter = useCallback(
+    (letter) => {
+      setSelectedLetter(letter);
+      setFilteredCountries(
+        countries.filter((c) => c.name.startsWith(letter)) || []
+      );
+    },
+    [countries]
+  );
 
   //Navigate to the desired country
 
-  const handleClick = (country) => {
-    localStorage.setItem("country", JSON.stringify(country));
-    console.log(country);
-    navigate(`/${country.name}`);
-  };
+  const handleClick = useCallback(
+    (country) => {
+      localStorage.setItem("country", JSON.stringify(country));
+      console.log(country);
+      navigate(`/${country.name}`);
+    },
+    [navigate]
+  );
 
   return (
     // entire countries list container
@@ -72,10 +79,10 @@ const Countries = ({ setCountry }) => {
         {filteredCountries.length === 0 ? (
           <p>No countries found</p>
         ) : (
-          filteredCountries.map((country, index) => (
+          filteredCountries.map((country) => (
             <div
               className="country_card"
-              key={index}
+              key={country.name}
               onClick={(e) => {
                 // Prevent the card click from triggering when clicking buttons
                 if (e.target.tagName === "BUTTON" || e.target.closest("button"))
