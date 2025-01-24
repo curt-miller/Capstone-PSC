@@ -10,7 +10,7 @@ const MapHomePage = () => {
     const navigate = useNavigate();
     const [postData, setPostData] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 500);
 
     // 500ms loading timer
     useEffect(() => {

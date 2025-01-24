@@ -16,6 +16,7 @@ const MapSearch = ({ onLocationChange }) => {
   const storedCountry = JSON.parse(localStorage.getItem("country"));
   const capital = storedCountry.capital;
 
+
   // Function to fetch reverse geocode data
   const fetchReverseGeocode = async (coords) => {
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${KEY}`;
