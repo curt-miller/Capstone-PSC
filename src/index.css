@@ -1236,6 +1236,7 @@ body {
   max-width: 300px;
   object-fit: scale-down;
   margin: 0;
+  padding: 0;
 }
 
 .country_post_description {
