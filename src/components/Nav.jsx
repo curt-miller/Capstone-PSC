@@ -9,6 +9,8 @@ const Nav = ({ setUserId }) => {
   const handleLogout = async () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("displayName");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("profileId");
 
     if (setUserId) {
       setUserId(null);

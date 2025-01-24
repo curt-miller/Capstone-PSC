@@ -6,14 +6,14 @@ import VisitedCountries from "./VisitedCountries";
 import LikeButtonCountries from "./LikeButtonCountries";
 import { useNavigate } from "react-router-dom";
 
-const Countries = ({ setCountry, refreshPosts, country }) => {
+const Countries = ({ setCountry }) => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState("A");
-  const [posts, setPosts] = useState([]);
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
 
+  //Get Countries from the API
   useEffect(() => {
     const getCountries = async () => {
       const data = await fetchCountries();
@@ -28,6 +28,7 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
     getCountries();
   }, []);
 
+  //Filter by letter
   const handleFilter = (letter) => {
     setSelectedLetter(letter);
 
@@ -36,6 +37,8 @@ const Countries = ({ setCountry, refreshPosts, country }) => {
     );
     setFilteredCountries(filtered);
   };
+
+  //Navigate to the desired country
 
   const handleClick = (country) => {
     localStorage.setItem("country", JSON.stringify(country));

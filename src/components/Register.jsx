@@ -54,6 +54,8 @@ function Register() {
           }
         ]);
 
+        alert("Check your inbox for a confirmation email");
+
         if (insertError) {
           console.error("Error inserting user into Users table:", insertError);
           setError(
