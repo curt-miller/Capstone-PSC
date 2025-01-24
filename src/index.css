@@ -1189,7 +1189,7 @@ body {
   grid-template-areas:
     "NAME REVIEWS"
     "IMAGE REVIEWS";
-  height: 100vh;
+  height: calc(100vh - 80px);
   width: 100vw;
   gap: 1rem;
 }
