@@ -117,7 +117,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError,
+        error: userError
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -148,8 +148,8 @@ export default function AttractionDetail(displayname) {
             review: newReview,
             post_id: id,
             user_id: userData.id,
-            rating: rating,
-          },
+            rating: rating
+          }
         ])
         .select("*, Users(display_name, profilePicture)");
 
@@ -207,12 +207,12 @@ export default function AttractionDetail(displayname) {
                 month: "long",
                 day: "numeric",
                 hour: "2-digit",
-                minute: "2-digit",
+                minute: "2-digit"
               })}{" "}
               by{" "}
               <Link
                 to={{
-                  pathname: `/${post.Users.id}/profile`,
+                  pathname: `/${post.Users.id}/profile`
                 }}
               >
                 {post.Users.display_name}
@@ -251,23 +251,28 @@ export default function AttractionDetail(displayname) {
                 <div>
                   {reviews.map((review, index) => (
                     <div id="att-detail-page-REVIEW-CARD" key={index}>
-                      <h4>{review.Users?.display_name || "Anonymous"}</h4>
-                      <img
-                        src={review.Users?.profilePicture || defaultPhoto}
-                        alt={review.Users?.display_name}
-                        style={{ width: "40px", height: "40px" }}
-                      />
-                      <h5>{review.rating}/5</h5>
-                      <p>{review.review}</p>
-                      {userId == review.user_id && (
-                        <button
-                          onClick={(e) => {
-                            handleDelete(review.id);
-                          }}
-                        >
-                          delete
-                        </button>
-                      )}
+                      <div id="review-title">
+                        <img
+                          src={review.Users?.profilePicture || defaultPhoto}
+                          alt={review.Users?.display_name}
+                          style={{ width: "40px", height: "40px" }}
+                          className="review_profile_pic"
+                        />
+                        <h4>{review.Users?.display_name || "Anonymous"}</h4>
+                      </div>
+                      <div>
+                        <h3>{review.rating}/5</h3>
+                        <p>{review.review}</p>
+                        {userId == review.user_id && (
+                          <button
+                            onClick={(e) => {
+                              handleDelete(review.id);
+                            }}
+                          >
+                            delete
+                          </button>
+                        )}
+                      </div>
                     </div>
                   ))}
                 </div>

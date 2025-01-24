@@ -1432,9 +1432,26 @@ body {
   background-color: white;
 }
 
+.review_profile_pic {
+  display: flex;
+  object-fit: cover;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  border: 1px solid black;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+}
+
 #att-detail-page-REVIEW-CARD h4,
 p {
   margin: 4px;
+}
+
+#review-title {
+  display: flex;
+  align-items: center;
 }
 
 .react_stars > span {
