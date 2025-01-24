@@ -11,7 +11,7 @@ export default function AttractionDetail(displayname) {
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
   const [newReview, setNewReview] = useState(""); // variable for the new review
-  const [reviews, setReviews] = useState([]); // vraible for the full list of reviews
+  const [reviews, setReviews] = useState([]); // variable for the full list of reviews
   const [rating, setRating] = useState(0); // Store the selected rating
   const [averageRating, setAverageRating] = useState(null);
   const defaultPhoto = localStorage.getItem("defaultPhoto");
@@ -64,7 +64,6 @@ export default function AttractionDetail(displayname) {
         console.error("Unexpected error fetching reviews:", err);
       }
     };
-    console.log("REVIEWS:", reviews.review);
     if (id) fetchReviews();
   }, [id]);
 
@@ -118,7 +117,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError
+        error: userError,
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -149,16 +148,14 @@ export default function AttractionDetail(displayname) {
             review: newReview,
             post_id: id,
             user_id: userData.id,
-            rating: rating
-          }
+            rating: rating,
+          },
         ])
         .select("*, Users(display_name, profilePicture)");
-      console.log("INSERTED REVIEW:", insertedReview);
 
       if (insertError) {
         console.error("Error inserting review:", insertError);
       } else {
-        console.log("Post added successfully:", insertedReview);
         setReviews((prevReviews) => [...prevReviews, ...insertedReview]);
         setNewReview("");
       }
@@ -210,12 +207,12 @@ export default function AttractionDetail(displayname) {
                 month: "long",
                 day: "numeric",
                 hour: "2-digit",
-                minute: "2-digit"
+                minute: "2-digit",
               })}{" "}
               by{" "}
               <Link
                 to={{
-                  pathname: `/${post.Users.id}/profile`
+                  pathname: `/${post.Users.id}/profile`,
                 }}
               >
                 {post.Users.display_name}
@@ -247,51 +244,62 @@ export default function AttractionDetail(displayname) {
                 <p>No ratings yet.</p>
               )}
             </div>
-            <div>
-              {reviews.map((review, index) => (
-                <div id="att-detail-page-REVIEW-CARD" key={index}>
-                  <h4>{review.Users?.display_name || "Anonymous"}</h4>
-                  <img
-                    src={review.Users?.profilePicture || defaultPhoto}
-                    alt={review.Users?.display_name}
-                    style={{ width: "40px", height: "40px" }}
-                  />
-                  <h5>{review.rating}/5</h5>
-                  <p>{review.review}</p>
-                  {userId == review.user_id && (
-                    <button
-                      onClick={(e) => {
-                        handleDelete(review.id);
-                      }}
-                    >
-                      delete
-                    </button>
-                  )}
+
+            {/* Conditionally show review block based on userId */}
+            {userId !== "Guest" ? (
+              <>
+                <div>
+                  {reviews.map((review, index) => (
+                    <div id="att-detail-page-REVIEW-CARD" key={index}>
+                      <h4>{review.Users?.display_name || "Anonymous"}</h4>
+                      <img
+                        src={review.Users?.profilePicture || defaultPhoto}
+                        alt={review.Users?.display_name}
+                        style={{ width: "40px", height: "40px" }}
+                      />
+                      <h5>{review.rating}/5</h5>
+                      <p>{review.review}</p>
+                      {userId == review.user_id && (
+                        <button
+                          onClick={(e) => {
+                            handleDelete(review.id);
+                          }}
+                        >
+                          delete
+                        </button>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            {/* REVIEWS */}
-            <div id="att-detail-page-SUBMIT-COMMENT">
-              <textarea
-                placeholder="Add a review!"
-                value={newReview}
-                onChange={(e) => setNewReview(e.target.value)}
-              />
-              <div className="react_stars">
-                {/*Rating stars */}
-                <ReactStars
-                  count={5}
-                  onChange={(newRating) => setRating(newRating)}
-                  size={30}
-                  activeColor="#daa520"
-                  value={rating}
-                  isHalf={true}
-                  edit={true}
-                />
-              </div>
-              <br />
-              <button onClick={handleSubmitReview}>Submit Review</button>
-            </div>
+
+                {/* REVIEWS */}
+                <div id="att-detail-page-SUBMIT-COMMENT">
+                  <textarea
+                    placeholder="Add a review!"
+                    value={newReview}
+                    onChange={(e) => setNewReview(e.target.value)}
+                  />
+                  <div className="react_stars">
+                    {/*Rating stars */}
+                    <ReactStars
+                      count={5}
+                      onChange={(newRating) => setRating(newRating)}
+                      size={30}
+                      activeColor="#daa520"
+                      value={rating}
+                      isHalf={true}
+                      edit={true}
+                    />
+                  </div>
+                  <br />
+                  <button onClick={handleSubmitReview}>Submit Review</button>
+                </div>
+              </>
+            ) : (
+              <p>
+                Login to see your Pals' posts and submit a review of this Pin
+              </p>
+            )}
           </div>
 
           <div id="att-detail-page-IMAGE-BLOCK">
