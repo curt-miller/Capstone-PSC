@@ -1,15 +1,40 @@
 import React, { useState } from "react";
 import MapSearch from "./MapSearch";
 import supabase from "../supaBaseClient";
+import * as exifr from "exifr";
 
 export default function NewPostForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");
   const [coordinates, setCoordinates] = useState(null);
+  const [imgCoords, setImgCoords] = useState(null);
   const [location, setLocation] = useState(null);
 
   const userId = localStorage.getItem("userId");
+
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    setImageFile(file);
+
+    if (file) {
+      try {
+        const metadata = await exifr.parse(file, { gps: true });
+        if (metadata && metadata.latitude && metadata.longitude) {
+          const coords = {
+            lat: metadata.latitude,
+            lng: metadata.longitude
+          };
+          setImgCoords(coords); // Updates imgCoords without affecting form re-render
+          console.log("Coords as object", coords);
+        } else {
+          console.log("No GPS data found in the image.");
+        }
+      } catch (error) {
+        console.error("Error extracting EXIF data:", error);
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,13 +151,13 @@ export default function NewPostForm() {
             type="file"
             id="imageFile"
             accept="image/*"
-            onChange={(e) => setImageFile(e.target.files[0])}
+            onChange={handleFileChange}
           />
         </div>
         <br />
 
         <div>
-          <MapSearch onLocationChange={setLocation} />
+          <MapSearch onLocationChange={setLocation} imgCoords={imgCoords} />
         </div>
 
         {/* Conditional rendering based on userId */}
