@@ -110,6 +110,7 @@ export default function NewPostForm() {
         setImageFile(null);
         setCoordinates(null);
         setLocation(null);
+        alert("Pin Dropped!");
       }
     } catch (err) {
       console.error("Unexpected error:", err);
