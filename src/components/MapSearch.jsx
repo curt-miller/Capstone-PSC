@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import React, { useEffect, useRef, useState } from "react";
+import mapboxgl from "mapbox-gl";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import NewPostForm from './NewPostForm';
+import "mapbox-gl/dist/mapbox-gl.css";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
-const MapSearch = ({ onLocationChange }) => {
+const MapSearch = ({ onLocationChange, imgCoords }) => {
   const mapContainerRef = useRef();
   const mapRef = useRef(); // Ref to store map instance
   const markerRef = useRef(null); // Ref for the marker
@@ -16,15 +15,17 @@ const MapSearch = ({ onLocationChange }) => {
   const storedCountry = JSON.parse(localStorage.getItem("country"));
   const capital = storedCountry.capital;
 
-
+  console.log("imgCoords:", imgCoords);
   // Function to fetch reverse geocode data
   const fetchReverseGeocode = async (coords) => {
+    console.log("coords", coords);
     const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${coords.lng},${coords.lat}.json?access_token=${KEY}`;
     const response = await fetch(url);
     const data = await response.json();
     if (data.features && data.features.length > 0) {
       const context = data.features[0].context || [];
-      const countryInfo = context.find(item => item.id.startsWith('country')) || {};
+      const countryInfo =
+        context.find((item) => item.id.startsWith("country")) || {};
 
       return {
         address: data.features[0].place_name,
@@ -41,39 +42,69 @@ const MapSearch = ({ onLocationChange }) => {
 
   // Reverse geocode the capital and update the map view
   function reverseGeocodeCapital(capital) {
-
-    if (capital === 'Washington') {
+    if (capital === "Washington") {
       return;
     }
 
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(capital)}.json?access_token=${KEY}`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+      capital
+    )}.json?access_token=${KEY}`;
     fetch(url)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.features && data.features.length > 0) {
           const coordinates = data.features[0].geometry.coordinates;
-          console.log('Coordinates for', capital, ':', coordinates);
+          console.log("Coordinates for", capital, ":", coordinates);
           if (mapRef.current) {
             mapRef.current.setCenter(coordinates);
           }
         } else {
-          console.log('No results found for', capital);
+          console.log("No results found for", capital);
         }
       })
-      .catch(error => {
-        console.error('Error fetching reverse geocode data:', error);
+      .catch((error) => {
+        console.error("Error fetching reverse geocode data:", error);
       });
   }
+
+  useEffect(() => {
+    if (imgCoords) {
+      const coords = { lng: imgCoords.lng, lat: imgCoords.lat };
+      fetchReverseGeocode(coords).then((locationDetails) => {
+        console.log("Reverse geocoded imgCoords:", locationDetails);
+        setMarkerLocation(locationDetails);
+        onLocationChange(locationDetails);
+        if (mapRef.current) {
+          mapRef.current.setCenter(coords);
+          if (!markerRef.current) {
+            const newMarker = new mapboxgl.Marker({ draggable: true })
+              .setLngLat(coords)
+              .addTo(mapRef.current);
+            markerRef.current = newMarker;
+
+            newMarker.on("dragend", async () => {
+              const lngLat = newMarker.getLngLat();
+              const updatedLocation = await fetchReverseGeocode(lngLat);
+              setMarkerLocation(updatedLocation);
+              onLocationChange(updatedLocation);
+            });
+          } else {
+            markerRef.current.setLngLat(coords);
+          }
+        }
+      });
+    }
+  }, [imgCoords, onLocationChange]);
 
   useEffect(() => {
     mapboxgl.accessToken = KEY;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: "mapbox://styles/mapbox/streets-v12",
       center: [-97.784965, 39.800321], // Default center
       zoom: 3.5,
-      attributionControl: false,
+      attributionControl: false
     });
 
     const geocoder = new MapboxGeocoder({
@@ -85,6 +116,8 @@ const MapSearch = ({ onLocationChange }) => {
     mapRef.current.addControl(geocoder);
 
     const handleClick = async (e) => {
+      if (imgCoords) return;
+
       if (!markerAddedRef.current) {
         const newMarker = new mapboxgl.Marker({ draggable: true })
           .setLngLat(e.lngLat)
@@ -97,7 +130,7 @@ const MapSearch = ({ onLocationChange }) => {
         onLocationChange(locationDetails); // Pass location data to parent
 
         // Add dragend event listener to update location when marker is dragged
-        newMarker.on('dragend', async () => {
+        newMarker.on("dragend", async () => {
           const lngLat = newMarker.getLngLat();
           const updatedLocation = await fetchReverseGeocode(lngLat);
           setMarkerLocation(updatedLocation);
@@ -106,23 +139,20 @@ const MapSearch = ({ onLocationChange }) => {
       }
     };
 
-    mapRef.current.on('click', handleClick);
+    mapRef.current.on("click", handleClick);
 
     // Call reverseGeocodeCapital to center the map on the capital
     reverseGeocodeCapital(capital);
 
     return () => {
-      mapRef.current.off('click', handleClick);
+      mapRef.current.off("click", handleClick);
       mapRef.current.remove();
     };
-  }, [capital, onLocationChange]);
+  }, [capital, onLocationChange, imgCoords]);
 
   return (
     <>
-      <div ref={mapContainerRef} id='map-search' />
-      {markerLocation && !markerAddedRef.current && (
-        <NewPostForm location={markerLocation} />
-      )}
+      <div ref={mapContainerRef} id="map-search" />
     </>
   );
 };
