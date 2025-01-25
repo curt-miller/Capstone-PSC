@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapSearch from "./MapSearch";
 import supabase from "../supaBaseClient";
 
-export default function NewPostForm({ onPostSubmit, capital }) {
+export default function NewPostForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageFile, setImageFile] = useState("");
@@ -27,7 +27,7 @@ export default function NewPostForm({ onPostSubmit, capital }) {
     try {
       const {
         data: { user },
-        error: userError,
+        error: userError
       } = await supabase.auth.getUser();
       console.log("USER:", user);
       if (userError) {
@@ -73,8 +73,8 @@ export default function NewPostForm({ onPostSubmit, capital }) {
           img_url: imageUrl,
           location: location.country,
           coordinates: location.coordinates,
-          user_id: userData.id,
-        },
+          user_id: userData.id
+        }
       ]);
       if (error) {
         console.error("Error inserting post:", error);
@@ -85,8 +85,6 @@ export default function NewPostForm({ onPostSubmit, capital }) {
         setImageFile(null);
         setCoordinates(null);
         setLocation(null);
-
-        onPostSubmit();
       }
     } catch (err) {
       console.error("Unexpected error:", err);
