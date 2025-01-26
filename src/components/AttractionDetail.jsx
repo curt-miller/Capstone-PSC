@@ -117,7 +117,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError
+        error: userError,
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -148,8 +148,8 @@ export default function AttractionDetail(displayname) {
             review: newReview,
             post_id: id,
             user_id: userData.id,
-            rating: rating
-          }
+            rating: rating,
+          },
         ])
         .select("*, Users(display_name, profilePicture)");
 
@@ -207,12 +207,12 @@ export default function AttractionDetail(displayname) {
                 month: "long",
                 day: "numeric",
                 hour: "2-digit",
-                minute: "2-digit"
+                minute: "2-digit",
               })}{" "}
               by{" "}
               <Link
                 to={{
-                  pathname: `/${post.Users.id}/profile`
+                  pathname: `/${post.Users.id}/profile`,
                 }}
               >
                 {post.Users.display_name}
@@ -301,8 +301,8 @@ export default function AttractionDetail(displayname) {
                 </div>
               </>
             ) : (
-              <p>
-                Login to see your Pals' posts and submit a review of this Pin
+              <p className="review_please_login">
+                Login to see your Pals' posts and submit a review of this Pin!
               </p>
             )}
           </div>
