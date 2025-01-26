@@ -277,7 +277,7 @@ const UserProfile = () => {
                   >
                     <img
                       key={index}
-                      src={follow.Users.profilePicture}
+                      src={follow.Users.profilePicture || defaultPhoto}
                       alt="follower list"
                       style={{ width: "40px", height: "40px" }}
                     />
