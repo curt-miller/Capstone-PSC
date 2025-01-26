@@ -23,7 +23,7 @@ export default function NewPostForm() {
         if (metadata && metadata.latitude && metadata.longitude) {
           const coords = {
             lat: metadata.latitude,
-            lng: metadata.longitude
+            lng: metadata.longitude,
           };
           setImgCoords(coords); // Updates imgCoords without affecting form re-render
           console.log("Coords as object", coords);
@@ -52,7 +52,7 @@ export default function NewPostForm() {
     try {
       const {
         data: { user },
-        error: userError
+        error: userError,
       } = await supabase.auth.getUser();
       console.log("USER:", user);
       if (userError) {
@@ -98,8 +98,8 @@ export default function NewPostForm() {
           img_url: imageUrl,
           location: location.country,
           coordinates: location.coordinates,
-          user_id: userData.id
-        }
+          user_id: userData.id,
+        },
       ]);
       if (error) {
         console.error("Error inserting post:", error);
@@ -165,7 +165,7 @@ export default function NewPostForm() {
         {userId ? (
           <button type="submit">Submit</button>
         ) : (
-          <p>Please login to drop a pin!</p>
+          <p className="new_post_please_login">Please login to drop a pin!</p>
         )}
       </form>
     </div>

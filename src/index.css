@@ -1155,6 +1155,11 @@ body {
   align-items: flex-start;
 }
 
+.new_post_please_login {
+  padding: 10px;
+  color: red;
+}
+
 /* Grid Layout for Posts */
 .country_posts_grid {
   grid-area: RIGHT;
@@ -1504,6 +1509,12 @@ p {
   height: 100%;
   object-fit: contain;
   border-radius: 10px;
+}
+
+.review_please_login {
+  padding: 10px;
+  color: red;
+  text-align: center;
 }
 
 @media (max-width: 500px) {
