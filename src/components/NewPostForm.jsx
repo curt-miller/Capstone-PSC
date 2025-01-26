@@ -111,6 +111,7 @@ export default function NewPostForm() {
         setCoordinates(null);
         setLocation(null);
         alert("Pin Dropped!");
+        window.location.reload();
       }
     } catch (err) {
       console.error("Unexpected error:", err);
