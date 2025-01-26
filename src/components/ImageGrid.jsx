@@ -44,9 +44,7 @@ export default function ImageGrid({ country }) {
           </div>
         ))
       ) : (
-        <Link className="image_grid_BETHEFIRST" to={"/userpage"}>
-          Be the first to post!
-        </Link>
+        <p className="image_grid_BETHEFIRST">Be the first to post!</p>
       )}
     </div>
   );

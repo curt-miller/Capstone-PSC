@@ -966,11 +966,6 @@ body {
   overflow: hidden;
 }
 
-.image_grid_BETHEFIRST:hover {
-  text-decoration: underline;
-  transform: scale(1.05);
-}
-
 /* COUNTRY PAGE COMPONENT */
 
 /* General Container */
