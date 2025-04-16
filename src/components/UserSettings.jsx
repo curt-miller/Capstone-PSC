@@ -130,11 +130,7 @@ const UserSettings = () => {
               </div>
             )}
           </div>
-          <button
-            type="button"
-            className="save-button"
-            onClick={handleSaveSettings}
-          >
+          <button className="largeButton" onClick={handleSaveSettings}>
             Save Settings
           </button>
         </div>

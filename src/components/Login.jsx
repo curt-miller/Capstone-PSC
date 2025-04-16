@@ -123,10 +123,10 @@ const Login = ({ setUserId }) => {
                 placeholder="Please enter a password"
               />
             </div>
-            <div className="formButtons">
-              <Button sx={{ mt: 2, textTransform: "none" }} type="submit">
+            <div>
+              <button className="largeButton" type="submit">
                 Submit
-              </Button>
+              </button>
             </div>
             {error && <p>{error}</p>}
           </form>
@@ -135,12 +135,9 @@ const Login = ({ setUserId }) => {
           </Divider>
           <br />
           <p>If you don't have an account with us:</p>
-          <Button
-            onClick={() => navigate("/register")}
-            sx={{ mt: 2, textTransform: "none" }} // Removes the uppercase text
-          >
+          <button className="largeButton" onClick={() => navigate("/register")}>
             Register here
-          </Button>
+          </button>
         </div>
       </div>
     </>

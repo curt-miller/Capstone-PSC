@@ -1,0 +1,93 @@
+/* New post form */
+
+.new-post-form-container {
+  grid-area: LEFT;
+  margin-top: 20px;
+  overflow: scroll;
+}
+
+#newpost-form {
+  width: auto;
+  height: calc(100vh -120px);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  text-align: center;
+  justify-self: center;
+}
+
+#newpost-form button {
+  margin-top: 20px;
+  padding: 8px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: rgb(95, 95, 169);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.newpost-form button:hover {
+  background-color: rgb(73, 73, 148);
+}
+
+#newpost-form-DROP-A-PIN {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+#newpost-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+#newpost-form label {
+  font-weight: bold;
+  padding-bottom: 2px;
+}
+
+#newpost-form input,
+#newpost-form textarea {
+  width: 100%;
+  max-width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#newpost-form textarea {
+  resize: vertical;
+}
+
+.new_post_description,
+#newpost-form div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.new_post_please_login {
+  padding: 10px;
+  color: red;
+}
+
+@media (max-width: 500px) {
+  #newpost-form {
+    height: auto;
+    font-size: 0.8rem;
+    width: 85%;
+  }
+  .new-post-form-container {
+    height: 100%;
+    margin: 0;
+  }
+}

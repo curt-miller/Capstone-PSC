@@ -108,9 +108,9 @@ function Register() {
             </div>
 
             <div className="formButtons">
-              <Button sx={{ mt: 2, textTransform: "none" }} type="submit">
+              <button className="largeButton" type="submit">
                 Submit
-              </Button>
+              </button>
             </div>
             {error && <p>{error}</p>}
           </form>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import supabase from "../supaBaseClient";
 import LikeButton from "./LikeButton";
+import { FaTrash } from "react-icons/fa";
 
 const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
   const [posts, setPosts] = useState([]);
@@ -108,15 +109,16 @@ const Feed = ({ refreshPosts, userId, profileId, followerPosts = false }) => {
               <h3>{post.location}</h3>
               <div className="post-card-BUTTON-CONTAINER">
                 <LikeButton post_id={post.id} userId={userId} />
-                <div className="post-card-DELETE-BUTTON">
+                <div>
                   {post.user_id == profileId && (
                     <button
+                      className="icon"
                       onClick={(e) => {
                         e.stopPropagation();
                         deletePost(post.id);
                       }}
                     >
-                      delete
+                      <FaTrash />
                     </button>
                   )}
                 </div>

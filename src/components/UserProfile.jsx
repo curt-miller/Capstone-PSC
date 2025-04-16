@@ -234,11 +234,11 @@ const UserProfile = () => {
               className="user_profile_pic"
             />
             {isFollowing ? (
-              <button onClick={handleUnfollow} className="follow-btn">
+              <button className="baseButton" onClick={handleUnfollow}>
                 Unfollow Pal
               </button>
             ) : (
-              <button onClick={handleFollow} className="follow-btn">
+              <button onClick={handleFollow} className="baseButton">
                 Follow Pal
               </button>
             )}

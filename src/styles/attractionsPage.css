@@ -1,0 +1,217 @@
+/* ATTRACTION COMPONENT */
+
+#att-detail-page-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#att-detail-page-GRID {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: calc(35vh - 3rem) calc(65vh - 3rem);
+  grid-template-areas:
+    "NAME REVIEWS"
+    "IMAGE REVIEWS";
+  height: calc(100vh - 80px);
+  width: 100vw;
+  gap: 1rem;
+}
+
+#att-detail-page-TITLE-BLOCK {
+  grid-area: NAME;
+  background-color: lavender;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  word-wrap: break-word;
+  overflow-y: scroll;
+}
+
+#att-detail-page-TITLE-BLOCK h1 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  line-height: 1;
+  font-weight: bold;
+  border-bottom: 2px solid rgba(51, 51, 65, 0.5);
+  padding-bottom: 0.5rem;
+}
+
+#att-detail-page-TITLE-BLOCK h2 {
+  font-size: 1rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0.75rem;
+  color: rgb(85, 85, 102);
+  font-style: italic;
+}
+
+#att-detail-page-TITLE-BLOCK h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: rgb(51, 51, 65);
+}
+
+#att-detail-page-TITLE-BLOCK h4 {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: rgb(102, 102, 119);
+}
+
+#att-detail-page-TITLE-BLOCK p {
+  font-size: 1rem;
+  color: rgb(85, 85, 102);
+  margin-bottom: 1rem;
+}
+
+#att-detail-page-TITLE-BLOCK img {
+  height: 30px;
+  width: 30px;
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+  object-fit: cover;
+  padding-left: 4px;
+}
+
+#att-detail-page-REVIEW-BLOCK {
+  grid-area: REVIEWS;
+  background-color: lavender;
+  margin: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: scroll;
+}
+
+#att-detail-page-REVIEW-BLOCK h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 0;
+  font-style: italic;
+  color: rgb(51, 51, 65);
+}
+
+#att-detail-page-REVIEW-CARD {
+  display: flex;
+  flex-direction: column;
+  text-wrap: auto;
+  width: auto;
+  border: 1px solid black;
+  border-radius: 8px;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: white;
+}
+
+#att-detail-page-REVIEW-CARD h4,
+p {
+  margin: 4px;
+}
+
+#review-title {
+  display: flex;
+  align-items: center;
+}
+
+.react_stars > span {
+  color: purple;
+}
+
+#att-detail-page-NO-REVIEWS-MESSAGE {
+  font-size: 1.5rem;
+  font-style: italic;
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+#att-detail-page-SUBMIT-COMMENT textarea {
+  width: 80%;
+  height: 100px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#att-detail-page-IMAGE-BLOCK {
+  grid-area: IMAGE;
+  background-color: lavender;
+  padding: 1rem;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#att-detail-page-IMAGE-BLOCK img {
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.review_please_login {
+  padding: 10px;
+  color: red;
+  text-align: center;
+}
+
+@media (max-screen: 500px) {
+  #att-detail-page-IMAGE-BLOCK img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  #att-detail-page-REVIEW-BLOCK {
+    grid-area: REVIEWS;
+    width: 75%;
+    margin-top: 0;
+  }
+
+  #att-detail-page-TITLE-BLOCK {
+    grid-area: NAME;
+    background-color: lavender;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    overflow-y: scroll;
+  }
+
+  #att-detail-page-GRID {
+    display: grid;
+    grid-template-columns: 92%;
+    grid-template-rows: auto 400px auto;
+    grid-template-areas:
+      "NAME"
+      "IMAGE"
+      "REVIEWS";
+    height: auto;
+    width: 100vw;
+    gap: 1rem;
+  }
+
+  #att-detail-page-MOBILE {
+    position: absolute;
+    top: 60px;
+  }
+
+  #att-detail-page-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

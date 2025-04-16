@@ -158,7 +158,7 @@ const UserPage = () => {
                 className="user_profile_pic"
               />
               <button
-                className="edit_profile_button"
+                className="baseButton"
                 onClick={() => navigate(`/${userId}/settings`)}
               >
                 edit profile
@@ -258,13 +258,17 @@ const UserPage = () => {
             <div className="toggle-buttons">
               <button
                 onClick={() => setShowFollowingPosts(false)}
-                className={!showFollowingPosts ? "active-toggle" : ""}
+                className={
+                  !showFollowingPosts ? "baseButton" : "baseButtonInactive"
+                }
               >
                 My Posts
               </button>
               <button
                 onClick={() => setShowFollowingPosts(true)}
-                className={showFollowingPosts ? "active-toggle" : ""}
+                className={
+                  showFollowingPosts ? "baseButton" : "baseButtonInactive"
+                }
               >
                 People I Follow
               </button>

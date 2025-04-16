@@ -3,9 +3,7 @@ import React, { useState, useEffect } from "react";
 import supabase from "../supaBaseClient";
 import { Link } from "react-router-dom";
 import NewPostForm from "./NewPostForm";
-
-//making changes
-
+import "../styles/countriesPage.css";
 const CountriesPage = ({ setCountry, country, refreshPosts }) => {
   const [posts, setPosts] = useState([]);
 

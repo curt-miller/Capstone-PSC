@@ -34,14 +34,30 @@ const Nav = ({ setUserId }) => {
       <div className="navButtons">
         {!authToken ? (
           <>
-            <button onClick={() => navigate("/login")}>Login</button>
-            <button onClick={() => navigate("/register")}>Register</button>
+            <button className="baseButton" onClick={() => navigate("/login")}>
+              Login
+            </button>
+            <button
+              className="baseButton"
+              onClick={() => navigate("/register")}
+            >
+              Register
+            </button>
           </>
         ) : (
           <>
-            <button onClick={() => navigate("/")}>Home</button>
-            <button onClick={() => navigate("/userpage")}>Profile</button>
-            <button onClick={handleLogout}>Logout</button>
+            <button className="baseButton" onClick={() => navigate("/")}>
+              Home
+            </button>
+            <button
+              className="baseButton"
+              onClick={() => navigate("/userpage")}
+            >
+              Profile
+            </button>
+            <button className="baseButton" onClick={handleLogout}>
+              Logout
+            </button>
           </>
         )}
       </div>

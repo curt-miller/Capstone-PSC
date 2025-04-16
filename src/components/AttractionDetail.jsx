@@ -4,6 +4,8 @@ import supabase from "../supaBaseClient";
 import Nav from "./Nav";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
+import { FaTrash } from "react-icons/fa";
+import "../styles/attractionsPage.css";
 
 export default function AttractionDetail(displayname) {
   const userId = localStorage.getItem("userId") || "Guest";
@@ -117,7 +119,7 @@ export default function AttractionDetail(displayname) {
     try {
       const {
         data: { user },
-        error: userError,
+        error: userError
       } = await supabase.auth.getUser();
 
       if (userError) {
@@ -148,8 +150,8 @@ export default function AttractionDetail(displayname) {
             review: newReview,
             post_id: id,
             user_id: userData.id,
-            rating: rating,
-          },
+            rating: rating
+          }
         ])
         .select("*, Users(display_name, profilePicture)");
 
@@ -207,12 +209,12 @@ export default function AttractionDetail(displayname) {
                 month: "long",
                 day: "numeric",
                 hour: "2-digit",
-                minute: "2-digit",
+                minute: "2-digit"
               })}{" "}
               by{" "}
               <Link
                 to={{
-                  pathname: `/${post.Users.id}/profile`,
+                  pathname: `/${post.Users.id}/profile`
                 }}
               >
                 {post.Users.display_name}
@@ -256,7 +258,7 @@ export default function AttractionDetail(displayname) {
                           src={review.Users?.profilePicture || defaultPhoto}
                           alt={review.Users?.display_name}
                           style={{ width: "40px", height: "40px" }}
-                          className="review_profile_pic"
+                          className="follower-card-link"
                         />
                         <h4>{review.Users?.display_name || "Anonymous"}</h4>
                       </div>
@@ -265,11 +267,12 @@ export default function AttractionDetail(displayname) {
                         <p>{review.review}</p>
                         {userId == review.user_id && (
                           <button
+                            className="icon"
                             onClick={(e) => {
                               handleDelete(review.id);
                             }}
                           >
-                            delete
+                            <FaTrash size={18} />
                           </button>
                         )}
                       </div>
@@ -297,7 +300,9 @@ export default function AttractionDetail(displayname) {
                     />
                   </div>
                   <br />
-                  <button onClick={handleSubmitReview}>Submit Review</button>
+                  <button className="baseButton" onClick={handleSubmitReview}>
+                    Submit Review
+                  </button>
                 </div>
               </>
             ) : (
