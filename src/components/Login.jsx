@@ -8,8 +8,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 const Login = ({ setUserId }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -39,6 +37,10 @@ const Login = ({ setUserId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const data = new FormData(form);
+    const email = data.get("email");
+    const password = data.get("password");
 
     if (!email || !password) {
       setError("Email and Password Required");
@@ -55,9 +57,7 @@ const Login = ({ setUserId }) => {
         setError(error.message || "Login failed. Please try again.");
         return;
       }
-
       const { user } = data;
-
       const { data: userData, error: userError } = await supabase
         .from("Users")
         .select("id")
@@ -69,17 +69,13 @@ const Login = ({ setUserId }) => {
         console.error(userError);
         return;
       }
-
-      console.log("Fetched User ID from Users table:", userData.id);
       setUserId(userData.id);
-
       const displayName = user?.user_metadata?.display_name || "Guest";
 
       // Save token in localStorage or cookie
       localStorage.setItem("authToken", data.session.access_token);
       localStorage.setItem("displayName", displayName);
       localStorage.setItem("userId", userData.id);
-      console.log(userData.id);
       setError(null);
       // Redirect to the homepage
       navigate("/");
@@ -114,39 +110,32 @@ const Login = ({ setUserId }) => {
         <Nav />
         <div className="login">
           <h1>LOGIN</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="email">Email: </label>
-            <input
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="JohnDoe"
-            />
-            <br />
-            <br />
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Please enter a password"
-            />
-            <br />
-            <br />
-            <button type="submit">Submit</button>
+          <form className="formContainer" onSubmit={handleSubmit}>
+            <div className="inputs">
+              <label htmlFor="email">Email: </label>
+              <input type="text" name="email" placeholder="JohnDoe" />
+            </div>
+            <div className="inputs">
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Please enter a password"
+              />
+            </div>
+            <div className="formButtons">
+              <Button sx={{ mt: 2, textTransform: "none" }} type="submit">
+                Submit
+              </Button>
+            </div>
             {error && <p>{error}</p>}
           </form>
-          <br />
-          <br />
           <Divider>
             <Typography sx={{ color: "text.secondary" }}>or</Typography>
           </Divider>
           <br />
           <p>If you don't have an account with us:</p>
           <Button
-            variant="contained"
-            color="primary"
-            size="small" // Makes the button smaller
             onClick={() => navigate("/register")}
             sx={{ mt: 2, textTransform: "none" }} // Removes the uppercase text
           >

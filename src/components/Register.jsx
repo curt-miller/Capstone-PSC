@@ -1,23 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createClient } from "@supabase/supabase-js";
+import { Button } from "@mui/material";
+import supabase from "../supaBaseClient";
 import Nav from "./Nav";
 
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
-console.log;
-
 function Register() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const form = e.target;
+    const data = new FormData(form);
+    const email = data.get("email");
+    const password = data.get("password");
+    const username = data.get("username");
 
     if (!email || !password || !username) {
       setError("email, username, and Password Required");
@@ -38,10 +36,7 @@ function Register() {
       );
 
       if (signUpError) {
-        setError(
-          signUpError.message || "Registration failed. Please try again."
-        );
-        return;
+        throw signUpError;
       }
 
       if (authData?.user) {
@@ -84,35 +79,39 @@ function Register() {
         <Nav />
         <div className="register">
           <h1>REGISTER</h1>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username: </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter a username"
-            />
-            <br />
-            <br />
-            <label htmlFor="email">email: </label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@email.com"
-            />
-            <br />
-            <br />
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Please enter a password"
-            />
-            <br />
-            <br />
-            <button type="submit">Submit</button>
+          <form className="formContainer" onSubmit={handleSubmit}>
+            <div className="inputs">
+              <label htmlFor="username">Username: </label>
+              <input
+                type="text"
+                name="username"
+                placeholder="Enter a username"
+              />
+            </div>
+
+            <div className="inputs">
+              <label htmlFor="email">Email: </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="example@email.com"
+              />
+            </div>
+
+            <div className="inputs">
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Please enter a password"
+              />
+            </div>
+
+            <div className="formButtons">
+              <Button sx={{ mt: 2, textTransform: "none" }} type="submit">
+                Submit
+              </Button>
+            </div>
             {error && <p>{error}</p>}
           </form>
         </div>

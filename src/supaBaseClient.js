@@ -1,6 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
 
-// Frontend Supabase config using the public API (anonymous) key
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 

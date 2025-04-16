@@ -1550,6 +1550,24 @@ p {
   text-align: center;
 }
 
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 285px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inputs {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.formButtons {
+  padding: 5px;
+}
+
 .settings input[type="text"],
 .settings input[type="file"] {
   width: 35vw;
