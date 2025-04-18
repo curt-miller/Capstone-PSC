@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import supabase from "../supaBaseClient";
 import Feed from "./Feed";
 import Nav from "./Nav";
-import { fetchCountries } from "../API/countries";
 import { useNavigate } from "react-router-dom";
+import { countryList } from "../../utils/countries";
 
 const UserProfile = () => {
   const profileId = localStorage.getItem("profileId") || "Guest";
@@ -98,7 +98,7 @@ const UserProfile = () => {
     const fetchData = async () => {
       try {
         // Fetch the list of countries with flags
-        const allCountries = await fetchCountries();
+        const allCountries = countryList;
         const countryMapping = allCountries.reduce((acc, country) => {
           acc[country.name] = country.href.flag;
           return acc;

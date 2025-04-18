@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useMemo, useCallback } from "react";
-import { fetchCountries } from "../API/countries";
 import "../index.css";
 import ImageGrid from "./ImageGrid";
 import VisitedCountries from "./VisitedCountries";
 import LikeButtonCountries from "./LikeButtonCountries";
 import { useNavigate } from "react-router-dom";
+import { countryList } from "../../utils/countries";
 
 const Countries = ({ setCountry }) => {
-  const [countries, setCountries] = useState([]);
+  const [countries, setCountries] = useState(countryList);
   const [filteredCountries, setFilteredCountries] = useState([]);
   const [selectedLetter, setSelectedLetter] = useState("A");
   const userId = localStorage.getItem("userId");
@@ -15,29 +15,25 @@ const Countries = ({ setCountry }) => {
 
   //Get Countries from the API
   useEffect(() => {
-    const getCountries = async () => {
-      const data = await fetchCountries();
-      setCountries(data);
-
-      const grouped = data.reduce((acc, country) => {
-        const letter = country.name[0].toUpperCase();
-        acc[letter] = acc[letter] || [];
-        acc[letter].push(country);
-        return acc;
-      }, {});
-      setFilteredCountries(grouped["A"] || []);
-    };
-
-    getCountries();
+    const grouped = countryList.reduce((acc, country) => {
+      const letter = country.name[0].toUpperCase();
+      acc[letter] = acc[letter] || [];
+      acc[letter].push(country);
+      return acc;
+    }, {});
+    setFilteredCountries(grouped["A"] || []);
   }, []);
 
-  //Filter by letter
   const handleFilter = useCallback(
     (letter) => {
       setSelectedLetter(letter);
-      setFilteredCountries(
-        countries.filter((c) => c.name.startsWith(letter)) || []
-      );
+      const grouped = countries.reduce((acc, country) => {
+        const firstLetter = country.name[0].toUpperCase();
+        acc[firstLetter] = acc[firstLetter] || [];
+        acc[firstLetter].push(country);
+        return acc;
+      }, {});
+      setFilteredCountries(grouped[letter] || []); // Filter countries based on the selected letter
     },
     [countries]
   );
@@ -116,7 +112,7 @@ const Countries = ({ setCountry }) => {
 
               {/* Country Flag */}
               <img
-                src={country.href.flag}
+                src={country.flag}
                 alt={`Flag of ${country.name}`}
                 className="country_flag"
               />

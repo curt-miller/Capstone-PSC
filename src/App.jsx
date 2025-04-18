@@ -21,6 +21,8 @@ export default function App() {
   });
   const [refreshPosts, setRefreshPosts] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // Effect to update localStorage when country changes
   useEffect(() => {
@@ -52,7 +54,10 @@ export default function App() {
               setToken={setToken}
               setUsername={setUsername}
               username={username}
+              userId={userId}
               setUserId={setUserId}
+              setEmail={setEmail}
+              setPassword={setPassword}
             />
           }
         />

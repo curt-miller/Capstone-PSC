@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Feed from "./Feed";
 import Nav from "./Nav";
 import supabase from "../supaBaseClient";
-import { fetchCountries } from "../API/countries";
 import { useNavigate } from "react-router-dom";
+import { countryList } from "../../utils/countries";
 
 const UserPage = () => {
   const [refreshPosts, setRefreshPosts] = useState(false);
@@ -18,12 +18,7 @@ const UserPage = () => {
 
   const userId = localStorage.getItem("userId");
   const displayName = localStorage.getItem("displayName");
-  const profileId = localStorage.getItem("profileId");
   const defaultPhoto = localStorage.getItem("defaultPhoto");
-
-  const handleRefresh = () => {
-    setRefreshPosts((prev) => !prev);
-  };
 
   useEffect(() => {
     const fetchProfilePicture = async () => {
@@ -86,9 +81,9 @@ const UserPage = () => {
     const fetchData = async () => {
       try {
         // Fetch the list of countries with flags
-        const allCountries = await fetchCountries();
+        const allCountries = countryList;
         const countryMapping = allCountries.reduce((acc, country) => {
-          acc[country.name] = country.href.flag; // Assuming the API provides name and flag
+          acc[country.name] = country.flag; // Assuming the API provides name and flag
           return acc;
         }, {});
 

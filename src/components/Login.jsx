@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Nav from "./Nav";
 import supabase from "../supaBaseClient";
-
+import { fetchLikedCountries, fetchVisited } from "../../utils/fetchUserData";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 
-const Login = ({ setUserId }) => {
+const Login = ({ userId, setUserId, setEmail, setPassword }) => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -71,7 +70,8 @@ const Login = ({ setUserId }) => {
       }
       setUserId(userData.id);
       const displayName = user?.user_metadata?.display_name || "Guest";
-
+      await fetchVisited(userData.id);
+      await fetchLikedCountries(userData.id);
       // Save token in localStorage or cookie
       localStorage.setItem("authToken", data.session.access_token);
       localStorage.setItem("displayName", displayName);

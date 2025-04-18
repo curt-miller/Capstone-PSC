@@ -7,10 +7,7 @@ const Nav = ({ setUserId }) => {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    localStorage.removeItem("authToken");
-    localStorage.removeItem("displayName");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("profileId");
+    localStorage.clear();
 
     if (setUserId) {
       setUserId(null);

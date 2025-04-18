@@ -1,62 +1,47 @@
 import React, { useState, useEffect } from "react";
 import supabase from "../supaBaseClient";
-import { RiMapPin2Line } from "react-icons/ri";
-import { RiMapPin2Fill } from "react-icons/ri";
+import { fetchVisited } from "../../utils/fetchUserData";
+import { RiMapPin2Line, RiMapPin2Fill } from "react-icons/ri";
 
-const VisitedCountries = ({ country_name, user_id }) => {
+const VisitedCountries = ({ country_name }) => {
+  const user_id = localStorage.getItem("userId");
   const [visited, setVisited] = useState(false);
 
   useEffect(() => {
-    const fetchVisited = async () => {
-      try {
-        const { data, error } = await supabase
-          .from("VisitedCountries")
-          .select("*")
-          .eq("country_name", country_name)
-          .eq("user_id", user_id);
-
-        if (error) {
-          console.error("Error fetching visited status:", error);
-          return;
-        }
-
-        // If data exists, set `visited` to true
-        setVisited(data.length > 0);
-      } catch (error) {
-        console.error("Unexpected error fetching Visited:", error);
-      }
+    const loadVisitedCountries = async () => {
+      let visitedList = await fetchVisited(user_id);
+      setVisited(visitedList.includes(country_name));
     };
-
-    fetchVisited();
-  }, [country_name, user_id]);
+    loadVisitedCountries();
+  }, [user_id]);
 
   const handleVisited = async () => {
+    let updatedList = JSON.parse(
+      localStorage.getItem("visitedCountries") || "[]"
+    );
+
+    if (updatedList.includes(country_name)) {
+      updatedList = updatedList.filter((country) => country !== country_name);
+      setVisited(false);
+    } else {
+      updatedList = [...updatedList, country_name];
+      setVisited(true);
+    }
+    localStorage.setItem("visitedCountries", JSON.stringify(updatedList));
+    console.log(updatedList);
+
     try {
-      if (visited) {
-        // Delete the record if the country is already marked as visited
-        const { error } = await supabase
-          .from("VisitedCountries")
-          .delete()
-          .eq("country_name", country_name)
-          .eq("user_id", user_id);
+      const { data, error: updateError } = await supabase
+        .from("Users")
+        .update({ visitedCountries: updatedList })
+        .eq("id", user_id);
 
-        if (error) {
-          console.error("Error deleting visited record:", error);
-          return;
-        }
-        setVisited(false);
-      } else {
-        // Insert a new record if the country is not visited
-        const { error } = await supabase
-          .from("VisitedCountries")
-          .insert([{ country_name, user_id }]);
-
-        if (error) {
-          console.error("Error inserting visited record:", error);
-          return;
-        }
-        setVisited(true);
+      if (updateError) {
+        console.error("Error inserting visited record:", updateError);
+        return;
       }
+
+      localStorage.setItem("visitedCountries", JSON.stringify(updatedList));
     } catch (error) {
       console.error("Unexpected error handling visited status:", error);
     }
@@ -68,7 +53,7 @@ const VisitedCountries = ({ country_name, user_id }) => {
         <RiMapPin2Fill className="liked" />
       ) : (
         <RiMapPin2Line className="notLiked" />
-      )}{" "}
+      )}
     </button>
   );
 };
